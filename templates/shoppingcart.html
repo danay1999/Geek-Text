@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>HurricaneChaser</title>
+  <meta name="description" content="A website to document natural disasters and where you can request help or offer help to people in need">
+  
+  <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+ 
+  
+
+</head>
+<body >
+  
+ <header  class="main_nav header_color">
+    <div class="container">
+      <div class="three columns">
+        <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+      </div>
+     
+        <div class="one column">
+        <a class=""  href="{{ url_for('home') }}">Home</a>
+        </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+        </div> 
+        <div class="one column">
+        <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+       </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('login') }}">Log In</a>
+        </div>
+        <div class="one column">
+        <button class="button-primary" href="{{ url_for('signup') }}">Sign Up</button>
+        </div>
+  </header>
+
+<div  class="main topdiv">
+  <div class="row container">
+    
+  </div>/div>
+
+
+<footer class="row">
+      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+</footer>
+
+
+</body></html>
