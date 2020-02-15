@@ -1,4 +1,5 @@
 from flask import Flask, render_template, jsonify
+from GeekText.views.index import bp as index_bp
 import requests
 import json
 
