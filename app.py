@@ -1,7 +1,6 @@
 from flask import Flask, render_template, jsonify
 from GeekText.views.index import bp as index_bp
-import requests
-import json
+
 
 app = Flask(__name__)
 
@@ -26,7 +25,4 @@ def login():
 @app.route('/signup')
 def signup():
     return render_template('/signup.html')
-
-if __name__ == '__main__':
-    app.run(debug=True)
 
