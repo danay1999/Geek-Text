@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Geek Text</title>
+    <link rel="stylesheet"
+          type="text/css"
+          href="{{ url_for('static', filename='css/style.css') }}" >
+</head>
+<body>
+<nav class="navbar">
+    <ul class="left">
+<li><a href="#" class="name">Geek Text</a></li>
+    </ul>
+    <ul class="right">
+<li><a href="#">Sign Up / Log In</a></li>
+    </ul>
+</nav>
+{% block content %}
+{% endblock %}
+</body>
+</html>
