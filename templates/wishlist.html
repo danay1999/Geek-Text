@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-
-  <!-- Basic Page Needs
+  <head>
+    <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<<<<<<< HEAD
   <meta charset="utf-8">
   <title>GeekText</title>
   <meta name="description" content="A website to document natural disasters and where you can request help or offer help to people in need">
@@ -25,31 +25,158 @@
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
       </div>
      
-        <div class="one column">
-        <a class=""  href="{{ url_for('home') }}">Home</a>
-        </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
-        </div> 
-        <div class="one column">
-        <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
-       </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('login') }}">Log In</a>
-        </div>
-        <div class="one column">
-        <button class="button-primary" href="{{ url_for('signup') }}">Sign Up</button>
-        </div>
-  </header>
+=======
+    <meta charset="utf-8" />
+    <title>GeekText Wish List Management</title>
+    <meta
+      name="description"
+      content="A website to document natural disasters and where you can request help or offer help to people in need"
+    />
 
-<div  class="main topdiv">
-  <div class="row container">
-    
-      
-     </div></div>
+    <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<footer class="row">
-      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
-</footer>
+    <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/normalize.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/skeleton.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/animate.css') }}"
+    />
+    <link rel="stylesheet" href="static/css/wishlist.css" type="text/css" />
+  </head>
 
-</body></html>
+  <body>
+    <header class="main_nav header_color">
+      <div class="container">
+        <div class="three columns">
+          <a class="" href="{{ url_for('home') }}"
+            ><strong>Geek</strong><em>Text</em></a
+          >
+        </div>
+
+>>>>>>> 79171288448dba11b79ad581cafe399bacd2c7a6
+        <div class="one column">
+          <a class="" href="{{ url_for('home') }}">Home</a>
+        </div>
+
+        <div class="one column">
+          <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+        </div>
+
+        <div class="one column">
+          <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+        </div>
+
+        <div class="one column">
+          <a class="" href="{{ url_for('login') }}">Log In</a>
+        </div>
+
+        <div class="one column">
+          <button class="button-primary" href="{{ url_for('signup') }}">
+            Sign Up
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="main topdiv">
+      <div class="row container" background-color:blue></div>
+    </div>
+
+    <!--My Work CD -->
+    <div class="heading">
+      <h3>Wish List Management</h3>
+      <p>Keep track of all the books you wish you had!</p>
+    </div>
+
+    <div class="Parent">
+      <div class="p1">
+        <ul id="myUL">
+          <h4>Wish List 1</h4>
+          <li>
+            <input type="text" placeholder="Book 01.." /><button class="xBtn">
+              X
+            </button>
+          </li>
+          <li>
+            <input type="text" placeholder="Book 01.." /><button class="xBtn">
+              X
+            </button>
+          </li>
+          <li>
+            <input type="text" placeholder="Book 01.." /><button class="xBtn">
+              X
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="p2">
+        <ul id="myUL2">
+          <h4>Wish List 2</h4>
+          <li>
+            <input type="text" placeholder="Add Item Here..." /><button
+              class="xBtn"
+            >
+              X
+            </button>
+          </li>
+          <li>
+            <input type="text" placeholder="Add Item Here..." /><button
+              class="xBtn"
+            >
+              X
+            </button>
+          </li>
+          <li>
+            <input type="text" placeholder="Add Item Here..." /><button
+              class="xBtn"
+            >
+              X
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="p3">
+        <ul id="myUL2">
+          <h4>Wish List 3</h4>
+          <li>
+            <input type="text" placeholder="Add Item Here..." /><button
+              class="xBtn"
+            >
+              X
+            </button>
+          </li>
+          <li>
+            <input type="text" placeholder="Add Item Here..." /><button
+              class="xBtn"
+            >
+              X
+            </button>
+          </li>
+          <li>
+            <input type="text" placeholder="Add Item Here..." /><button
+              class="xBtn"
+            >
+              X
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!--My Work CD-->
+
+    <footer class="row bottom">
+      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved.</p>
+    </footer>
+  </body>
+</html>
