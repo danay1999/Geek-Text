@@ -21,4 +21,10 @@ height: 100%;}
 line-height: 48px;
 display: inline-block;
 height: 100%;
-color: #F8C93E;}
+color: #F8C93E;
+margin-left: 0.5rem;
+margin-right: 0.5rem;}
+
+.navbar ul li a:hover{
+color: white;
+cursor: pointer;}
