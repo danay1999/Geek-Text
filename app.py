@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 from flask import Flask, render_template, jsonify, redirect, session, url_for, request, _request_ctx_stack
 from authlib.flask.client import OAuth
 from six.moves.urllib.parse import urlencode
@@ -83,14 +82,8 @@ def callback_handling():
     }
     return redirect('/dashboard')
 
-=======
-from flask import Flask, render_template, jsonify
-from GeekText.views.index import bp as index_bp
->>>>>>> 79171288448dba11b79ad581cafe399bacd2c7a6
 
 
-
-app.register_blueprint(index_bp)
 
 @app.route('/')
 def home():
@@ -113,7 +106,6 @@ def login():
 def signup():
     return render_template('signup.html')
 
-<<<<<<< HEAD
 @app.route('/logout')
 def logout():
     session.clear()
@@ -130,5 +122,3 @@ def dashboard():
 if __name__ == '__main__':
     # app.run(debug=True)
     app.run(host='0.0.0.0', port=env.get('PORT', 3000))
-=======
->>>>>>> 79171288448dba11b79ad581cafe399bacd2c7a6
