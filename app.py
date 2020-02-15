@@ -4,6 +4,8 @@ import json
 
 app = Flask(__name__)
 
+app.register_blueprint(index_bp)
+
 @app.route('/')
 def home():
     return render_template('/index.html')
