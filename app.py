@@ -6,8 +6,7 @@ from functools import wraps
 from os import environ as env
 from werkzeug.exceptions import HTTPException
 from dotenv import load_dotenv, find_dotenv
-from flask_cors import cross_origin
-from jose import jwt
+
 import requests
 import json
 import http.client
