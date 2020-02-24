@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\env\\Scripts",
+    "\\static",
+    "\\static\\css",
+    "\\templates",
+    "\\views"
+  ],
+  "SelectedNode": "\\app.py",
+  "PreviewInSolutionExplorer": false
+}
