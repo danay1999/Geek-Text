@@ -17,12 +17,19 @@ AUTH0_CALLBACK_URL = env.get(constants.AUTH0_CALLBACK_URL)
 AUTH0_CLIENT_ID = env.get(constants.AUTH0_CLIENT_ID)
 AUTH0_CLIENT_SECRET = env.get(constants.AUTH0_CLIENT_SECRET)
 AUTH0_DOMAIN = env.get(constants.AUTH0_DOMAIN)
-AUTH0_BASE_URL = AUTH0_DOMAIN
+AUTH0_BASE_URL = 'https://' + AUTH0_DOMAIN
 AUTH0_AUDIENCE = env.get(constants.AUTH0_AUDIENCE)
 
 app = Flask(__name__, static_url_path="/static", static_folder="./static")
 app.secret_key = constants.SECRET_KEY
 app.debug = True
+
+
+@app.errorhandler(Exception)
+def handle_auth_error(ex):
+    response = jsonify(message=str(ex))
+    response.status_code = ex.code if isinstance(ex, HTTPException) else 500
+    return response
 
 oauth = OAuth(app)
 
@@ -36,20 +43,6 @@ auth0 = oauth.register(
     client_kwargs={"scope": "openid profile email",},
 )
 
-
-class AuthError(Exception):
-    def __init__(self, error, status_code):
-        self.error = error
-        self.status_code = status_code
-
-
-@app.errorhandler(AuthError)
-def handle_auth_error(ex):
-    response = jsonify(ex.error)
-    response.status_code = ex.status_code
-    return response
-
-
 def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -59,6 +52,9 @@ def requires_auth(f):
 
     return decorated
 
+@app.route("/")
+def home():
+    return render_template("/index.html")
 
 @app.route("/callback")
 def callback_handling():
@@ -76,16 +72,23 @@ def callback_handling():
     }
     return redirect("/")
 
+@app.route("/login")
+def login():
+    return auth0.authorize_redirect(
+        redirect_uri=AUTH0_CALLBACK_URL, audience=AUTH0_AUDIENCE
+    )
 
-from flask import Flask, render_template, jsonify
+@app.route("/logout")
+def logout():
+    session.clear()
+    params = {"returnTo": url_for("home", _external=True), "client_id": AUTH0_CLIENT_ID}
+    return redirect(auth0.api_base_url + "/v2/logout?" + urlencode(params))
+
+
+
 
 # from GeekText.views.index import bp as index_bp
 # app.register_blueprint(index_bp)
-
-
-@app.route("/")
-def home():
-    return render_template("/index.html")
 
 
 @app.route("/wishlist")
@@ -98,26 +101,11 @@ def shoppingcart():
     return render_template("shoppingcart.html")
 
 
-@app.route("/login")
-def login():
-    return auth0.authorize_redirect(
-        redirect_uri=AUTH0_CALLBACK_URL, audience=AUTH0_AUDIENCE
-    )
-
-
 @app.route("/signup")
 def signup():
     return auth0.authorize_redirect(
         redirect_uri=AUTH0_CALLBACK_URL, audience=AUTH0_AUDIENCE
     )
-
-
-@app.route("/logout")
-def logout():
-    session.clear()
-    params = {"returnTo": url_for("home", _external=True), "client_id": AUTH0_CLIENT_ID}
-    return redirect(auth0.api_base_url + "/v2/logout?" + urlencode(params))
-
 
 if __name__ == "__main__":
     app.run(debug=True)
