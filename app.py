@@ -4,12 +4,12 @@ from six.moves.urllib.parse import urlencode
 from functools import wraps
 from os import environ as env
 from dotenv import load_dotenv, find_dotenv
-<<<<<<< HEAD
+
 from werkzeug.exceptions import HTTPException
-=======
+
 
 import requests
->>>>>>> refs/remotes/origin/Protection
+
 import json
 import constants
 
@@ -100,6 +100,9 @@ def logout():
 def wishlist():
     return render_template("/wishlist.html")
 
+@app.route("/books")
+def books():
+    return render_template("books.html")
 
 @app.route("/shoppingcart")
 def shoppingcart():
