@@ -1,50 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head >
     <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>GeekText</title>
-  <meta name="description" content="A website to document natural disasters and where you can request help or offer help to people in need">
-  
-  <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <title>GeekText Wish List Management</title>
 
-  <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/wishlist.css') }}">
+   
+
+    <!--Bootstrap-->
+    <!-- Required meta tags -->
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!--Bootstrap-->
+
+    <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/normalize.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/skeleton.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/animate.css') }}"
+    />
+    <link rel="stylesheet" href="static/css/wishlist.css" type="text/css" />
 
 
-</head>
-<body >
-  
-<header  class=" row main_nav header_color">
-    <div class="container">
-      <div class="six columns">
-        <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+
+
+
+
+
+  </head>
+
+  <body >
+    <header class="main_nav header_color">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('wishlist') }}">Wish List</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </li>
+            
+            <li class="nav-item active">
+              <a class="nav-link" href="{{ url_for('shoppingcart')}}" tabindex="-1" aria-disabled="true">Shopping Cart</a>
+            </li>
+
+          </ul>
+
+          <form class="form-inline my-2 my-lg-0 ">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+
+        </div>
+      </nav>
+
+
+    
+    <!--
+      <div class="container">
+        <div class="three columns">
+          <a class="" href="{{ url_for('home') }}"
+            ><strong>Geek</strong><em>Text</em></a
+          >
+        </div>
+
+        <div class="one column">
+          <a class="" href="{{ url_for('home') }}">Home</a>
+        </div>
+
+        <div class="one column">
+          <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+        </div>
+
+        <div class="one column">
+          <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+        </div>
+
+        <div class="one column">
+          <a class="" href="{{ url_for('login') }}">Log In</a>
+        </div>
+
+        <div class="one column">
+          <button class="button-primary" href="{{ url_for('signup') }}">
+            Sign Up
+          </button>
+        </div>
       </div>
-     
-        <div class="one column">
-        <a class=""  href="{{ url_for('home') }}">Home</a>
-        </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
-        </div> 
-        <div class="one column">
-        <a class="" href="{{ url_for('books') }}">Books</a>
-       </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
-       </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('login') }}">Log In</a>
-        </div>
-        <div class="one column">
-        <button class="button-primary" href="{{ url_for('signup') }}">Sign Up</button>
-        </div>
-  </header>
+
+    -->
+    </header>
 
     <div class="main topdiv">
       <div class="row container" background-color:blue></div>
@@ -57,80 +131,78 @@
     </div>
 
     <div class="Parent">
-      <div class="p1">
-        <ul id="myUL">
+      <div class="p1" >
+        <ul class="list-group" id="myUL">
           <h4>Wish List 1</h4>
-          <li>
-            <input type="text" placeholder="Book 01.." /><button class="xBtn">
-              X
-            </button>
+          {%for result in results %}
+          <li class="list-group-item " id="list_move" draggable="false">
+              {{result["book_name"]}}: {{result["author_name"]}} 
+              <button type ="button" class="del_1 btn btn-info">Delete</button> 
+              <button type ="button" class="move_1 btn btn-primary" onclick="myFunction()">Move</button> </li><br>
           </li>
-          <li>
-            <input type="text" placeholder="Book 01.." /><button class="xBtn">
-              X
-            </button>
-          </li>
-          <li>
-            <input type="text" placeholder="Book 01.." /><button class="xBtn">
-              X
-            </button>
-          </li>
+          {% endfor %}
         </ul>
+
+
+        <!--Delete Button functionality.-->
+        <script>
+            let deleteBtn = document.getElementsByClassName("del_1");
+
+            Array.prototype.slice.call(deleteBtn).forEach(function(item){
+                item.addEventListener("click", function(e){
+                  e.target.parentNode.remove()
+                });
+            });            
+        </script>
+        <!---------------------------------->
+        <!--Transfer Button Functionality.-->
+        <script>
+          document.addEventListener("DOMContentLoaded",function(){
+		        var buttons = document.querySelectorAll(".move_1");
+		        var list1 = document.getElementById("myUL");
+            var list2 = document.getElementById("myUL2");
+            var list3 = document.getElementById("myUL3");
+
+              function myFunction(e){
+                  var moveTo;
+
+                  switch (this.parentElement.parentElement) {
+                    case list1:
+                    moveTo = list2;
+                      break;
+                    case list2:
+                    moveTo = list3;  
+                    break;
+                    case list3:
+                      moveTo = list1;
+                    break;
+                  }  
+                 moveTo.appendChild(this.parentElement);
+
+              }
+              for(var i = 0; i < buttons.length; i++){
+                buttons[i].addEventListener("click", myFunction);
+              }
+
+	        })
+        </script>
+        <!------------------------------->
+
       </div>
 
       <div class="p2">
-        <ul id="myUL2">
+        <ul id="myUL2" class="list-group-item2">
           <h4>Wish List 2</h4>
-          <li>
-            <input type="text" placeholder="Add Item Here..." /><button
-              class="xBtn"
-            >
-              X
-            </button>
-          </li>
-          <li>
-            <input type="text" placeholder="Add Item Here..." /><button
-              class="xBtn"
-            >
-              X
-            </button>
-          </li>
-          <li>
-            <input type="text" placeholder="Add Item Here..." /><button
-              class="xBtn"
-            >
-              X
-            </button>
-          </li>
         </ul>
       </div>
 
       <div class="p3">
-        <ul id="myUL2">
+        <ul id="myUL3" class="list-group-item2" >
           <h4>Wish List 3</h4>
-          <li>
-            <input type="text" placeholder="Add Item Here..." /><button
-              class="xBtn"
-            >
-              X
-            </button>
-          </li>
-          <li>
-            <input type="text" placeholder="Add Item Here..." /><button
-              class="xBtn"
-            >
-              X
-            </button>
-          </li>
-          <li>
-            <input type="text" placeholder="Add Item Here..." /><button
-              class="xBtn"
-            >
-              X
-            </button>
-          </li>
         </ul>
       </div>
+
+
     </div>
 
     <!--My Work CD-->
@@ -138,5 +210,13 @@
     <footer class="row bottom">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved.</p>
     </footer>
+
+
+    <!--Bootstrap Additions-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
   </body>
 </html>
