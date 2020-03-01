@@ -87,41 +87,32 @@
         </div>
       </nav> -->
 
-
-    
-    
-      <div class="container">
-        <div class="three columns">
-          <a class="" href="{{ url_for('home') }}"
-            ><strong>Geek</strong><em>Text</em></a
-          >
-        </div>
-
-        <div class="one column">
-          <a class="" href="{{ url_for('home') }}">Home</a>
-        </div>
-
-        <div class="one column">
-          <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
-        </div>
-
-        <div class="one column">
-          <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
-        </div>
-
-        <div class="one column">
-          <a class="" href="{{ url_for('login') }}">Log In</a>
-        </div>
-
-        <div class="one column">
-          <button class="button-primary" href="{{ url_for('signup') }}">
-            Sign Up
-          </button>
-        </div>
+<header  class=" row main_nav header_color">
+    <div class="container">
+      <div class="six columns">
+        <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
       </div>
-
-    
-    </header>
+     
+        <div class="one column">
+        <a class=""  href="{{ url_for('home') }}">Home</a>
+        </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+        </div> 
+        <div class="one column">
+        <a class="" href="{{ url_for('books') }}">Books</a>
+       </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+       </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('login') }}">Log In</a>
+        </div>
+        <div class="one column">
+        <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
+        </div>
+  </header>
+  
 
     <div class="main topdiv">
       <div class="row container" background-color:blue></div>
@@ -208,7 +199,7 @@
 
     </div>
 
-    <!--My Work CD-->
+    <!- My Work CD-->
 
     <footer class="row bottom">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved.</p>
