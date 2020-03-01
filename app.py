@@ -40,9 +40,11 @@ def login():
 # from GeekText.views.index import bp as index_bp
 # app.register_blueprint(index_bp)
 
-@app.route("/wishlist")
+@app.route('/wishlist', methods=['GET', 'POST'])
 def wishlist():
-    return render_template("/wishlist.html")
+
+    results = db_c.find({}, {"book_name": 1, "author_name": 1})
+    return render_template('wishlist.html', results=results)
 
 @app.route("/books", methods = ['GET'])
 def books():
