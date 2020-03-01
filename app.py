@@ -56,7 +56,7 @@ def books():
 
 @app.route("/books/<link>")
 def distinctbook(link):
-    return render_template("/distinctbooks/"+link+".html")
+    return render_template("/distinctbooks/"+link+".html",books=books)
 
 
 @app.route("/shoppingcart")
