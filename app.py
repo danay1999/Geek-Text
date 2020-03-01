@@ -1,5 +1,4 @@
 from flask import Flask, render_template, jsonify, redirect, session, url_for
-from authlib.integrations.flask_client import OAuth
 from six.moves.urllib.parse import urlencode
 from functools import wraps
 from os import environ as env
