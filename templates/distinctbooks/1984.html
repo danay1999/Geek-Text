@@ -44,8 +44,28 @@
         </div>
   </header>
 
-  <footer class="row">
-      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+  {% for book in books %}
+    {% if book.book_name == "1984"%}
+
+    <div  class="row container">
+        <div  class="container twelve columns">
+          
+          <div class = "four columns">  
+            <a href="{{ url_for('distinctbook',link=book.link) }}" >{{book.book_name}}</a>
+            <p>by {{book.author_name}} <br> Price: {{book.price}}</p>
+          </div>  
+             
+        </div> 
+        <div class= "container twelve columns">
+            <p>{{book.book_description}}</p>
+        </div>
+    </div>
+    {% endif %} 
+
+         {% endfor %} 
+
+<footer class="row">
+    <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 
     <!-- End Document
