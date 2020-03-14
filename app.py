@@ -18,13 +18,9 @@ database = client["book_info"]
 db_c = database["details"]
 db = client.book_info
 
-
-
 app = Flask(__name__, static_url_path="")
 app.secret_key = constants.SECRET_KEY
 app.debug = True
-
-
 
 @app.route("/")
 def home():
@@ -46,6 +42,8 @@ def wishlist():
     results = db_c.find({}, {"book_name": 1, "author_name": 1})
     return render_template('wishlist.html', results=results)
 
+PyMongo.send_file("comingsoon.jpg", base='fs', version=-1, cache_for=31536000)
+
 @app.route("/books", methods = ['GET'])
 def books():
     try:
@@ -55,9 +53,14 @@ def books():
         return dumps({'error' : str(e)})
 
 
-@app.route("/books/<link>")
+@app.route("/books/<link>", methods = ['GET'])
 def distinctbook(link):
-    return render_template("/distinctbooks/"+link+".html",books=books)
+    try:
+        books = db.details.find()
+        return render_template("/distinctbooks/"+link+".html",books=books)
+    except Exception as e:
+        return dumps({'error' : str(e)})
+
 
 
 @app.route("/shoppingcart")
