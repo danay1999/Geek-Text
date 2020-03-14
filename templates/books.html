@@ -51,11 +51,13 @@
     <div  class="row container">
         <div  class="container">
           
+          <div class = "three columns">
+          <img src="/static/img/{{ book["link"] }}.jpg">
+          </div>
+
           <div class = "four columns">
-            <img src="{{book.link}}.png">
             <a href="{{ url_for('distinctbook',link=book.link) }}" >{{book.book_name}}</a>
             <p>by {{book.author_name}} <br> Price: {{book.price}}</p>
-            
           </div>     
         </div>  
     </div>
