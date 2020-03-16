@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect, session, url_for
+from flask import Flask, render_template, jsonify, redirect, session, url_for, request
 from six.moves.urllib.parse import urlencode
 from functools import wraps
 from os import environ as env
@@ -59,6 +59,22 @@ def books():
 def distinctbook(link):
     return render_template("/distinctbooks/"+link+".html",books=books)
 
+@app.route("/books/thegreatgatsby", methods=['POST', 'GET'])
+def message():
+    if request.method == 'POST':
+        try:
+            comment = request.form['comment']
+            comments = db.details.update({"book_name": "The Great Gatsby"}, {'$addToSet': {"comment": request.form.get('comment')}})
+            return redirect("/books/thegreatgatsby")
+        except Exception as e:
+            return dumps({'error' : str(e)})
+
+    else:
+        try:
+            comments = db.details.find({"book_name" : "The Great Gatsby"}, {"comment" : ""})
+            return render_template('/distinctbooks/thegreatgatsby.html', comments = comments)
+        except Exception as e:
+            return dumps({'error' : str(e)})
 
 @app.route("/shoppingcart")
 def shoppingcart():
