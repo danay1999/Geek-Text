@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
- 
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/test9.css') }}">
   
-
 </head>
+
 <body >
   
  <header  class=" row main_nav header_color">
@@ -52,9 +52,117 @@
     
   </div></div>
 
+  <div class="heading">
+    <h3>Shopping Cart</h3>
+    <p style="
+    padding-bottom: 30px;
+">Books in your shopping cart.</p>
+  </div>
+
+  <div class="shopping-cart">
+
+    <div class="column-labels">
+      
+      <label class="product-details">Product</label>
+      <label class="product-price">Price</label>
+      <label class="product-quantity">Quantity</label>
+      <label class="product-removal">Remove</label>
+      <label class="product-line-price">Total</label>
+    </div>
+  
+    <div class="product">
+      <div class="product-image">
+        <img src="https://www.adazing.com/book-cover-design/wp-content/uploads/2017/01/cover00031.jpg" width="200" height="250">
+      </div>
+      <div class="product-details">
+        <div class="product-title">Testing1</div>
+        <p class="product-description">This is a product description.</p>
+      </div>
+      <div class="product-price">10.99</div>
+      <div class="product-quantity">
+        <input type="number" value="1" min="1" style="
+        width: 102px;
+    ">
+      </div>
+      <div class="product-removal">
+        <button class="remove-product">
+          Remove
+        </button>
+      </div>
+      <div class="product-line-price">25.98</div>
+    </div>
+  
+    <div class="product">
+      <div class="product-image">
+        <img src="https://www.adazing.com/book-cover-design/wp-content/uploads/2017/01/cover00031.jpg" width="200" height="250">  
+      </div>
+      <div class="product-details">
+        <div class="product-title">Testing2</div>
+        <p class="product-description">This is another product description.</p>
+      </div>
+      <div class="product-price">11.99</div>
+      <div class="product-quantity">
+        <input type="number" value="1" min="1" style="
+        width: 102px;
+    ">
+      </div>
+      <div class="product-removal">
+        <button class="remove-product">
+          Remove
+        </button>
+      </div>
+      <div class="product-line-price">30.99</div>
+    </div>
+
+    <div class="product">
+      <div class="product-image">
+        <img src="https://www.adazing.com/book-cover-design/wp-content/uploads/2017/01/cover00031.jpg" width="200" height="250">
+      </div>
+      <div class="product-details">
+        <div class="product-title">Testing3</div>
+        <p class="product-description">This is another product description.</p>
+      </div>
+      <div class="product-price">12.99</div>
+      <div class="product-quantity">
+        <input type="number" value="1" min="1" style="
+        width: 102px;
+    ">
+      </div>
+      <div class="product-removal">
+        <button class="remove-product">
+          Remove
+        </button>
+      </div>
+      <div class="product-line-price">20.99</div>
+    </div>
+  
+    <div class="totals">
+      <div class="totals-item">
+        <label>Subtotal</label>
+        <div class="totals-value" id="cart-subtotal">80.53</div>
+      </div>
+      <div class="totals-item">
+        <label>Tax (7%)</label>
+        <div class="totals-value" id="cart-tax">2.75</div>
+      </div>
+      <div class="totals-item">
+        <label>Shipping</label>
+        <div class="totals-value" id="cart-shipping">15.00</div>
+      </div>
+      <div class="totals-item totals-item-total">
+        <label>Grand Total</label>
+        <div class="totals-value" id="cart-total">100.92</div>
+      </div>
+    </div>
+        
+        <button class="checkout">Checkout</button>
+
+  </div>
 
 <footer class="row">
-      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+  <p class="copyright" style="
+  margin-top: 10%;
+">© 2020 GeekText. All Rights Reserved. </p>
 </footer>
 
 
