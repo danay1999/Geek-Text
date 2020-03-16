@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect, session, url_for
+from flask import Flask, render_template, jsonify, redirect, session, url_for, request
 from six.moves.urllib.parse import urlencode
 from functools import wraps
 from os import environ as env
@@ -7,6 +7,9 @@ from werkzeug.exceptions import HTTPException
 from pymongo import MongoClient
 import pymongo
 import requests
+from flask_pymongo import PyMongo
+import bcrypt
+
 
 # Database
 client = pymongo.MongoClient(
@@ -14,9 +17,11 @@ client = pymongo.MongoClient(
 )
 database = client["book_info"]
 db_c = database["details"]
-db = client.book_info
+db = database["users"]
+db_b = client.book_info
 
 app = Flask(__name__, static_url_path="")
+
 app.debug = True
 
 
@@ -24,10 +29,6 @@ app.debug = True
 def home():
     return render_template("/index.html")
 
-
-@app.route("/login")
-def login():
-    return render_template("/login.html")
 
 
 # from GeekText.views.index import bp as index_bp
@@ -43,7 +44,7 @@ def wishlist():
 @app.route("/books", methods=["GET"])
 def books():
     try:
-        books = db.details.find()
+        books = db_b.details.find()
         return render_template("/books.html", books=books)
     except Exception as e:
         return dumps({"error": str(e)})
@@ -52,7 +53,7 @@ def books():
 @app.route("/books/<link>", methods=["GET"])
 def distinctbook(link):
     try:
-        books = db.details.find()
+        books = db_b.details.find()
         return render_template("/distinctbooksandauthors/" + link + ".html", books=books)
     except Exception as e:
         return dumps({"error": str(e)})
@@ -63,10 +64,44 @@ def shoppingcart():
     return render_template("/shoppingcart.html")
 
 
-@app.route("/signup")
-def signup():
-    return render_template("/signup.html")
+app.config['MONGO_DBNAME'] = 'users'
+app.config['MONGO_URI'] = 'mongodb+srv://bdiaz071:0312651pw@bookstore-2edyi.mongodb.net/users'
+mongo = PyMongo(app)
 
+@app.route('/signup', methods=['POST', 'GET'])
+def signup():
+    if request.method == 'POST':
+        users = mongo.db.users
+        existing_user = users.find_one({'name' : request.form['username']})
+
+        if existing_user is None:
+            hashpass = bcrypt.hashpw(request.form['pass'].encode('utf-8'), bcrypt.gensalt())
+            users.insert({'name' : request.form['username'], 'password' : hashpass})
+            session['username'] = request.form['username']
+            return redirect(url_for('index'))
+        
+        return 'That username already exists!'
+
+    return render_template('signup.html')
+
+@app.route('/login', methods=['POST'])
+def login():
+    users = mongo.db.users
+    login_user = users.find_one({'name' : request.form['username']})
+
+    if login_user:
+        if bcrypt.hashpw(request.form['pass'].encode('utf-8'), login_user['password'].encode('utf-8')) == login_user['password'].encode('utf-8'):
+            session['username'] = request.form['username']
+            return redirect(url_for('index'))
+
+    return 'Invalid username/password combination'
+
+@app.route('/')
+def index():
+    if 'username' in session:
+        return 'You are logged in as ' + session['username']
+
+    return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

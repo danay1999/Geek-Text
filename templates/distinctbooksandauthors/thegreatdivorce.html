@@ -14,6 +14,7 @@
   <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
 </head>
@@ -43,6 +44,61 @@
         <button class="button-primary" href="{{ url_for('signup') }}">Sign Up</button>
         </div>
   </header>
+
+  {% for book in books %}
+    {% if book.book_name == "The Great Divorce"%}
+
+    <div  class="row container botpadding">
+        <div  class="container twelve columns botpadding">
+          
+          <div class = "three columns"> 
+           <img id = "cover" class= "img" src = "/img/{{book["link"]}}.jpg" width="225" height="300">
+             
+          </div>
+
+          <div class = "nine columns">  
+            <a style="font-size:2em" href="{{ url_for('distinctbook',link=book.link) }}" ><b>{{book.book_name}}</b></a>
+            <br> by <a href="{{ url_for('distinctbook',link=book.author_name) }}"> {{book.author_name}}</a>
+            <br> <br>
+            <p> "{{book.book_description}}"</p>
+            <p> Genre: {{book.genre}}</p>
+            <p> Publishing Date: {{book.publishing_info}}</p>
+          </div>  
+          
+        </div>    
+        
+        {% set authorname = book.author_name %}
+        {%endif%}
+   
+
+        {% if book.author_name == authorname %}
+
+        <div  class="container twelve columns botpadding">
+         <a  href="#author_popup">{{book.author_name}}</a>
+
+    
+
+            <div id="author_popup" class="overlay">
+              <div class="author">
+                <h5>{{book.author_name}}</h5>
+                <a class="close" href="">&times;</a>
+                    <div class="content">
+                        <p>{{book.book_name}}</p>
+                    </div>
+                    
+          
+              </div>
+            </div>
+                 
+
+      
+      
+         </div>  
+         {% endif %}  
+    </div>
+      
+   
+  {% endfor %} 
 
   <footer class="row">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>

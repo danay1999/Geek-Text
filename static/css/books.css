@@ -1,6 +1,10 @@
 .botpadding{
     padding-bottom: 5%;
 }
+
+.sidemarging{
+    padding-right: 5%;
+}
 .overlay {
     position: fixed;
     top: 0;
