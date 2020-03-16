@@ -5,12 +5,8 @@ from os import environ as env
 from dotenv import load_dotenv, find_dotenv
 from werkzeug.exceptions import HTTPException
 from pymongo import MongoClient
-from bson import ObjectId
-from bson.json_util import dumps
 import pymongo
 import requests
-import json
-import constants
 
 # Database
 client = pymongo.MongoClient(
@@ -21,7 +17,6 @@ db_c = database["details"]
 db = client.book_info
 
 app = Flask(__name__, static_url_path="")
-app.secret_key = constants.SECRET_KEY
 app.debug = True
 
 
@@ -58,7 +53,7 @@ def books():
 def distinctbook(link):
     try:
         books = db.details.find()
-        return render_template("/distinctbooks/" + link + ".html", books=books)
+        return render_template("/distinctbooksandauthors/" + link + ".html", books=books)
     except Exception as e:
         return dumps({"error": str(e)})
 

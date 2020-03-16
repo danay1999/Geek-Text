@@ -48,18 +48,25 @@
 
 {% for book in books %}
 
-    <div  class="row container">
+    <div  class="row container botpadding">
         <div  class="container">
           
-          <div class = "three columns">
-          <img src="/static/img/{{ book["link"] }}.jpg">
+          <div class = "two columns">
+              <img src = "/img/{{book["link"]}}.jpg" width="125" height="175">  
           </div>
 
-          <div class = "four columns">
+          <div class = "seven columns">
             <a href="{{ url_for('distinctbook',link=book.link) }}" >{{book.book_name}}</a>
-            <p>by {{book.author_name}} <br> Price: {{book.price}}</p>
+            <br>
+            by <a href="{{ url_for('distinctbook',link=book.author_name) }}"> {{book.author_name}}</a>
+            <p>"{{book.book_description}}"</p>
           </div>     
-        </div>  
+        
+          <div class = "three columns">
+             <button type ="button" class="del_1 btn btn-info">Add to WishList</button> 
+             <button type ="button" class="del_1 btn btn-info">Add to Cart</button> 
+          </div>
+        </div> 
     </div>
          {% endfor %}
     
