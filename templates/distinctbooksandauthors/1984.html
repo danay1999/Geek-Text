@@ -65,42 +65,50 @@
             <p> Genre: {{book.genre}}</p>
             <p> Publishing Date: {{book.publishing_info}}</p>
             <p> Rating: {{book.avg_book_rating}} </p>
+           
           </div>  
           
         </div>    
         
-        {% set authorname = book.author_name %}
-        {%endif%}
-   
+           {%endif%}
+        {% endfor %} 
+        
+       
+          
 
-        {% if book.author_name == authorname %}
+        {% for author in authors %}
+           {% if author.author_name == "George Orwell"%}
 
         <div  class="container twelve columns botpadding">
-         <a  href="#author_popup">{{book.author_name}}</a>
+         <a  href="#author_popup">{{author.author_name}}</a>
 
-    
-
+            
+          
             <div id="author_popup" class="overlay">
 	            <div class="author">
-		            <h5>{{book.author_name}}</h5>
+		            <h5>{{author.author_name}}</h5>
 		            <a class="close" href="">&times;</a>
+                    {% for title in author.books %}
 		                <div class="content">
-		                  	<p>{{book.book_name}}</p>
+		                  	<p>{{title}}</p>
+                     {%endfor%}   
 		                </div>
                     
           
               </div>
             </div>
-                 
+             {%endif%}  
+          {%endfor%}       
 
       
       
          </div>  
-         {% endif %}  
+      
+
     </div>
       
    
-  {% endfor %} 
+
 
 <footer class="row">
     <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>

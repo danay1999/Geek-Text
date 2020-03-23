@@ -45,6 +45,7 @@ def wishlist():
 def books():
     try:
         books = db_b.details.find()
+        
         return render_template("/books.html", books=books)
     except Exception as e:
         return dumps({"error": str(e)})
@@ -54,9 +55,11 @@ def books():
 def distinctbook(link):
     try:
         books = db_b.details.find()
-        return render_template("/distinctbooksandauthors/" + link + ".html", books=books)
+        authors = db_b.author.find()
+        return render_template("/distinctbooksandauthors/" + link + ".html", books=books,  authors=authors)
     except Exception as e:
         return dumps({"error": str(e)})
+
 
 
 @app.route("/shoppingcart")
