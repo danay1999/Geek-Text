@@ -11,7 +11,15 @@
   
   <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
+  
+  
   <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
@@ -66,7 +74,16 @@
           </div>     
         
           <div class = "three columns">
-             <button type ="button" class="del_1 btn btn-info">Add to WishList</button> 
+            <div class="dropdown">
+             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Add to Wish List
+             </button>
+             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+               <a class="dropdown-item" href="{{ url_for('add',list_id=1, book_id=book._id)}}">List1</a>
+               <a class="dropdown-item" href="{{ url_for('add',list_id=2, book_id=book._id)}}">List2</a>
+               <a class="dropdown-item" href="{{ url_for('add',list_id=3, book_id=book._id)}}">List3</a>
+             </div>
+            </div> 
              <button type ="button" class="del_1 btn btn-info">Add to Cart</button> 
           </div>
         </div> 
