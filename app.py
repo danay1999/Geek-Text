@@ -22,11 +22,12 @@ client = pymongo.MongoClient(
 )
 database = client["book_info"]
 db_c = database["details"]
-db = database["users"]
 wishlist_c = database['wish_list']  # wishlist collection.
 cart_c= database['shopping_cart']
 db_b = client.book_info
-
+db_u = database["users"]
+db_ch = database["cards"]
+db_a = database["address"]
 app = Flask(__name__, static_url_path="")
 app.debug = True
 
