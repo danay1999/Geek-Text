@@ -231,11 +231,27 @@ def distinctbook(link):
     except Exception as e:
         return dumps({"error": str(e)})
 
+@app.route("/addCart/<book_id>", methods=["GET", "POST"])
+def addCart(book_id):
+    #result = db.details.find({"book_name": "book_name"})
+    result = db_c.find_one({"_id": ObjectId(book_id)})
+
+    try:
+        cart_c.insert_one(result)
+    except pymongo.errors.DuplicateKeyError:
+        pass
+
+    #cart_c.insert_one(result)
+
+    return redirect('/books')
+    
 
 
 @app.route("/shoppingcart")
 def shoppingcart():
-    return render_template("/shoppingcart.html")
+    cart = cart_c.find()
+    
+    return render_template("/shoppingcart.html", cart = cart)
 
 
 app.config['MONGO_DBNAME'] = 'users'

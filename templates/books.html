@@ -69,7 +69,7 @@
             by  {{book.author_name}}
             <p>"{{book.book_description}}"</p>
             <p>Genre: {{book.genre}}</p>
-            <p>Price: {{book.price}}</p>
+            <p>Price: ${{book.price}}</p>
             <p> Rating: {{book.avg_book_rating}} </p>
           </div>     
         
@@ -84,7 +84,12 @@
                <a class="dropdown-item" href="{{ url_for('add',list_id=3, book_id=book._id)}}">List3</a>
              </div>
             </div> 
-             <button type ="button" class="del_1 btn btn-info">Add to Cart</button> 
+          <div> 
+            <a href="{{ url_for('addCart', book_id=book._id)}}"> 
+            <button type ="button" class="del_1 btn btn-info">Add to Cart</button>
+            </a>
+          </div>
+              
           </div>
         </div> 
     </div>
