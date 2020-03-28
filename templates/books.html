@@ -42,6 +42,13 @@
         </div> 
         <div class="one column">
         <a class="" href="{{ url_for('books') }}">Books</a>
+          <div class="dropdownContent">
+                        <a href="{{ url_for('books', option_id=1)}}">Title Z to A</a>
+                        <a href="{{ url_for('books', option_id=2)}}">Author</a>
+                        <a href="{{ url_for('books', option_id=3)}}">Release Date</a>
+                        <a href="{{ url_for('books', option_id=4)}}">Genre</a>
+                        <a href="{{ url_for('books', option_id=5)}}">Rating</a>
+                        <a href="{{ url_for('books', option_id=6)}}">Price</a>
        </div>
         <div class="one column">
         <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
