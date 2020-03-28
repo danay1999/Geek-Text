@@ -11,7 +11,15 @@
   
   <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <!-- Bootstrap CSS -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
+  
+  
   <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
@@ -35,6 +43,13 @@
         </div> 
         <div class="one column">
         <a class="" href="{{ url_for('books') }}">Books</a>
+          <div class="dropdownContent">
+                        <a href="{{ url_for('books', option_id=1)}}">Title Z to A</a>
+                        <a href="{{ url_for('books', option_id=2)}}">Author</a>
+                        <a href="{{ url_for('books', option_id=3)}}">Release Date</a>
+                        <a href="{{ url_for('books', option_id=4)}}">Genre</a>
+                        <a href="{{ url_for('books', option_id=5)}}">Rating</a>
+                        <a href="{{ url_for('books', option_id=6)}}">Price</a>
        </div>
         <div class="one column">
         <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
@@ -62,13 +77,27 @@
             by  {{book.author_name}}
             <p>"{{book.book_description}}"</p>
             <p>Genre: {{book.genre}}</p>
-            <p>Price: {{book.price}}</p>
+            <p>Price: ${{book.price}}</p>
             <p> Rating: {{book.avg_book_rating}} </p>
           </div>     
         
           <div class = "three columns">
-             <button type ="button" class="del_1 btn btn-info">Add to WishList</button> 
-             <button type ="button" class="del_1 btn btn-info">Add to Cart</button> 
+            <div class="dropdown">
+             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Add to Wish List
+             </button>
+             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+               <a class="dropdown-item" href="{{ url_for('add',list_id=1, book_id=book._id)}}">List1</a>
+               <a class="dropdown-item" href="{{ url_for('add',list_id=2, book_id=book._id)}}">List2</a>
+               <a class="dropdown-item" href="{{ url_for('add',list_id=3, book_id=book._id)}}">List3</a>
+             </div>
+            </div> 
+          <div> 
+            <a href="{{ url_for('addCart', book_id=book._id)}}"> 
+            <button type ="button" class="del_1 btn btn-info">Add to Cart</button>
+            </a>
+          </div>
+              
           </div>
         </div> 
     </div>
@@ -79,6 +108,23 @@
 <footer class="row booksfooter">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
+  
+ <!--Bootstrap Additions-->
+<script
+src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+crossorigin="anonymous"
+></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"
+></script>
 
     <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
