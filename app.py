@@ -247,7 +247,7 @@ mongo = PyMongo(app)
 @app.route("/signup", methods=['POST', 'GET'])
 def signup():
     if request.method == 'POST':
-        users = db.users
+        users = db_b.users
         existing_user = users.find_one({'name' : request.form['username']})
 
         if existing_user is None:
@@ -263,7 +263,7 @@ def signup():
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        users = db.users
+        users = db_b.users
         login_user = users.find_one({'name' : request.form['username']})
 
         if login_user:
