@@ -214,14 +214,19 @@ def createList():
 
 
 
-@app.route("/books", methods=["GET"])
-def books():
+@app.route("/books/<option_id>", methods = ['GET', 'POST'])
+def books(option_id):
     try:
-        books = db_b.details.find()
+        print("option_id",option_id)
+        books = db_c.find().sort({"book_name", 1}) # sort books alphabetically A to Z -Cat
+        # books = db.details.find()
+        if option_id==1:
+            books = db_c.find().sort({"book_name": -1})
+            return render_template('books.html', books=books)
         
-        return render_template("/books.html", books=books)
+        return render_template('books.html', books=books)
     except Exception as e:
-        return dumps({"error": str(e)})
+        return dumps({'error' : str(e)})
 
 
 @app.route("/books/<link>", methods=["GET"])
