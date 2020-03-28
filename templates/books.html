@@ -15,12 +15,13 @@
   <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
 </head>
 <body >
-<header  class=" row main_nav header_color botpadding">
+<header  class=" row main_nav header_color">
     <div class="container">
       <div class="six columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
@@ -48,7 +49,7 @@
 
 {% for book in books %}
 
-    <div  class="row botpadding">
+    <div  class="row padding">
         <div  class="container">
           
           <div class = "two columns">
@@ -75,7 +76,7 @@
     
    
 
-<footer class="row">
+<footer class="row booksfooter">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 

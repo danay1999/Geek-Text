@@ -27,7 +27,12 @@ app.debug = True
 
 @app.route("/")
 def home():
-    return render_template("/index.html")
+    try:
+        books = db_b.details.find()
+        return render_template("/index.html", books=books)
+    except Exception as e:
+        return dumps({"error": str(e)})
+    
 
 
 
