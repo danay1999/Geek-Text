@@ -48,7 +48,7 @@
   </header>
 
 {% for book in books %}
-    {% if book.book_name == "The Great Gatsby"%}
+    {% if book.book_name == "To Great Gatsby"%}
 
     <div  class="row container padding">
         <div  class="container twelve columns">
@@ -86,21 +86,19 @@
         {%endif%}
    
         {% for author in authors %}
-        {% if author.author_name == "Francis Scott Fitzgerald"%}
-        
-
-        
+        {% if author.author_name == ""%}
+  
             <div id="otherbooks" class="overlay">
               <div class="author">
-                <h5>{{book.author_name}}</h5>
+                <h5>{{author.author_name}}</h5>
                 <a class="closemodal" href="">&times;</a>
                  <div class="content">
                     {% for book in books %}
-                    {% for title in author.books %}
-                     {% if title == book.book_name%}
-                    <a href="{{ url_for('distinctbook',link=book.link) }}" >{{book.book_name}}</a>   
-                     {%endif%} 
-                    {%endfor%} 
+                      {% for title in author.books %}
+                      {% if title == book.book_name%}
+                    <a href="{{ url_for('distinctbook',link=book.link) }}" >{{book.book_name}}</a><br>   
+                      {%endif%} 
+                      {%endfor%} 
                     {%endfor%}   
               </div>
            

@@ -28,6 +28,7 @@ db_b = client.book_info
 db_u = database["users"]
 db_ch = database["cards"]
 db_a = database["address"]
+db_author = database["author"]
 app = Flask(__name__, static_url_path="")
 app.debug = True
 
@@ -38,7 +39,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 @app.route("/")
 def home():
     try:
-        books = db_b.details.find()
+        books = db_c.find()
         return render_template("/index.html", books=books)
     except Exception as e:
         return dumps({"error": str(e)})
@@ -222,7 +223,7 @@ def createList():
 @app.route("/books", methods=["GET"])
 def books():
     try:
-        books = db.details.find()
+        books = db_b.details.find()
         return render_template("/books.html", books=books)
     except Exception as e:
         return dumps({"error": str(e)})
@@ -233,7 +234,7 @@ def distinctbook(link):
     try:
         books = db_b.details.find()
         authors = db_b.author.find()
-        return render_template("/distinctbooksandauthors/" + link + ".html", books=books,  authors=authors)
+        return render_template("/distinctbooks/" + link + ".html", books=books, authors=authors)
     except Exception as e:
         return dumps({"error": str(e)})
 
