@@ -57,42 +57,56 @@
   <p class="center">Checkout some of our new arrivals below</p>
 </div>
 
+
 <div  class="main">
   <div class="row container carouselslide">
 <section class="carousel" aria-label="Gallery">
   <ol class="carousel__viewport">
-    <li id="carousel__slide1" class="carousel__slide">
+    <li id="carousel__slide1"
+        tabindex="0"
+        class="carousel__slide">
       <div class="carousel__snapper">
-      {% for book in books %}
-       {%if book.book_name == "Divergent" %}
-         <h6>{{book["book_name"]}}</h6>
-         <img id="cover" src = "/img/{{book["link"]}}.jpg" width="250" height="365" >
-        {%endif%}
-      
+       <div class="insideslide">
+        {% for book in books%}
+        {%if book.book_name == "And Then There Were None"%}
+          <img id="" src = "/img/{{book["link"]}}.jpg" width="230" height="320">
+          <br> <a href="{{ url_for('distinctbook',link=book.link) }}">{{book.book_name}}</a>
+          <p> by {{book.author_name}} </p>
+        {%endif%} 
+        {%endfor%}
+       </div>
       </div>
     </li>
-    <li id="carousel__slide2" class="carousel__slide">
+    <li id="carousel__slide2"
+        tabindex="0"
+        class="carousel__slide">
       <div class="carousel__snapper">
-       
-       {%if book.book_name == "It" %}
-         <h6>{{book["book_name"]}}</h6>
-         <img id="cover" src = "/img/{{book["link"]}}.jpg" width="250" height="365" >
-        {%endif%}
-      {%endfor%}
+        {% for book in books%}
+        {%if book.book_name == "And Then There Were None"%}
+          <img id="" src = "/img/{{book["link"]}}.jpg" width="230" height="320">
+          <br> <a href="{{ url_for('distinctbook',link=book.link) }}">{{book.book_name}}</a>
+          <p> by {{book.author_name}} </p>
+        {%endif%} 
+        {%endfor%}
+      
       </div>
     </li>
     <li id="carousel__slide3"
-        
+        tabindex="0"
         class="carousel__slide">
-      <div class="carousel__snapper"></div>
+      <div class="carousel__snapper">
       
+      
+      </div>
     </li>
     <li id="carousel__slide4"
-       
+        tabindex="0"
         class="carousel__slide">
-  <div class="carousel__snapper"></div>
-      
-
+      <div class="carousel__snapper"></div>
+      <a href="#carousel__slide3"
+         class="carousel__prev">Go to previous slide</a>
+      <a href="#carousel__slide1"
+         class="carousel__next">Go to first slide</a>
     </li>
   </ol>
   <aside class="carousel__navigation">

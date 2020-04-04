@@ -15,16 +15,18 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
 </head>
+
+ <style>A {text-decoration: none;} </style>
 <body >
-<header  class=" row main_nav header_color botpadding">
+<header  class=" row main_nav header_color">
     <div class="container">
       <div class="six columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
       </div>
-     
         <div class="one column">
         <a class=""  href="{{ url_for('home') }}">Home</a>
         </div>
@@ -48,59 +50,80 @@
 {% for book in books %}
     {% if book.book_name == "Murder on the Orient Express"%}
 
-    <div  class="row container botpadding">
-        <div  class="container twelve columns botpadding">
+    <div  class="row container padding">
+        <div  class="container twelve columns">
           
           <div class = "three columns"> 
-           <img id = "cover" class= "img" src = "/img/{{book["link"]}}.jpg" width="225" height="300">
-             
+          <a href="#{{book["link"]}}"><img id="cover" src = "/img/{{book["link"]}}.jpg" width="235" height="350" ></a>
           </div>
+
+          <div id="{{book["link"]}}" class="overlay">
+	        <div class="cover">
+		        <div class="contentcover">
+            	<a class="closecover" href="#">&times;</a>
+				    <img src = "/img/{{book["link"]}}.jpg" width="375px" height="600px" >	</div>
+	        </div>
+          </div>
+
 
           <div class = "nine columns">  
             <a style="font-size:2em" href="{{ url_for('distinctbook',link=book.link) }}" ><b>{{book.book_name}}</b></a>
-            <br> by <a href="{{ url_for('distinctbook',link=book.author_name) }}"> {{book.author_name}}</a>
+            <br> Written by <a  href="#otherbooks"><b>{{book.author_name}}</b></a>
             <br> <br>
             <p> "{{book.book_description}}"</p>
-            <p> Genre: {{book.genre}}</p>
-            <p> Publishing Date: {{book.publishing_info}}</p>
+            <p> <b>Genre:</b> {{book.genre}}</p>
+            <p> <b>Publisher: </b>{{book.publisher}} <br>
+                <b>Release Date: </b>{{book.publishing_info}} <br>
+                <b> {{book.type}}:</b> {{book.pages}} pages <br> </p> 
+            <p> <b> Rating: </b>{{book.avg_book_rating}} </p>
+           
           </div>  
+          <div class="twelve columns">
+          
+          <br><a href="#otherbooks"><b>{{book.author_name}} </b></a>  <br> 
+          {{book.short_bio}}
+
+          </div>
           
         </div>    
         
-        {% set authorname = book.author_name %}
+       
         {%endif%}
+        
+        {%endfor%}
+        
+        </div>
    
-
-        {% if book.author_name == authorname %}
-
-        <div  class="container twelve columns botpadding">
-         <a  href="#author_popup">{{book.author_name}}</a>
-
-    
-
-            <div id="author_popup" class="overlay">
+        {% for author in authors %}
+        {% if author.author_name == "Agatha Christie"%}
+  
+            <div id="otherbooks" class="overlay">
               <div class="author">
-                <h5>{{book.author_name}}</h5>
-                <a class="close" href="">&times;</a>
-                    <div class="content">
-                        <p>{{book.book_name}}</p>
-                    </div>
-                    
-          
+                <h5>{{author.author_name}}</h5>
+                <a class="closemodal" href="">&times;</a>
+                 <div class="content">
+                    {% for title in author.books %}
+                       {% if title == "Death on the Nile" %}
+                         <a href="{{ url_for('distinctbook',link=author.link3) }}">{{ title }}</a><br> 
+                       {%endif%}   
+                       {% if title == "And Then There Were None" %}
+                         <a href="{{ url_for('distinctbook',link=author.link1) }}">{{ title }}</a><br> 
+                       {%endif%}  
+                    {%endfor%}
               </div>
-            </div>
-                 
-
-      
-      
          </div>  
-         {% endif %}  
-    </div>
-      
-   
-  {% endfor %} 
 
-  <footer class="row">
+         {%endif%}     
+        {%endfor%}  
+         
+    </div>
+  </div>
+
+  
+  
+  
+
+  <footer class="row footer">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 

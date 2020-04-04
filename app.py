@@ -28,7 +28,6 @@ db_b = client.book_info
 db_u = database["users"]
 db_ch = database["cards"]
 db_a = database["address"]
-db_author = database["author"]
 app = Flask(__name__, static_url_path="")
 app.debug = True
 
