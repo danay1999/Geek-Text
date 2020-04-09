@@ -1,0 +1,39 @@
+.botpadding{
+    padding-bottom: 5%;
+}
+
+.container {
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownContent {
+    display: none;
+    position: absolute;
+    background-color: #F8C93E;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px;
+    z-index: 1;
+}
+
+.dropdownContent a {
+    color: #081E3f;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdownContent a:hover {
+    background-color: #FAFAD2;
+}
+
+.dropdown:hover .dropdownContent {
+    display: block;
+}
+
+.dropdown:hover .dropbtn {
+    background-color: #F8C93E;
+}
