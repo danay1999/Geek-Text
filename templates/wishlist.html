@@ -72,18 +72,18 @@
         <div class="one column">
           <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
         </div>
-
-        <div class="one column">
-          <a class="" href="{{ url_for('login') }}">Log In</a>
-        </div>
         <div class="one column dropdown">
         <a class="" href="{{ url_for('account') }}">Account</a>
                 <div class="dropdownContent">
                   <a href="{{ url_for('cards') }}">Cards</a>
                   <a href="{{ url_for('account') }}">Profile</a>
                   <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
                 </div>
       </div>
+        <div class="one column">
+          <a class="" href="{{ url_for('login') }}">Log In</a>
+        </div>
         <div class="one column">
           <button class="button-primary" href="{{ url_for('signup') }}">
             Sign Up
