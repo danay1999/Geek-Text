@@ -15,17 +15,18 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
- 
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
 </head>
+
  <style>A {text-decoration: none;} </style>
 <body >
-<header  class=" row main_nav header_color botpadding">
+<header  class=" row main_nav header_color">
     <div class="container">
       <div class="six columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
       </div>
-     
         <div class="one column">
         <a class=""  href="{{ url_for('home') }}">Home</a>
         </div>
@@ -46,72 +47,84 @@
         </div>
   </header>
 
-  {% for book in books %}
-    {% if book.book_name == "1984"%}
+{% for book in books %}
+    {% if book.book_name == "The Lord of the Rings"%}
 
-    <div  class="row container botpadding">
-        <div  class="container twelve columns botpadding">
+    <div  class="row container padding">
+        <div  class="container twelve columns">
           
           <div class = "three columns"> 
-           <img id = "cover" class= "img" src = "/img/{{book["link"]}}.jpg" width="225" height="300">
-             
+          <a href="#{{book["link"]}}"><img id="cover" src = "/img/{{book["link"]}}.jpg" width="235" height="350" ></a>
           </div>
+
+          <div id="{{book["link"]}}" class="overlay">
+	        <div class="cover">
+		        <div class="contentcover">
+            	<a class="closecover" href="#">&times;</a>
+				    <img src = "/img/{{book["link"]}}.jpg" width="375px" height="600px" >	</div>
+	        </div>
+          </div>
+
 
           <div class = "nine columns">  
             <a style="font-size:2em" href="{{ url_for('distinctbook',link=book.link) }}" ><b>{{book.book_name}}</b></a>
-            <br> by <a  href="#author_popup">{{book.author_name}}</a>
+            <br> Written by <a  href="#otherbooks"><b>{{book.author_name}}</b></a>
             <br> <br>
             <p> "{{book.book_description}}"</p>
-            <p> Genre: {{book.genre}}</p>
-            <p> Publishing Date: {{book.publishing_info}}</p>
-            <p> Rating: {{book.avg_book_rating}} </p>
+            <p> <b>Genre:</b> {{book.genre}}</p>
+            <p> <b>Publisher: </b>{{book.publisher}} <br>
+                <b>Release Date: </b>{{book.publishing_info}} <br>
+                <b> {{book.type}}:</b> {{book.pages}} pages <br> </p> 
+            <p> <b> Rating: </b>{{book.avg_book_rating}} </p>
            
           </div>  
+          <div class="twelve columns">
+          
+          <br><a href="#otherbooks"><b>{{book.author_name}} </b></a>  <br> 
+          {{book.short_bio}}
+
+          </div>
           
         </div>    
         
-           {%endif%}
-        {% endfor %} 
-        
        
-          
-
-        {% for author in authors %}
-           {% if author.author_name == "George Orwell"%}
-
-        <div  class="container twelve columns botpadding">
-         <a  href="#author_popup">{{author.author_name}}</a>
-
-            
-          
-            <div id="author_popup" class="overlay">
-	            <div class="author">
-		            <h5>{{author.author_name}}</h5>
-		            <a class="close" href="">&times;</a>
-                    {% for title in author.books %}
-		                <div class="content">
-		                  	<p>{{title}}</p>
-                     {%endfor%}   
-		                </div>
-                    
-          
-              </div>
-            </div>
-             {%endif%}  
-          {%endfor%}       
-
-      
-      
-         </div>  
-      
-
-    </div>
-      
+        {%endif%}
+        
+        {%endfor%}
+        
+        </div>
    
+        {% for author in authors %}
+        {% if author.author_name == "J.R.R. Tolkien"%}
+  
+            <div id="otherbooks" class="overlay">
+              <div class="author">
+                <h5>{{author.author_name}}</h5>
+                <a class="closemodal" href="">&times;</a>
+                 <div class="content">
+                    {% for title in author.books %}
+                       {% if title == "The Hobbit" %}
+                         <a href="{{ url_for('distinctbook',link=author.link3) }}">{{ title }}</a><br> 
+                       {%endif%} 
+                       {% if title == "The Silmarillion" %}
+                         <a href="{{ url_for('distinctbook',link=author.link2) }}">{{ title }}</a><br> 
+                       {%endif%}   
+                    {%endfor%}
+              </div>
+         </div>  
 
+         {%endif%}     
+        {%endfor%}  
+         
+    </div>
+  </div>
 
-<footer class="row">
-    <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+  
+  
+  
+
+  <footer class="row footer">
+      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 
     <!-- End Document

@@ -1,30 +1,17 @@
-* {
-margin: 0;
-padding: 0;}
 
-.left{
-float: left;}
+.center{
+  text-align: center;
+}
+.padding{
+    padding: 35px 0 25px 0;
+}
 
-.right{
-float: right;}
+img {
+  float:left;
+}
+.carouseltext {
+  vertical-align: text-top;
+  
+}
 
-.navbar{
-width: 100%;
-height: 48px;
-background-color: #081E3f;}
 
-.navbar ul, li{
-display: inline-block;
-height: 100%;}
-
-.navbar ul li a{
-line-height: 48px;
-display: inline-block;
-height: 100%;
-color: #F8C93E;
-margin-left: 0.5rem;
-margin-right: 0.5rem;}
-
-.navbar ul li a:hover{
-color: white;
-cursor: pointer;}

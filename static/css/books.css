@@ -1,5 +1,5 @@
-.botpadding{
-    padding-bottom: 5%;
+.toppadding{
+  padding-top: 4%;
 }
 
 .sidemarging{
@@ -30,12 +30,7 @@
     transition: all 5s ease-in-out;
   }
   
-  .author h5 {
-    margin-top: 0;
-    color: #333;
-    font-family: Tahoma, Arial, sans-serif;
-  }
-  .author .close {
+  .author .closemodal{
     position: absolute;
     top: 20px;
     right: 30px;
@@ -43,6 +38,24 @@
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
-    color: #333;
-  }
   
+  }
+
+  .cover .closecover {
+    position: absolute;
+    right: 5px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    
+    
+  }
+ 
+  .contentcover {
+    position: absolute;
+    top: 8%;
+    left: 15%;
+    overflow: auto;
+   
+  }
+

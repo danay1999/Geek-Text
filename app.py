@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect, session, url_for, request,flash
+from flask import Flask, render_template, jsonify, redirect, session, url_for, request , flash, make_response
 from six.moves.urllib.parse import urlencode
 from functools import wraps
 from os import environ as env
@@ -39,9 +39,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 @app.route("/")
 def home():
     return render_template("/index.html")
-
-
-
+ 
 # from GeekText.views.index import bp as index_bp
 # app.register_blueprint(index_bp)
 
@@ -229,9 +227,11 @@ def distinctbook(link):
     try:
         books = db_b.details.find()
         authors = db_b.author.find()
-        return render_template("/distinctbooksandauthors/" + link + ".html", books=books,  authors=authors)
+        return render_template("/distinctbooks/" + link + ".html", books=books, authors=authors)
     except Exception as e:
         return dumps({"error": str(e)})
+
+
 
 @app.route("/addCart/<book_id>", methods=["GET", "POST"])
 def addCart(book_id):
