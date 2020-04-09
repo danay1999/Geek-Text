@@ -14,6 +14,14 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">  
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -48,7 +56,7 @@
     <!--NAVIGATION BAR HERE-->
     <header class="main_nav header_color">
       <div class="container">
-        <div class="three columns">
+        <div class="four columns">
           <a class="" href="{{ url_for('home') }}"
             ><strong>Geek</strong><em>Text</em></a
           >
@@ -71,7 +79,14 @@
         <div class="one column">
           <a class="" href="{{ url_for('login') }}">Log In</a>
         </div>
-
+        <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                </div>
+      </div>
         <div class="one column">
           <button class="button-primary" href="{{ url_for('signup') }}">
             Sign Up
