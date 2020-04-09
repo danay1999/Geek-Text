@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/test11.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/test20.css') }}">
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="..\js\test.js"></script>
+
 
 </head>
 
@@ -70,31 +70,41 @@
       <label class="product-price">Price</label>
       <label class="product-quantity">Quantity</label>
       <label class="product-removal">Remove</label>
+      <label class="product-removal">Save For Later</label>
       <label class="product-line-price">Total</label>
     </div>
     
     {% for cart in cart %}
 
-    <div class="product">
+    <div class="product" style=" padding-bottom: 110px;">
       <div class="product-image">
         <img src="/img/{{cart["link"]}}.jpg" width="200" height="250">
       </div>
       <div class="product-details">
-        <div class="product-title">{{cart.book_name}}</div>
-        <p class="product-description">{{cart.book_description}}</p>
+        <div class="product-title"><strong>{{cart.book_name}}</strong></div>
+        <p class="product-description"><i>{{cart.book_description}}</i></p>
       </div>
       <div class="product-price">{{cart.price}}</div>
       <div class="product-quantity">
-        <input type="number" value="1" min="1" style="
+        <input id="test" type="number" value="1" min="1" style="
         width: 102px;">
       </div>
       <div class="product-removal">
-        <button class="remove-product">
+        <a href="{{ url_for('removeCart', book_id=cart._id)}}">
+          <button class="remove-product"
+                  id="tryDel "
+                  type="submit">
           Remove
-        </button>
+        </button></a>
+      </div>
+      <div class="product-removal">
+        <a href="{{ url_for('saveLater', book_id=cart._id)}}">
+          <button class="save-for-later"
+                  >
+          Save For Later
+        </button></a>
       </div>
       
-
       <div class="product-line-price">{{cart.price}}</div>
     </div>
 
@@ -121,6 +131,48 @@
         
         <button class="checkout">Checkout</button>
 
+
+        <div class="heading" style="
+        padding-top: 60px;">
+          <h3>Save For Later</h3>
+          <p style="
+          padding-bottom: 30px;
+      ">Books in your save for later.</p>
+        </div>
+
+        {% for cart in save %}
+
+        <div class="product1" style=" padding-bottom: 110px;">
+          <div class="product-image">
+            <img src="/img/{{cart["link"]}}.jpg" width="200" height="250">
+          </div>
+          <div class="product-details">
+            <div class="product-title"><strong>{{cart.book_name}}</strong></div>
+            <p class="product-description"><i>{{cart.book_description}}</i></p>
+          </div>
+          <div class="product-price">${{cart.price}}</div>
+          
+          <div class="product-removal">
+            <a href="{{ url_for('removeSave', book_id=cart._id)}}">
+              <button class="remove-product"
+                      id="tryDel "
+                      type="submit">
+              Remove
+            </button></a>
+          </div>
+          <div class="product-removal">
+            <a href="{{ url_for('addCartSave', book_id=cart._id)}}">
+              <button class="save-for-later"
+                      >
+              Add To Cart
+            </button></a>
+          </div>
+          
+         
+        </div>
+    
+        {% endfor %}
+
   </div>
 
 <footer class="row">
@@ -130,6 +182,6 @@
 </footer>
 
 
-<script src="..\js\test.js"></script>
+<script src="..\js\test30.js"></script>
 
 </body></html>

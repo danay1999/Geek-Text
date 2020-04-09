@@ -24,6 +24,7 @@ database = client["book_info"]
 db_c = database["details"]
 wishlist_c = database['wish_list']  # wishlist collection.
 cart_c= database['shopping_cart']
+save_c= database['save_for_later']
 db_b = client.book_info
 db_u = database["users"]
 db_ch = database["cards"]
@@ -217,7 +218,7 @@ def createList():
 @app.route("/books", methods=["GET"])
 def books():
     try:
-        books = db.details.find()
+        books = db_b.details.find()
         return render_template("/books.html", books=books)
     except Exception as e:
         return dumps({"error": str(e)})
@@ -245,14 +246,56 @@ def addCart(book_id):
     #cart_c.insert_one(result)
 
     return redirect('/books')
-    
 
+@app.route("/addCartSave/<book_id>", methods=["GET", "POST"])
+def addCartSave(book_id):
+    
+    result = db_c.find_one({"_id": ObjectId(book_id)})
+
+    try:
+        cart_c.insert_one(result)
+    except pymongo.errors.DuplicateKeyError:
+        pass
+
+    save_c.delete_one({"_id": ObjectId(book_id)})
+
+    return redirect('/shoppingcart')
+
+@app.route("/removeCart/<book_id>")
+def removeCart(book_id):
+    
+    cart_c.delete_one({"_id": ObjectId(book_id)})
+
+    return redirect('/shoppingcart')
+
+@app.route("/removeSave/<book_id>")
+def removeSave(book_id):
+    
+    save_c.delete_one({"_id": ObjectId(book_id)})
+
+    return redirect('/shoppingcart')
+    
+@app.route("/saveLater/<book_id>", methods=["GET", "POST"])
+def saveLater(book_id):
+    
+    result = db_c.find_one({"_id": ObjectId(book_id)})
+
+    try:
+        save_c.insert_one(result)
+    except pymongo.errors.DuplicateKeyError:
+        pass
+    
+    cart_c.delete_one({"_id": ObjectId(book_id)})
+
+    return redirect('/shoppingcart')
+    
 
 @app.route("/shoppingcart")
 def shoppingcart():
     cart = cart_c.find()
-    
-    return render_template("/shoppingcart.html", cart = cart)
+    save = save_c.find()
+
+    return render_template("/shoppingcart.html", cart = cart, save = save)
 
 
 app.config['MONGO_DBNAME'] = 'users'
