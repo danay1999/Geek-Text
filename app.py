@@ -376,20 +376,7 @@ def address():
         return redirect(url_for('account'))
     return render_template('address.html')
 
-class User(database.Model):
-    id = database.Column(database.Integer, primary_key=True)
-    name = database.Column(database.String(30), unique=False, nullable=False)
-    username = database.Column(database.String(80), unique=True, nullable=False)
-    email = database.Column(database.String(120), unique=True, nullable=False)
-    password = database.Column(database.Binary(180), unique=False, nullable=False)
 
-    orders = database.relationship('Order', backref=database.backref('user'), lazy=True)
-    comments = database.relationship('Comment', backref=database.backref('user'), lazy=True)
-    credit_cards = database.relationship('CreditCard', backref=database.backref('user'), lazy=True)
-    cart = database.relationship('Cart', backref=database.backref('user'), lazy=True)
-
-    def __repr__(self):
-        return '<User %r>' % self.name
 
 @app.route("/profile")
 def profile():
