@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect, session, url_for, request
+from flask import Flask, render_template, jsonify, redirect, session, url_for, request, make_response
 from six.moves.urllib.parse import urlencode
 from functools import wraps
 from os import environ as env
@@ -7,6 +7,8 @@ from werkzeug.exceptions import HTTPException
 from pymongo import MongoClient
 import pymongo
 import requests
+import json
+import math
 
 # Database
 client = pymongo.MongoClient(
@@ -53,26 +55,47 @@ def books():
 def distinctbook(link):
     try:
         books = db.details.find()
-        return render_template("/distinctbooksandauthors/" + link + ".html", books=books)
+        comments = db.details.find({"link" : link}, {"comment" : ""})
+        rating = db.details.find({"link": link})
+        count = 0
+        sum = 0
+        avg = 0
+        for rate in rating: 
+            for number in rate['avg_book_rating']:
+               count+=1
+               sum+=number
+        avg=round(sum/count)
+        db.details.update({"link": link}, {'$set' : {"avg" : avg}})
+        return render_template("/distinctbooksandauthors/" + link + ".html", books=books, comments = comments, avg = avg)
     except Exception as e:
-        return dumps({"error": str(e)})
+        return dumps({"error": str(e)})  
 
-@app.route("/books/thegreatgatsby", methods=['POST', 'GET'])
-def message():
-    if request.method == 'POST':
-        try:
+
+@app.route("/books/<link>/review", methods=['POST', 'GET'])
+def message1(link):
+    if request.method == 'POST' and request.get_json():
+        rates = request.get_json(force=True)
+        db.details.update({"link": link}, {'$push': {"avg_book_rating": rates }})
+        res = make_response(jsonify({"message": "OK"}), 200)
+        return res
+    
+    if request.method == 'POST' and request.form['comment']:
             comment = request.form['comment']
-            comments = db.details.update({"book_name": "The Great Gatsby"}, {'$addToSet': {"comment": request.form.get('comment')}})
-            return redirect("/books/thegreatgatsby")
-        except Exception as e:
-            return dumps({'error' : str(e)})
-
+            if 'name' not in request.form:
+                comments = db.details.update({"link": link}, {'$push': {"comment": "FirstName" + " : " + request.form.get('comment')}})
+                return redirect("/books/"+link)
+            else:
+                if "Anonymous" in request.form['name']:
+                    comments = db.details.update({"link": link}, {'$push': {"comment": "Anonymous" + " : " + request.form.get('comment')}})
+                    return redirect("/books/"+link)
+                else:
+                    comments = db.details.update({"link": link}, {'$push': {"comment": "Nickname" + " : " + request.form.get('comment')}})
+                    return redirect("/books/"+link)
     else:
-        try:
-            comments = db.details.find({"book_name" : "The Great Gatsby"}, {"comment" : ""})
-            return render_template('/distinctbooks/thegreatgatsby.html', comments = comments)
-        except Exception as e:
-            return dumps({'error' : str(e)})
+            return render_template('/bookreviews/' + link + 'review.html')
+
+
+        
 
 @app.route("/shoppingcart")
 def shoppingcart():

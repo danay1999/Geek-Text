@@ -3,8 +3,10 @@
     "",
     "\\static",
     "\\static\\css",
+    "\\static\\img",
     "\\templates",
-    "\\templates\\distinctbooks",
+    "\\templates\\bookreviews",
+    "\\templates\\distinctbooksandauthors",
     "\\views",
     "\\__pycache__"
   ],
