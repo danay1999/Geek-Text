@@ -1,0 +1,41 @@
+.header_color{
+    padding-top: 1%;
+    background-color: #081E3f;
+}
+
+
+a{
+    color: #F8C93E;
+}
+
+html, body {
+    padding:0; 
+    margin:0; 
+    height:100%;
+   
+}
+
+.padding{
+   padding-top:4%;
+   padding-bottom: 4%;
+}
+
+footer{
+    position: absolute; 
+    bottom: 0; 
+    left: 0; 
+    right: 0;
+    background-color: rgb(8, 30, 63);
+   
+}
+
+.booksfooter{
+    position: sticky;
+}
+
+.copyright{
+    color: #F8C93E;
+    text-align: center;
+    
+}
+

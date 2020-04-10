@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head >
+  <head>
     <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <meta charset="utf-8" />
     <title>GeekText Wish List Management</title>
 
-   
-
     <!--Bootstrap-->
     <!-- Required meta tags -->
-    
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <!-- Bootstrap CSS --> 
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
 
     <!--Bootstrap-->
 
     <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">  
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+
     <link
       rel="stylesheet"
       href="{{ url_for('static',filename='css/normalize.css') }}"
@@ -31,82 +41,63 @@
       rel="stylesheet"
       href="{{ url_for('static',filename='css/animate.css') }}"
     />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static',filename='css/wishlist.css') }}"
-    />
-
+    <link rel="stylesheet" href="static/css/wishlist.css" type="text/css" />
+    <style>
+      a {
+        text-decoration: none;
+      }
+    </style>
   </head>
 
-  <body >
-    <!-- <header class="main_nav header_color">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{{ url_for('home') }}">Home <span class="sr-only">(current)</span></a>
-            </li>
-
-            <li class="nav-item active">
-              <a class="nav-link" href="{{ url_for('wishlist') }}">Wish List</a>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Dropdown
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-            
-            <li class="nav-item active">
-              <a class="nav-link" href="{{ url_for('shoppingcart')}}" tabindex="-1" aria-disabled="true">Shopping Cart</a>
-            </li>
-
-          </ul>
-
-          <form class="form-inline my-2 my-lg-0 ">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
-
+  <body>
+    <!--NAVIGATION BAR HERE-->
+    <header class="main_nav header_color">
+      <div class="container">
+        <div class="four columns">
+          <a class="" href="{{ url_for('home') }}"
+            ><strong>Geek</strong><em>Text</em></a
+          >
         </div>
-      </nav> -->
 
-<header  class=" row main_nav header_color">
-    <div class="container">
-      <div class="six columns">
-        <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+        <div class="one column">
+          <a class="" href="{{ url_for('home') }}">Home</a>
+        </div>
+
+        <div class="one column">
+          <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+        </div>
+        <div class="one column">
+          <a class="" href="{{ url_for('books') }}">Books</a>
+        </div>
+        <div class="one column">
+          <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+        </div>
+        <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+                </div>
       </div>
-     
         <div class="one column">
-        <a class=""  href="{{ url_for('home') }}">Home</a>
+          <a class="" href="{{ url_for('login') }}">Log In</a>
         </div>
         <div class="one column">
-        <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
-        </div> 
-        <div class="one column">
-        <a class="" href="{{ url_for('books') }}">Books</a>
-       </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
-       </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('login') }}">Log In</a>
+          <button class="button-primary" href="{{ url_for('signup') }}">
+            Sign Up
+          </button>
         </div>
-        <div class="one column">
-        <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
-        </div>
-  </header>
-  
+      </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+      {{ message }}
+    </div>
+    {% endfor%} {% endif %} {% endwith %}
 
     <div class="main topdiv">
       <div class="row container" background-color:blue></div>
@@ -115,96 +106,394 @@
     <!--My Work CD -->
     <div class="heading">
       <h3>Wish List Management</h3>
-      <p>Keep track of all the books you wish you had!</p>
+      <center>
+        <p>
+          Welcome to your Wishlist Management! Keep track of all the books you
+          wish you had!
+        </p>
+      </center>
     </div>
 
-    <div class="Parent">
-      <div class="p1" >
-        <ul class="list-group" id="myUL">
-          <h4>Wish List 1</h4>
-          {%for result in results %}
-          <li class="list-group-item " id="list_move" draggable="false">
-              {{result["book_name"]}}: {{result["author_name"]}} 
-              <button type ="button" class="del_1 btn btn-info">Delete</button> 
-              <button type ="button" class="move_1 btn btn-primary" onclick="myFunction()">Move</button> </li><br>
-          </li>
-          {% endfor %}
-        </ul>
+    <!-- MODAL WITH FORM USED TO UPDATE/CHANGE THE LIST TITLES. -->
+    <div>
+      <a href="{{ url_for('createList')}}">
+        <button type="button" class="btn btn-primary">
+          Create a List
+        </button></a
+      >
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        data-whatever="@getbootstrap"
+      >
+        Manage Lists
+      </button>
 
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">List Titles</h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form method="POST" action="">
+                {{ form1.hidden_tag() }} {{ form2.hidden_tag() }} {{
+                form3.hidden_tag() }}
+                <div class="form-group">
+                  {{ form1.title1.label(class="form-control-label") }} {% if
+                  form1.title1.errors %} {{form1.title1(class="form-control
+                  form-control-lg is-invalid")}}
+                  <div class="invalid-feedback">
+                    {% for error in form1.title1.errors %}
+                    <span>{{ error }}</span>
+                    {% endfor %}
+                  </div>
+                  {% else %} {{form1.title1(class="form-control
+                  form-control-lg")}} {% endif %}
+                </div>
+                <div class="form-group">
+                  {{form1.submit1(class="btn btn-outline-info")}}
+                </div>
+                <div class="form-group">
+                  {{ form2.title2.label(class="form-control-label") }} {{
+                  form2.title2(class="form-control form-control-lg")}}
+                </div>
+                <div class="form-group">
+                  {{form2.submit2(class="btn btn-outline-info")}}
+                </div>
 
-        <!--Delete Button functionality.-->
-        <script>
-            let deleteBtn = document.getElementsByClassName("del_1");
+                <div class="form-group">
+                  {{ form3.title3.label(class="form-control-label") }} {{
+                  form3.title3(class="form-control form-control-lg")}}
+                </div>
+                <div class="form-group">
+                  {{form3.submit3(class="btn btn-outline-info")}}
+                </div>
+              </form>
+            </div>
 
-            Array.prototype.slice.call(deleteBtn).forEach(function(item){
-                item.addEventListener("click", function(e){
-                  e.target.parentNode.remove()
-                });
-            });            
-        </script>
-        <!---------------------------------->
-        <!--Transfer Button Functionality.-->
-        <script>
-          document.addEventListener("DOMContentLoaded",function(){
-		        var buttons = document.querySelectorAll(".move_1");
-		        var list1 = document.getElementById("myUL");
-            var list2 = document.getElementById("myUL2");
-            var list3 = document.getElementById("myUL3");
-
-              function myFunction(e){
-                  var moveTo;
-
-                  switch (this.parentElement.parentElement) {
-                    case list1:
-                    moveTo = list2;
-                      break;
-                    case list2:
-                    moveTo = list3;  
-                    break;
-                    case list3:
-                      moveTo = list1;
-                    break;
-                  }  
-                 moveTo.appendChild(this.parentElement);
-
-              }
-              for(var i = 0; i < buttons.length; i++){
-                buttons[i].addEventListener("click", myFunction);
-              }
-
-	        })
-        </script>
-        <!------------------------------->
-
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="p2">
-        <ul id="myUL2" class="list-group-item2">
-          <h4>Wish List 2</h4>
-        </ul>
-      </div>
-
-      <div class="p3">
-        <ul id="myUL3" class="list-group-item2" >
-          <h4>Wish List 3</h4>
-        </ul>
-      </div>
-
-
     </div>
+    <!-- END MODAL WITH FORM USED TO UPDATE/CHANGE THE LIST TITLES. -->
 
-    <!- My Work CD-->
+    <!-- VERTICAL TABS AND RESPECTIVE PANES HERE -->
+    <div class="row">
+      <div class="col-2">
+        <div
+          class="nav flex-column nav-pills"
+          id="v-pills-tab"
+          role="tablist"
+          aria-orientation="vertical"
+        >
+          <a
+            class="nav-link active"
+            id="v-pills-home-tab"
+            data-toggle="pill"
+            href="#v-pills-home"
+            role="tab"
+            aria-controls="v-pills-home"
+            aria-selected="true"
+          >
+            List 1
+          </a>
+          <a
+            class="nav-link"
+            id="v-pills-profile-tab"
+            data-toggle="pill"
+            href="#v-pills-profile"
+            role="tab"
+            aria-controls="v-pills-profile"
+            aria-selected="false"
+            >List 2</a
+          >
+          <a
+            class="nav-link"
+            id="v-pills-messages-tab"
+            data-toggle="pill"
+            href="#v-pills-messages"
+            role="tab"
+            aria-controls="v-pills-messages"
+            aria-selected="false"
+            >List 3</a
+          >
+        </div>
+      </div>
+      <div class="col-8">
+        <div class="tab-content" id="v-pills-tabContent">
+          <div
+            class="tab-pane fade show active"
+            id="v-pills-home"
+            role="tabpanel"
+            aria-labelledby="v-pills-home-tab"
+          >
+            <ul class="list-group" id="myUL">
+              <!-- LOOPING through List of WishList -->
+              {%for wishList in results %}
+              <h4>
+                {{wishList["wishlist_title"]}}
+              </h4>
+              {{wishList["wishlistId"]}} {%for book in wishList["books_arr"]%}
+              <li class="list-group-item " id="list_move" draggable="false">
+                <div class="two columns">
+                  <img
+                    src="/img/{{book['link']}}.jpg"
+                    width="100"
+                    height="150"
+                  />
+                </div>
+                {{book.book_name}}<br />
+                By: {{book.author_name}}<br />
+                Price: {{book.price}}
+
+                <a
+                  href="{{ url_for('remove',list_id=wishList.wishlist_id, book_id=book._id)}}"
+                  ><button
+                    id="tryDel "
+                    type="submit"
+                    class="del_1 btn btn-info"
+                    style="float: right;"
+                  >
+                    Delete
+                  </button></a
+                >
+                <div class="dropdown">
+                  <button
+                    class="btn btn-outline-info dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style="float: right;"
+                  >
+                    Transfer To
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=1 ,list_id=2, book_id=book._id)}}"
+                      >List 2</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=1 ,list_id=3, book_id=book._id)}}"
+                      >List 3</a
+                    >
+                  </div>
+                </div>
+               
+                <a
+                  href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
+                  ><button class="btn btn-primary" style="float: right;">
+                    Cart
+                  </button>
+                </a>
+              </li>
+              {% endfor %} {% endfor %}
+            </ul>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="v-pills-profile"
+            role="tabpanel"
+            aria-labelledby="v-pills-profile-tab"
+          >
+            <ul id="myUL2" class="list-group">
+              {%for wishList in results2 %}
+              <h4>
+                {{wishList["wishlist_title2"]}}
+              </h4>
+
+              {%for book in wishList["books_arr2"]%}
+              <li class="list-group-item " id="list_move" draggable="false">
+                <div class="two columns">
+                  <img
+                    src="/img/{{book['link']}}.jpg"
+                    width="100"
+                    height="150"
+                  />
+                </div>
+                {{book.book_name}}<br />
+                By: {{book.author_name}}<br />
+                Price: {{book.price}}
+                <a
+                  href="{{ url_for('remove',list_id=wishList.wishlist_id, book_id=book._id)}}"
+                  ><button
+                    style="float: right;"
+                    id="tryDel "
+                    type="submit"
+                    class="del_1 btn btn-info"
+                  >
+                    Delete
+                  </button></a
+                >
+                                <div class="dropdown">
+                  <button
+                    class="btn btn-outline-info dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style="float: right;"
+                  >
+                    Transfer
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=2 ,list_id=1, book_id=book._id)}}"
+                      >List 1</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=2 ,list_id=3, book_id=book._id)}}"
+                      >List 3</a
+                    >
+                  </div>
+                </div>
+                <a
+                  href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
+                  ><button style="float: right;" class="btn btn-primary">
+                    Cart
+                  </button></a
+                >
+              </li>
+              {% endfor %} {% endfor %}
+            </ul>
+          </div>
+          <div
+            class="tab-pane fade"
+            id="v-pills-messages"
+            role="tabpanel"
+            aria-labelledby="v-pills-messages-tab"
+          >
+            <ul id="myUL3" class="list-group">
+              {%for wishList in results3 %}
+              <h4>
+                {{wishList["wishlist_title3"]}}
+              </h4>
+
+              {%for book in wishList["books_arr3"]%}
+              <li class="list-group-item " id="list_move" draggable="false">
+                <div class="two columns">
+                  <img
+                    src="/img/{{book['link']}}.jpg"
+                    width="100"
+                    height="150"
+                  />
+                </div>
+                {{book.book_name}}<br />
+                By: {{book.author_name}}<br />
+                Price: {{book.price}}
+
+                <a
+                  href="{{ url_for('remove',list_id=wishList.wishlist_id, book_id=book._id)}}"
+                  ><button
+                    style="float: right;"
+                    id="tryDel "
+                    type="submit"
+                    class="del_1 btn btn-info"
+                  >
+                    Delete
+                  </button></a
+                >
+                                <div class="dropdown">
+                  <button
+                    class="btn btn-outline-info dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style="float: right;"
+                  >
+                    Transfer
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=3 ,list_id=1, book_id=book._id)}}"
+                      >List 1</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=3 ,list_id=2, book_id=book._id)}}"
+                      >List 2</a
+                    >
+                  </div>
+                </div>
+                <a
+                  href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
+                  ><button style="float: right;" class="btn btn-primary">
+                    Cart
+                  </button></a
+                >
+              </li>
+              {% endfor %} {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END VERTICAL TABS AND RESPECTIVE PANES HERE -->
 
     <footer class="row bottom">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved.</p>
     </footer>
 
-
     <!--Bootstrap Additions-->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
-
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

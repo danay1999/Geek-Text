@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>GeekText</title>
+  <meta name="description" content="">
+  
+  <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">  
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+
+</head>
+<body >
+  
+  <header  class=" row main_nav header_color">
+    <div class="container">
+      <div class="four columns">
+        <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+      </div>
+        <div class="one column">
+        <a class=""  href="{{ url_for('home') }}">Home</a>
+        </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+        </div> 
+        <div class="one column">
+        <a class="" href="{{ url_for('books') }}">Books</a>
+       </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+       </div>
+       <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+           <!-- <div class="dropdown"> -->
+                <!-- <button class="dropbtn">Books</button> -->
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+              </div>
+      <!-- </div> -->
+      </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('login') }}">Log In</a>
+        </div>
+        <div class="one column">
+        <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
+        </div>
+
+  </header>
+
+<div  class="main">
+  <div class="row container">
+      {% if username in session%}
+        <p 'You are logged in as ' + session['username']></p>
+  </div>
+    {% endif %}
+   </div>
+  </div>
+{% for account in account %}
+<div  class="row botpadding">
+  <div  class="container">
+    
+    <div class = "four columns">    
+           <!-- <div class="dropdown"> -->
+                <!-- <button class="dropbtn">Books</button> -->
+                <div class="dropdown">
+                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <a href="#">Cards</a>
+                  <a href="#">Shipping Addresses</a>
+                  <a href="#">Billing Addresses</a>
+                  <a href="#">User Information</a>
+              </div>
+      <!-- </div> -->
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+   
+<footer class="row">
+      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+</footer>
+
+    <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

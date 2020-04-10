@@ -6,7 +6,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>GeekText</title>
-  <meta name="description" content="A website to document natural disasters and where you can request help or offer help to people in need">
+  <meta name="description" content="">
   
   <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,13 +15,15 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}"> 
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 
 </head>
 <body >
-  
-<header  class=" row main_nav header_color">
+<header  class=" row main_nav header_color botpadding">
     <div class="container">
-      <div class="six columns">
+      <div class="four columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
       </div>
      
@@ -37,6 +39,15 @@
         <div class="one column">
         <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
        </div>
+       <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+              </div>
+      </div>
         <div class="one column">
         <a class="" href="{{ url_for('login') }}">Log In</a>
         </div>
@@ -44,30 +55,33 @@
         <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
         </div>
   </header>
+  <div class="container">
+      <div class="row">
+          <div class="col-md-4"></div>
+              <div class="col-md-6">
+                  <form method=POST action="{{ url_for('login') }}"></form>
 
-<div  class="main topdiv">
-  <div class="row container">
+{% block content %}
+  <form method="post">
+    <dl>
+    <label for="email">Email</label>
+    <input type="email" name="email" id="email" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required> 
+    <type for="remember">Remember Me</label> <input type="checkbox" id="remember" name="remember" checked/>
+  </dl>
     
-       
-        </div>
-        </div>
-
-<script>
-function loadDoc() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("demo").innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("GET", "ajax_info.txt", true);
-  xhttp.send();
-}
-</script>
+    <input type="submit" value="Log In">
+  </form>
+</div>
+</div>
+</div>
+{% endblock %}
 
  <footer class="row">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 
-</body></html>
+</body>
+</html>
 
