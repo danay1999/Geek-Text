@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -75,14 +75,23 @@
             <p> <b>Publisher: </b>{{book.publisher}} <br>
                 <b>Release Date: </b>{{book.publishing_info}} <br>
                 <b> {{book.type}}:</b> {{book.pages}} pages <br> </p> 
-            <p> <b> Rating: </b>{{book.avg_book_rating}} </p>
+            <p> <b> Rating: </b>{{avg}} </p>
         
            
           </div>  
           <div class="twelve columns">
-          
-          <br><a href="#otherbooks"><b>{{book.author_name}} </b></a>  <br> 
-          {{book.short_bio}}
+
+              <br><a href="#otherbooks"><b>{{book.author_name}} </b></a>  <br>
+              {{book.short_bio}}<br />
+              <a style="font-size:1.8em" href="{{ url_for('message1',link=book.link) }}">Review Book</a><br /><br />
+              <p style="font-size: 25px;"> Comments: <br> </p>
+              {% for comment in comments %}
+              {% for individual in comment.comment %}
+
+              {{ individual }} <br><br>
+
+              {% endfor %}
+              {% endfor %}
 
           </div>
           
@@ -121,7 +130,7 @@
   
   
 
-  <footer class="row footer">
+  <footer class="row booksfooter">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 
