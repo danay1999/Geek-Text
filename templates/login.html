@@ -62,18 +62,22 @@
               <div class="col-md-6">
                   <form method=POST action="{{ url_for('login') }}"></form>
 
+
 {% block content %}
-  <form method="post">
-    <dl>
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required> 
-    <type for="remember">Remember Me</label> <input type="checkbox" id="remember" name="remember" checked/>
+{% from "_formhelpers.html" import render_field %}
+  
+<form method=post>
+  <dl>
+    {{ render_field(form.email) }}
+    {{ render_field(form.password) }}
+    {{ render_field(form.remember) }}
   </dl>
     
     <input type="submit" value="Log In">
   </form>
+  <div>
+    Don't have an account? <a href="{{ url_for('signup') }}">Sign up here</a>.
+</div>
 </div>
 </div>
 </div>
