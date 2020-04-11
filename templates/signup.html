@@ -59,33 +59,35 @@
         <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
         </div>
   </header>
-  {% block content %}
-  <div class="container">
+<div class="container">
       <div class="row">
           <div class="col-md-6 col-md-offset-6">
               <form method=POST action="{{ url_for('signup') }}">
-  
-                <form method=post onSubmit=form.validate>
+                {% block content %}
+                {% from "_formhelpers.html" import render_field %}
+                {% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	    {% for message in messages %}
+		  <div class="alert alert-warning alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+			{{message}}
+		  </div>
+		{% endfor %}
+	  {% endif %}
+	{% endwith %}
+                <form method=post>
                   <dl>
-                    <div class="form-group">
-                      <label for="InputName">Name and Last Name</label>
-                      <input type="name" class="form-control" name="name" placeholder="Name">
-                      <div class="form-group">
-                        <label for="InputUsername">Username</label>
-                        <input type="username" class="form-control" name="username" placeholder="Username">
-                        <div class="form-group">
-                          <label for="InputEmail">Email</label>
-                          <input type="email" class="form-control" name="email" placeholder="Email">
-                          <div class="form-group">
-                            <label for="InputPassword">Password</label>
-                            <input type="password" class="form-control" name="password" placeholder="Password">
-                            <div class="form-group">
-                              <label for="InputPassword2">Confirm Password</label>
-                              <input type="password" class="form-control" name="confirm" placeholder="Confirm Password">
-                                     
+                    {{ render_field(form.name) }}
+                    {{ render_field(form.username) }}
+                    {{ render_field(form.email) }}
+                    {{ render_field(form.password) }}
+                    {{ render_field(form.confirm) }}
                   </dl>
                   <p><input type=submit value="Sign Up" class="btn btn-info"></p>
                 </form>
+                <div>
+                  Already have an account? <a href="{{ url_for('login') }}">Log In</a>.
+              </div>
           </div>
       </div>
   </div>
