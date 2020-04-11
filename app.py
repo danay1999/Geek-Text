@@ -206,6 +206,8 @@ def moveToCart(list_id, book_id):
     #Insert into the shopping cart collection.
     try:
         cart_c.insert_one(result)
+        cart_c.update(result, 
+    {"$inc": {"quantity": 1}})
     except pymongo.errors.DuplicateKeyError:
         return redirect('/wishlist')
 
@@ -287,10 +289,16 @@ def message1(link):
 @app.route("/addCart/<book_id>", methods=["GET", "POST"])
 def addCart(book_id):
     #result = db.details.find({"book_name": "book_name"})
-    result = db_c.find_one({"_id": ObjectId(book_id)})
-
+    result = db_c.find_one(
+        {"_id": ObjectId(book_id)}
+        
+    )
+    
     try:
+        
         cart_c.insert_one(result)
+        cart_c.update(result, 
+    {"$inc": {"quantity": 1}})
     except pymongo.errors.DuplicateKeyError:
         pass
 
@@ -305,6 +313,8 @@ def addCartSave(book_id):
 
     try:
         cart_c.insert_one(result)
+        cart_c.update(result, 
+    {"$inc": {"quantity": 1}})
     except pymongo.errors.DuplicateKeyError:
         pass
 
@@ -339,8 +349,8 @@ def saveLater(book_id):
     cart_c.delete_one({"_id": ObjectId(book_id)})
 
     return redirect('/shoppingcart')
-    
 
+    
 @app.route("/shoppingcart")
 def shoppingcart():
     cart = cart_c.find()
