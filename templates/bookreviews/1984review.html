@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/commentstyle.css') }}">
- 
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
+
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 
 </head>
@@ -149,7 +150,7 @@
                             alert("Rate has been submitted! Rate Given: " + num)
                             window.location = "/books/1984"
                         }, error: function (result) {
-                            console.log("Did not send" + num);
+                            console.log("Did not send: " + num);
                         }
                         
                     });

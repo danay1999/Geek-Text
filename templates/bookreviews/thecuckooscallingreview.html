@@ -82,11 +82,11 @@
 
     <div class="row container padding">
         <div class="container twelve columns">
-            <h1> Comment and Rate the book: The Great Gatsby </h1>
+            <h1> Comment and Rate the book: The Cuckoo's Calling </h1>
 
             <div class="six columns">
                 <a>Leave a comment:</a>
-                <form action="/books/thegreatgatsby/review" method='POST'>
+                <form action="/books/thecuckooscalling/review" method='POST'>
                     <textarea name='comment' id="comment" cols="30" rows="60" placeholder="Please enter your comment here."></textarea><br>
                     <input type="radio" id="Anonymous" name="name" value="Anonymous"> Anonymous
                     <input type="radio" id="Nickname" name="name" value="Nickname"> Nickname <br />
@@ -141,15 +141,15 @@
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json',
-                url: '/books/thegreatgatsby/review',
+                url: '/books/thecuckooscalling/review',
                 dataType: 'json',
                 data: JSON.stringify(num),
                 success: function (result) {
                     console.log(num);
                     alert("Rate has been submitted! Rate Given: " + num)
-                    window.location = "/books/thegreatgatsby"
+                    window.location = "/books/thecuckooscalling"
                 }, error: function (result) {
-                    console.log("Did not send" + num);
+                    console.log("Did not send: " + num);
                 }
 
             });
