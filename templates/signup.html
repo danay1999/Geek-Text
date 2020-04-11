@@ -7,7 +7,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>GeekText</title>
-  
+  <meta name="description" content="">
   
   <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,12 +17,16 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">  
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">  
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
 </head>
 <body >
-<header  class=" row main_nav header_color botpadding">
+  <header class=" row main_nav header_color botpadding" style="
+  padding-top: 13.141;
+  padding-bottom: 0px;
+">
     <div class="container">
       <div class="four columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
@@ -59,7 +63,8 @@
         <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
         </div>
   </header>
-<div class="container">
+
+  <div class="container">
       <div class="row">
           <div class="col-md-6 col-md-offset-6">
               <form method=POST action="{{ url_for('signup') }}">
@@ -92,6 +97,7 @@
       </div>
   </div>
   {% endblock content %}
+  
 
 <footer class="row">
     <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
