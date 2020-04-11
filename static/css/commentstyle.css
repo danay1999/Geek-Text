@@ -1,0 +1,34 @@
+textarea{
+    width: 400px;
+    height: 80px;
+    background-color: #fff;
+    resize: none;
+}
+
+button{
+    width: 100px;
+    height: 30px;
+    background-color: #282828;
+    border: none;
+    color: #fff;
+    font-family: Arial;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+ul{
+    width: 815px;
+    padding: 20px;
+    margin-bottom: 4px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.comment-box p{
+    font-family: Arial;
+    font-size: 14px;
+    line-height: 16px;
+    color: #282828;
+    font-weight: 100;
+}
+

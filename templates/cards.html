@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>GeekText</title>
+  <meta name="description" content="">
+  
+  <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">  
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+
+</head>
+<body >
+  
+  <header  class=" row main_nav header_color botpadding">
+    <div class="container">
+      <div class="four columns">
+        <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+      </div>
+        <div class="one column">
+        <a class=""  href="{{ url_for('home') }}">Home</a>
+        </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+        </div> 
+        <div class="one column">
+        <a class="" href="{{ url_for('books') }}">Books</a>
+       </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+       </div>
+       <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+                </div>
+      </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('login') }}">Log In</a>
+        </div>
+        <div class="one column">
+        <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
+        </div>
+
+  </header>
+  <div class="container">
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-6">
+              <form method=POST action="{{ url_for('cards') }}"></form>
+  
+{% block content %}
+  <form method="post">
+    <dl>
+    <label for="card_type">Card Type</label>
+    <select type="card_type" id="card_type" name="card_type" required>
+        <option value="Visa">Visa</option>
+        <option value="MasterCard">MasterCard</option>
+        <option value="Discover">Discover</option>
+        <option value="American Express">American Express</option>
+      </select>
+    <label for="card_number">Card Number</label>
+    <input type="card_number" name="card_number" id="card_number" required>
+    <label for="cvv">CVV</label>
+    <input type="cvv" name="cvv" id="cvv" required>
+    <label for="exp_month">Expiration Month</label>
+    <select type="exp_month" name="exp_month" id="exp_month" required>
+        <option value="January">January</option>      
+        <option value="February">February</option>                 
+        <option value="March">March</option>                       
+        <option value="April">April</option>                       
+        <option value="May">May</option>                            
+        <option value="June">June</option>
+        <option value="July">July</option>
+        <option value="August">August</option>
+        <option value="September">September</option>
+        <option value="October">October</option>
+        <option value="November">November</option>
+        <option value="December">December</option>
+      </select>
+      <label for="exp_year">Expiration Year</label>
+    <select type="exp_year" name="exp_year" id="exp_year" required>
+        <option value="2020">2020</option>      
+        <option value="2021">2021</option>                 
+        <option value="2022">2022</option>                       
+        <option value="2023">2023</option>                       
+        <option value="2023">2024</option>  
+      </select>   
+    </dl>
+
+    <input type=submit value="Add Card" class="btn btn-info">
+</form> 
+  {% endblock %}
+
+<footer class="row">
+    <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+</footer>
+
+  <!-- End Document
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

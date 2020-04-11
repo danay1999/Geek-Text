@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,24 +7,24 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>GeekText</title>
-  <meta name="description" content="A website to document natural disasters and where you can request help or offer help to people in need">
+  
   
   <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="../static/css/normalize.css">
-  <link rel="stylesheet" href="../static/css/skeleton.css">
-  <link rel="stylesheet" href="../static/css/animate.css">
-  <link rel="stylesheet" href="../static/css/style.css">
-
-  
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">  
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
 </head>
 <body >
-<header  class=" row main_nav header_color">
+<header  class=" row main_nav header_color botpadding">
     <div class="container">
-      <div class="six columns">
+      <div class="four columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
       </div>
      
@@ -39,6 +40,18 @@
         <div class="one column">
         <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
        </div>
+       <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+           <!-- <div class="dropdown"> -->
+                <!-- <button class="dropbtn">Books</button> -->
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+              </div>
+      <!-- </div> -->
+      </div>
         <div class="one column">
         <a class="" href="{{ url_for('login') }}">Log In</a>
         </div>
@@ -46,32 +59,43 @@
         <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
         </div>
   </header>
-  </div>
-     </div>
+  {% block content %}
   <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-6">
-            <form method=POST action="{{ url_for('signup') }}">
-                <div class="form-group">
-                    <label for="InputEmail1">Username</label>
-                    <input type="text" class="form-control" name="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="InputPassword1">Password</label>
-                    <input type="password" class="form-control" name="pass" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
-            </form>
-            <br>
-        </div>
-    </div>
-</div>
-    <!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+      <div class="row">
+          <div class="col-md-6 col-md-offset-6">
+              <form method=POST action="{{ url_for('signup') }}">
+  
+                <form method=post onSubmit=form.validate>
+                  <dl>
+                    <div class="form-group">
+                      <label for="InputName">Name and Last Name</label>
+                      <input type="name" class="form-control" name="name" placeholder="Name">
+                      <div class="form-group">
+                        <label for="InputUsername">Username</label>
+                        <input type="username" class="form-control" name="username" placeholder="Username">
+                        <div class="form-group">
+                          <label for="InputEmail">Email</label>
+                          <input type="email" class="form-control" name="email" placeholder="Email">
+                          <div class="form-group">
+                            <label for="InputPassword">Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                            <div class="form-group">
+                              <label for="InputPassword2">Confirm Password</label>
+                              <input type="password" class="form-control" name="confirm" placeholder="Confirm Password">
+                                     
+                  </dl>
+                  <p><input type=submit value="Sign Up" class="btn btn-info"></p>
+                </form>
+          </div>
+      </div>
+  </div>
+  {% endblock content %}
 
-  <footer class="row">
-      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+<footer class="row">
+    <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 
+  <!-- End Document
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 </html>

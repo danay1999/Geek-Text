@@ -6,7 +6,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>GeekText</title>
-  <meta name="description" content="A website to document natural disasters and where you can request help or offer help to people in need">
+  
   
   <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,8 +15,16 @@
   <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+<<<<<<< HEAD
   <link rel="stylesheet" href="{{ url_for('static',filename='css/test24.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
+=======
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/test20.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
+
+
+>>>>>>> 429f8feba4c56069d2f77b1010c59add39c03941
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
@@ -27,8 +35,13 @@
   
  <header  class=" row main_nav header_color" >
     <div class="container">
+<<<<<<< HEAD
       <div class="six columns">
         <a class=""  href="{{ url_for('home') }}" ><strong>Geek</strong><em>Text</em></a>
+=======
+      <div class="four columns">
+        <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+>>>>>>> 429f8feba4c56069d2f77b1010c59add39c03941
       </div>
      
         <div class="one column">
@@ -43,6 +56,15 @@
         <div class="one column">
         <a class="" href="{{ url_for('shoppingcart') }}" >Shopping Cart</a>
        </div>
+      <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+              </div>
+      </div>
         <div class="one column">
         <a class="" href="{{ url_for('login') }}" >Log In</a>
         </div>
