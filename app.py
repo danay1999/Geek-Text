@@ -359,83 +359,111 @@ def shoppingcart():
     return render_template("/shoppingcart.html", cart = cart, save = save)
 
 
-app.config['MONGO_DBNAME'] = 'users'
-app.config['MONGO_URI'] = 'mongodb+srv://bdiaz071:0312651pw@bookstore-2edyi.mongodb.net/users'
+app.config['MONGO_DBNAME'] = 'book_info'
+app.config['MONGO_URI'] = 'mongodb+srv://bdiaz071:0312651pw@bookstore-2edyi.mongodb.net/book_info'
 mongo = PyMongo(app)
 
-@app.route("/signup", methods=['POST', 'GET'])
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     form = SignupForm(request.form)
     if request.method == 'POST' and form.validate():
-        users = db_b.users
-        existing_user = users.find_one({'email' : form.email.data})
+        users = mongo.db.users
+        account = mongo.db.account
+        existing_user = users.find_one({'email' : request.form['email']})
 
         if existing_user is None:
-            hashpass = bcrypt.generate_password_hash(form.password.data)
-            users.insert({'name': form.name.data, 'username': form.username.data, 'email': form.email.data,
-                    'password': hashpass})
-            session['email'] : request.form['email']
-            flash("You are now logged in", 'success')
-            return render_template('index.html')
-
-        return render_template('signup.html')
-        
-    return render_template('signup.html')
+            hashed_password = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+            user = users.insert_one({'name': form.name.data, 'username': form.username.data, 'email': form.email.data,
+                    'password': hashed_password})
+            account.insert_one({'name': form.name.data, 'username': form.username.data, 'email': form.email.data,
+                    'password': hashed_password})
+            session['email'] =  request.form['email']
+            flash("Thank you for signing up")
+            return redirect(url_for('account'))
+        return 'User already exists with this email, please go back and Log In'
+    return render_template('signup.html', form=form)
 
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
-    form = LoginForm(request.form) 
-    if request.method == 'POST' and form.validate():
-        users = db_b.users
+    form = LoginForm(request.form)
+    if request.method == 'POST' and form.validate(): 
+        users = mongo.db.users
         login_user = users.find_one({'email' : request.form['email']})
 
         if login_user:
-            users = db_b.users
-            hashpass = bcrypt.generate_password_hash('password')
-            if bcrypt.check_password_hash(hashpass, form.password.data) and login_user['password'] == login_user['password']:
-                session['email'] = request.form['email']
-            return render_template('index.html')
-
-        return 'Invalid username or password. Please try again'
-    return render_template('login.html')
+            if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password']) == login_user['password']:
+                session['email'] =  request.form['email']
+                return redirect(url_for('account'))   
+    return render_template('login.html', form=form)
 
 
 @app.route("/logout")
 def logout():
     session.clear()
-    return render_template("index.html")
+    return render_template('index.html')
 
-@app.route("/account")
+@app.route("/account", methods=['GET'])
 def account():
-    if login_user in session:
-        return render_template('account.html')
+    form = LoginForm(request.form)
+    if 'email' in session:
+        users = mongo.db.account
+        cards = mongo.db.account
+        #address = mongo.db.address
+        #email = users.find_one({"email" : form.email.data})
+        email = session['email']
+        print(email)        
+        
+        #printaddress = address.find_one({"_id": ObjectId(addresss_id)})
+        #print(printuser)
+        #print(printaddress)
+        
+        return render_template('account.html', email=email)
     return redirect(url_for('login'))
+   
 
 @app.route("/cards", methods=['POST', 'GET'])
 def cards():
     form = CreditcardForm(request.form)
-
     if request.method == 'POST' and form.validate():
-        cards = db_b.cards
-        cards.insert({'card_type': form.card_type.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data})
+        cards = mongo.db.cards
+        cards_id = cards.insert_one({'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data})
+        account = mongo.db.account
+        account.update({"email": session['email']}, {'$set': {'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data}}, upsert= True)
         return redirect(url_for('shoppingcart')) 
-    return render_template('cards.html')
+    return render_template('cards.html', form=form)
 
 @app.route("/address", methods=['POST', 'GET'])
 def address():
     form = AddressForm(request.form)
     if request.method == 'POST':
-        address = db_b.address
-        address.insert({'nickname': form.nickname.data, 'name': form.name.data, 'address_line_1': form.address_line_1.data, 'address_line_2': form.address_line_2.data, 'city': form.city.data, 'state' : form.state.data})
-        return redirect(url_for('account'))
+        address = mongo.db.address
+        address.insert({'nickname': form.nickname.data, 'name': form.name.data, 'address_line_1': form.address_line_1.data, 'address_line_2': form.address_line_2.data, 'city': form.city.data, 'state' : form.state.data, 'zip' : form.zip.data})
+        account = mongo.db.account
+        if nickname:
+            account = mongo.db.account
+            account.update({"email": session['email']}, {'$set': {'nickname': form.nickname.data, 'name': form.name.data, 'address_line_1': form.address_line_1.data, 'address_line_2': form.address_line_2.data, 'city': form.city.data, 'state' : form.state.data, 'zip' : form.zip.data}}, upsert= True)
+            return redirect(url_for('account'))
     return render_template('address.html')
 
 
 
-@app.route("/profile")
+@app.route("/profile", methods=['GET'])
 def profile():
-    return render_template("profile.html")
+    if 'email' in session:
+        users = mongo.db.users
+        cards = mongo.db.cards
+        address = mongo.db.address
+
+        printuser = users.find_one({"email": "osito@gmail.com"}, {"email": ""})
+        printcard = cards.find_one({"name_on_card" : "Patricia Toledo"}, {"card_number": ""})
+        #printaddress = address.find_one({"_id": ObjectId(addresss_id)})
+        print(printuser)
+        #print(printaddress)
+        print(printcards)
+        return redirect(url_for('login'))
+    return render_template('account.html', printuser=printuser, printcard=printcard)
+#, printaddress=printaddress {{profile.printaddress}}
 
 
 
