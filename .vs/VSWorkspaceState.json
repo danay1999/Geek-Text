@@ -2,11 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\static",
-    "\\static\\css",
-    "\\static\\img",
     "\\templates",
     "\\templates\\bookreviews",
-    "\\templates\\distinctbooksandauthors",
+    "\\templates\\distinctbooks",
     "\\views",
     "\\__pycache__"
   ],

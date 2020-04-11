@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, Form, BooleanField, PasswordField, validators, IntegerField, DateField, SelectField
+from wtforms import StringField, SubmitField, Form, BooleanField, PasswordField, validators, IntegerField, SelectField, DateField
 from wtforms.validators import Length, DataRequired, Email, EqualTo, ValidationError
 from datetime import date
+
 
 
 class TitleForm1(FlaskForm):
@@ -25,7 +26,7 @@ class SignupForm(Form):
         validators.DataRequired(),
         validators.EqualTo('confirm', message='Passwords must match')
     ])
-    confirm = PasswordField('Repeat Password')
+    confirm = PasswordField('Confirm Password')
     submit = SubmitField('Sign up')
 
     
@@ -37,26 +38,27 @@ class LoginForm(Form):
     submit = SubmitField('Log In')
 
 class EditAccountForm(FlaskForm):
-    name = StringField('Name and Last name',
-                       validators.Length(min=6, max=30))
-    username = StringField('Username',
+    def __init__(self, name, username, email, password, confirm, submit):
+        username = StringField('Username',
                            validators.Length(min=6, max=25))
-    email = StringField('Email',
+        email = StringField('Email',
                         validators=[Email()])
-    password = PasswordField('Password', [validators.Length(min=8),
+        password = PasswordField('Password', [validators.Length(min=8),
         validators.DataRequired(),
-        validators.EqualTo('confirm', message='Passwords must match')
-    ])
-    confirm = PasswordField('Repeat Password')
-    submit = SubmitField('Submit')
+        validators.EqualTo('confirm', message='Passwords must match')])
+        confirm = PasswordField('Repeat Password')
+        submit = SubmitField('Submit')
+
+    def __repr__(self):
+        return f'<User: {self.email}>'
 
 class CreditcardForm(Form):
-    card_type = SelectField('Card Type', choices=['Visa', 'MasterCard', 'Discover', 'American Express'])
-    name_on_card = StringField('Name on Card', validators.DataRequired())
-    card_number = StringField('Card Number', validators=[Length(min=16, max=20)])
-    cvv = IntegerField('CVV')
-    exp_month = SelectField('Expiration Month', choices=['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'])
-    exp_year = SelectField('Expiration Year', choices=['2020','2021','2022','2023','2024'])
+    card_type = StringField('Card Type')
+    name_on_card = StringField('Name on Card', [DataRequired(), validators.Length(min=6, max=30)])
+    card_number = IntegerField('Card Number', [DataRequired(), validators.NumberRange(min=100000000000000, max=9999999999999999)])
+    cvv = IntegerField('CVV', [DataRequired(), validators.NumberRange(min=000, max=9999)])
+    exp_month = StringField('Expiration Month')
+    exp_year = StringField('Expiration Year')
     submit = SubmitField('Submit')
 
 class AddressForm(Form):
@@ -73,3 +75,4 @@ class AddressForm(Form):
                         'Utah','Vermont' ,'Virginia' ,'Washington' ,'West Virginia','Wisconsin' ,'Wyoming'])
     zip = StringField('Zip Code')
     submit = SubmitField('Submit')
+

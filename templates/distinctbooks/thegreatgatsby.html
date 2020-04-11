@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -86,7 +86,7 @@
 
 
           <div>
-            <a style="font-size:1.8em" href="{{ url_for('message1',link=book.link) }}">Comment and Review</a> 
+            <a style="font-size:1.8em" href="{{ url_for('message1',link=book.link) }}">Review Book</a> 
             <p style="font-size: 25px;"> Comments: <br> </p>
               {% for comment in comments %}
               {% for individual in comment.comment %}
