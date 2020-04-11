@@ -273,14 +273,14 @@ def message1(link):
             comment = request.form['comment']
             if 'name' not in request.form:
                 comments = db_b.details.update({"link": link}, {'$push': {"comment": "FirstName" + " : " + request.form.get('comment')}})
-                return redirect("/books/"+link)
+                return redirect("/books/"+link+"/review")
             else:
                 if "Anonymous" in request.form['name']:
                     comments = db_b.details.update({"link": link}, {'$push': {"comment": "Anonymous" + " : " + request.form.get('comment')}})
-                    return redirect("/books/"+link)
+                    return redirect("/books/"+link+"/review")
                 else:
                     comments = db_b.details.update({"link": link}, {'$push': {"comment": "Nickname" + " : " + request.form.get('comment')}})
-                    return redirect("/books/"+link)
+                    return redirect("/books/"+link+"/review")
     else:
             return render_template('/bookreviews/' + link +'review.html')
 
