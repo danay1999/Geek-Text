@@ -12,14 +12,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> 
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
 </head>
-
+  
  <style>A {text-decoration: none;} </style>
 <body >
 <header  class=" row main_nav header_color">
@@ -68,40 +68,55 @@
 
           <div class = "nine columns">  
             <a style="font-size:2em" href="{{ url_for('distinctbook',link=book.link) }}" ><b>{{book.book_name}}</b></a>
-            <br> Written by <a  href="#otherbooks"><b>{{book.author_name}}</b></a>
+            <br> Written by <a  href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap"><b>{{book.author_name}}</b></a>
             <br> <br>
             <p> "{{book.book_description}}"</p>
             <p> <b>Genre:</b> {{book.genre}}</p>
             <p> <b>Publisher: </b>{{book.publisher}} <br>
                 <b>Release Date: </b>{{book.publishing_info}} <br>
                 <b> {{book.type}}:</b> {{book.pages}} pages <br> </p> 
-            <p> <b> Rating: </b>{{book.avg_book_rating}} </p>
+            <p> <b> Rating: </b>{{avg}} </p>
            
           </div>  
           <div class="twelve columns">
           
-          <br><a href="#otherbooks"><b>{{book.author_name}} </b></a>  <br> 
+          <br><a  href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap"><b>{{book.author_name}}</b></a>  <br> 
           {{book.short_bio}}
 
+          <br><br>
+            <a style="font-size:1.2em" href="{{ url_for('message1',link=book.link) }}">Review Book</a><br><br>
+
+          <p><b> Customer Comments: </b> <br> </p>
+            {% for comment in comments %}
+              {% for individual in comment.comment %}
+                {{ individual }} <br><br>
+              {% endfor %}
+            {% endfor %}
           </div>
           
         </div>    
         
        
-        {%endif%}
-        
-        {%endfor%}
+        {%endif%} 
+    {%endfor%}
         
         </div>
+   
+
    
         {% for author in authors %}
         {% if author.author_name == "J. K. Rowling"%}
   
-            <div id="otherbooks" class="overlay">
-              <div class="author">
-                <h5>{{author.author_name}}</h5>
-                <a class="closemodal" href="">&times;</a>
-                 <div class="content">
+                  <div class="modal fade" id="otherBooks" tabindex="-1" role="dialog" aria-labelledby="otherBooksLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="otherBooksLabel">{{author.author_name}}</h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+            Other book(s) by this author are: <br><br>
+
                     {% for title in author.books %}
                        {% if title == "The Cuckoo's Calling" %}
                          <a href="{{ url_for('distinctbook',link=author.link2) }}">{{ title }}</a><br> 
@@ -111,7 +126,13 @@
                        {%endif%}  
                     {%endfor%}
               </div>
-         </div>  
+            <div class="modal-footer">
+              <button type="button" class="btn button-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
          {%endif%}     
         {%endfor%}  
@@ -120,10 +141,25 @@
   </div>
 
   
-  
+  <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script> 
+
   
 
-  <footer class="row footer">
+  <footer class="row booksfooter">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 
