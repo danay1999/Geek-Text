@@ -12,7 +12,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
@@ -47,6 +46,8 @@
         </div>
   </header>
 
+  
+
 {% for book in books %}
     {% if book.book_name == "1984"%}
 
@@ -75,7 +76,8 @@
             <p> <b>Publisher: </b>{{book.publisher}} <br>
                 <b>Release Date: </b>{{book.publishing_info}} <br>
                 <b> {{book.type}}:</b> {{book.pages}} pages <br> </p> 
-            <p> <b> Rating: </b>{{book.avg_book_rating}} </p>
+            <p> <b> Rating: </b>{{avg}} </p>
+            <a style="font-size:2em" href="{{ url_for('message1',link=book.link) }}">Comment and Review</a>
         
            
           </div>  
@@ -84,6 +86,14 @@
           <br><a href="#otherbooks"><b>{{book.author_name}} </b></a>  <br> 
           {{book.short_bio}}
 
+          <p style="font-size: 25px;"> Comments: <br> </p>
+            {% for comment in comments %}
+              {% for individual in comment.comment %}
+
+              {{ individual }} <br><br>
+
+              {% endfor %}
+            {% endfor %}
           </div>
           
         </div>    
@@ -121,7 +131,7 @@
   
   
 
-  <footer class="row footer">
+  <footer class="row booksfooter">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 

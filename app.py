@@ -231,7 +231,28 @@ def distinctbook(link):
     except Exception as e:
         return dumps({"error": str(e)})
 
-
+@app.route("/books/<link>/review", methods=['POST', 'GET'])
+def message1(link):
+    if request.method == 'POST' and request.get_json():
+        rates = request.get_json(force=True)
+        db_b.details.update({"link": link}, {'$push': {"avg_book_rating": rates }})
+        res = make_response(jsonify({"message": "OK"}), 200)
+        return res
+    
+    if request.method == 'POST' and request.form['comment']:
+            comment = request.form['comment']
+            if 'name' not in request.form:
+                comments = db_b.details.update({"link": link}, {'$push': {"comment": "FirstName" + " : " + request.form.get('comment')}})
+                return redirect("/books/"+link)
+            else:
+                if "Anonymous" in request.form['name']:
+                    comments = db_b.details.update({"link": link}, {'$push': {"comment": "Anonymous" + " : " + request.form.get('comment')}})
+                    return redirect("/books/"+link)
+                else:
+                    comments = db_b.details.update({"link": link}, {'$push': {"comment": "Nickname" + " : " + request.form.get('comment')}})
+                    return redirect("/books/"+link)
+    else:
+            return render_template('/bookreviews/' + link +'review.html')
 
 @app.route("/addCart/<book_id>", methods=["GET", "POST"])
 def addCart(book_id):
