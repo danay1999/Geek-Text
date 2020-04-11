@@ -13,7 +13,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS --> 
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -24,6 +24,11 @@
     <!--Bootstrap-->
 
     <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">  
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+
     <link
       rel="stylesheet"
       href="{{ url_for('static',filename='css/normalize.css') }}"
@@ -48,7 +53,7 @@
     <!--NAVIGATION BAR HERE-->
     <header class="main_nav header_color">
       <div class="container">
-        <div class="three columns">
+        <div class="four columns">
           <a class="" href="{{ url_for('home') }}"
             ><strong>Geek</strong><em>Text</em></a
           >
@@ -67,11 +72,18 @@
         <div class="one column">
           <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
         </div>
-
+        <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+                </div>
+      </div>
         <div class="one column">
           <a class="" href="{{ url_for('login') }}">Log In</a>
         </div>
-
         <div class="one column">
           <button class="button-primary" href="{{ url_for('signup') }}">
             Sign Up
@@ -94,7 +106,12 @@
     <!--My Work CD -->
     <div class="heading">
       <h3>Wish List Management</h3>
-      <p>Keep track of all the books you wish you had!</p>
+      <center>
+        <p>
+          Welcome to your Wishlist Management! Keep track of all the books you
+          wish you had!
+        </p>
+      </center>
     </div>
 
     <!-- MODAL WITH FORM USED TO UPDATE/CHANGE THE LIST TITLES. -->
@@ -267,17 +284,35 @@
                     Delete
                   </button></a
                 >
-                <a
-                  href="{{ url_for('moveBooks',list_id=wishList.wishlist_id,book_id=book._id) }}"
-                  ><button
-                    style="float: right;"
+                <div class="dropdown">
+                  <button
+                    class="btn btn-outline-info dropdown-toggle"
                     type="button"
-                    class="move_1 btn btn-primary"
-                    onclick="myFunction()"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style="float: right;"
                   >
-                    Move
+                    Transfer To
                   </button>
-                </a>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=1 ,list_id=2, book_id=book._id)}}"
+                      >List 2</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=1 ,list_id=3, book_id=book._id)}}"
+                      >List 3</a
+                    >
+                  </div>
+                </div>
+               
                 <a
                   href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
                   ><button class="btn btn-primary" style="float: right;">
@@ -323,17 +358,34 @@
                     Delete
                   </button></a
                 >
-                <a
-                  href="{{ url_for('moveBooks',list_id=wishList.wishlist_id,book_id=book._id) }}"
-                  ><button
-                    style="float: right;"
+                                <div class="dropdown">
+                  <button
+                    class="btn btn-outline-info dropdown-toggle"
                     type="button"
-                    class="move_1 btn btn-primary"
-                    onclick="myFunction()"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style="float: right;"
                   >
-                    Move
-                  </button></a
-                >
+                    Transfer
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=2 ,list_id=1, book_id=book._id)}}"
+                      >List 1</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=2 ,list_id=3, book_id=book._id)}}"
+                      >List 3</a
+                    >
+                  </div>
+                </div>
                 <a
                   href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
                   ><button style="float: right;" class="btn btn-primary">
@@ -380,17 +432,34 @@
                     Delete
                   </button></a
                 >
-                <a
-                  href="{{ url_for('moveBooks',list_id=wishList.wishlist_id,book_id=book._id) }}"
-                  ><button
-                    style="float: right;"
+                                <div class="dropdown">
+                  <button
+                    class="btn btn-outline-info dropdown-toggle"
                     type="button"
-                    class="move_1 btn btn-primary"
-                    onclick="myFunction()"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style="float: right;"
                   >
-                    Move
-                  </button></a
-                >
+                    Transfer
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=3 ,list_id=1, book_id=book._id)}}"
+                      >List 1</a
+                    >
+                    <a
+                      class="dropdown-item"
+                      href="{{ url_for('moveBooks', current=3 ,list_id=2, book_id=book._id)}}"
+                      >List 2</a
+                    >
+                  </div>
+                </div>
                 <a
                   href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
                   ><button style="float: right;" class="btn btn-primary">
