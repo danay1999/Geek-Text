@@ -6,7 +6,6 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>GeekText</title>
-
   <meta name="description" content="">
   
   <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -22,7 +21,10 @@
 
 </head>
 <body >
-<header  class=" row main_nav header_color botpadding">
+  <header class=" row main_nav header_color botpadding" style="
+  padding-top: 13.141;
+  padding-bottom: 0px;
+">
     <div class="container">
       <div class="four columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
@@ -61,7 +63,6 @@
           <div class="col-md-4"></div>
               <div class="col-md-6">
                   <form method=POST action="{{ url_for('login') }}"></form>
-
 
 {% block content %}
 {% from "_formhelpers.html" import render_field %}
