@@ -195,26 +195,23 @@ def moveBooks(current, list_id, book_id):
         return redirect('/wishlist')
     return redirect('/login')
 #################################################################################################
-# Wishlist move to Cart btn.
 @app.route("/moveToCart/<list_id>/<book_id>")
 def moveToCart(list_id, book_id):
     #Find which book it is in the books collection.
-    result = db_c.find_one({"_id": ObjectId(book_id)})
+    if 'email' in session:
+        user = session['email']
+        result = db_c.find_one({"_id": ObjectId(book_id)})
 
-    #Insert into the shopping cart collection.
-    try:
-        if 'email' in session:
+        #Insert into the shopping cart collection.
+        try:
             cart_c.insert_one(result)
             cart_c.update(result, 
-    {"$inc": {"quantity": 1}})
-        else:
-            flash(f'You need to sign in to add a book to your cart!','success')
-            return redirect(url_for('login'))
-    except pymongo.errors.DuplicateKeyError:
-        pass
-        return redirect('/wishlist')
+        {"$inc": {"quantity": 1}})
+            cart_c.update(result,{"$set":{"user_id":user}})
+        except pymongo.errors.DuplicateKeyError:
+            return redirect('/wishlist')
 
-    return redirect('/wishlist')
+        return redirect('/wishlist')
 
 
 ###################################################################################################
