@@ -54,36 +54,48 @@ def home():
 @app.route('/wishlist', methods=['GET', 'POST'])
 def wishlist():
     print("WISHLIST")
-    form1 = TitleForm1()
-    form2 = TitleForm2()
-    form3 = TitleForm3()
-    if form1.validate_on_submit():
-        flash(f'Titles Created Successfully! : {form1.title1.data}','success')
-        wishlist_c.update_one({"wishlist_id":1},{"$set":{"wishlist_title": form1.title1.data}})
-        return redirect(url_for('wishlist'))
+    if 'email' in session:
+        print(session['email'])
+        user = session['email']
+        form1 = TitleForm1()
+        form2 = TitleForm2()
+        form3 = TitleForm3()
+        if form1.validate_on_submit():
+            flash(f'Titles Created Successfully! : {form1.title1.data}','success')
+            wishlist_c.update_one({"user_id":user,"wishlist_id":1},{"$set":{"wishlist_title": form1.title1.data}})
+            return redirect(url_for('wishlist'))
 
-    if form2.validate_on_submit():
-        flash(f'Titles Created Successfully! :  {form2.title2.data}','success')
-        wishlist_c.update_one({"wishlist_id":2},{"$set":{"wishlist_title2": form2.title2.data}})
-        return redirect(url_for('wishlist'))
+        if form2.validate_on_submit():
+            flash(f'Titles Created Successfully! :  {form2.title2.data}','success')
+            wishlist_c.update_one({"user_id":user,"wishlist_id":2},{"$set":{"wishlist_title2": form2.title2.data}})
+            return redirect(url_for('wishlist'))
 
-    if form3.validate_on_submit():
-        flash(f'Titles Created Successfully! :  {form3.title3.data}','success')
-        wishlist_c.update_one({"wishlist_id":3},{"$set":{"wishlist_title3": form3.title3.data}})
-        return redirect(url_for('wishlist'))
+        if form3.validate_on_submit():
+            flash(f'Titles Created Successfully! :  {form3.title3.data}','success')
+            wishlist_c.update_one({"user_id":user,"wishlist_id":3},{"$set":{"wishlist_title3": form3.title3.data}})
+            return redirect(url_for('wishlist'))
 
+        listNum= wishlist_c.count_documents({"user_id": user})
 
-    # This needs to pass eventually the wishlist collection and not the books db_c
-    # results = wishlist_c.find(
-    #     {}, {"_id": 1, "wishlist_title": 1, "books_arr": 1, "wishlist_id":1})
-    results = wishlist_c.find({"wishlist_id": 1})
-    results2 = wishlist_c.find(
-        {}, {"_id": 1, "wishlist_title2": 1, "books_arr2": 1,"wishlist_id":1})
+        results = wishlist_c.find({"user_id":user,"wishlist_id":1})
+        results2 = wishlist_c.find({"user_id":user,"wishlist_id":2})
+        results3 = wishlist_c.find({"user_id":user,"wishlist_id":3})
 
-    results3 = wishlist_c.find(
-        {}, {"_id": 1, "wishlist_title3": 1, "books_arr3": 1, "wishlist_id":1})
+        if listNum == 1:
+        
+            return render_template('wishlist.html', results=results, form1=form1, form2=form2,form3=form3)
+        elif listNum == 2:
+        
+            return render_template('wishlist.html', results=results, results2=results2, form1=form1, form2=form2,form3=form3)
+        elif listNum == 3:
+        
+            return render_template('wishlist.html', results=results, results2=results2, results3=results3, form1=form1, form2=form2,form3=form3)
 
-    return render_template('wishlist.html', results=results, results2=results2, results3=results3, form1=form1, form2=form2,form3=form3)
+        return render_template('wishlist.html', form1=form1, form2=form2,form3=form3)
+    else:
+        flash(f'You need to be logged in first!','error')
+        return redirect('/login')
+
 
 ###########################################################
 #Wish list add btn.
