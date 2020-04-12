@@ -93,6 +93,10 @@
     {% for cart in cart %}
    
 
+    
+      
+
+
     <div class="product" style=" padding-bottom: 110px;">
       <div class="product-image">
         <img src="/img/{{cart['link']}}.jpg" width="200" height="250">
@@ -101,7 +105,7 @@
         <div class="product-title"><a href="{{ url_for('distinctbook',link=cart.link) }}" ><strong>{{cart.book_name}}</strong></a></div>
         <p class="product-description"><i>{{cart.book_description}}</i></p>
       </div>
-      <div class="product-price">{{cart.price}}</div>
+      <div class="product-price">{{cart.price}}</div>      
       <div class="product-quantity">
         <input name= "quantity" id="quantity" type="number" value="{{cart.quantity}}" min="1" style="
         width: 102px; margin-bottom: 0px;">
@@ -123,6 +127,7 @@
       </div>
       
       <div class="product-line-price">{{cart.price}}</div>
+      <div class="product-link"><p hidden>{{cart.link}}</p></div>
     </div>
 
     {% endfor %}
@@ -145,9 +150,11 @@
         <div class="totals-value" id="cart-total">0.00</div>
       </div>
     </div>
-        
-        <button class="checkout">Checkout</button>
-
+    
+<div>
+        <button class="checkout" href="{{ url_for('checkout')}}">
+          Checkout</button>
+</div>
 
         <div class="heading" style="
         padding-top: 60px;">
@@ -208,6 +215,6 @@ margin-top: 60px;
 </footer>
 
 
-<script src="..\js\test88.js"></script>
+<script src="..\js\test124.js"></script>
 
 </body></html>
