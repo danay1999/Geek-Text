@@ -61,6 +61,7 @@
 
 <div  class="main">
   <div class="row container">
+    <div class="two columns"></div>
 <div  class="row botpadding">
   <div  class="container">
 
@@ -78,11 +79,43 @@
       Add Address
     </button></a>
   </div>
-  {%for profile in account%}
-                {{profile.email}}
-                {{profile.printcard}}
-                
-{%endfor%}
+        <dl>
+          <div>
+            <label for="card_type">Email</label>
+        {{printemail.email}}
+        </div>
+        <div>
+          <label for="card_type">Name and Last Name</label> 
+        {{printemail.name}}
+      </div>
+      <label for="username">Username</label>
+        {{printemail.username}}
+        <div>
+          <label for="card_number">Card Number</label> 
+                  {{printemail.card_number}}
+      </div>
+      <div>
+        <label for="address">Address</label>
+        Nickname: {{printemail.nickname}}
+      </div>
+      <div>
+        {{printemail.address_line_1}}
+      </div>
+      <div>
+        {{printemail.address_line_2}}
+      </div>
+      <div>
+        {{printemail.city}}
+      </div>
+      <div>
+       {{printemail.state}}
+      </div>
+      <div>
+      {{printemail.zip}}
+      </div>
+        </dl>
+
+
 
       </div>
     </div>

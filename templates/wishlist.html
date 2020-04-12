@@ -46,6 +46,7 @@
       rel="stylesheet"
       href="{{ url_for('static',filename='css/wishlist.css') }}"
     />
+    <!-- <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">  -->
     <style>
       a {
         text-decoration: none;
@@ -120,6 +121,11 @@
           wish you had!
         </p>
       </center>
+      {% if not results %}
+      <center>
+        <h3>Create Your Wish List by Pressing the "Create List Button"!</h3>
+      </center>
+      {% endif %}
     </div>
 
     <!-- MODAL WITH FORM USED TO UPDATE/CHANGE THE LIST TITLES. -->
@@ -226,6 +232,7 @@
           role="tablist"
           aria-orientation="vertical"
         >
+          {% if results%}
           <a
             class="nav-link active"
             id="v-pills-home-tab"
@@ -238,6 +245,7 @@
           >
             List 1
           </a>
+          {% endif %} {% if results2 %}
           <a
             class="nav-link"
             id="v-pills-profile-tab"
@@ -248,6 +256,7 @@
             aria-selected="false"
             >List 2</a
           >
+          {% endif %} {% if results3 %}
           <a
             class="nav-link"
             id="v-pills-messages-tab"
@@ -258,6 +267,7 @@
             aria-selected="false"
             >List 3</a
           >
+          {% endif %}
         </div>
       </div>
       <div class="col-6">
@@ -270,11 +280,12 @@
           >
             <ul class="list-group" id="myUL">
               <!-- LOOPING through List of WishList -->
-              {%for wishList in results %}
+              {% for wishList in results %}
               <h4>
                 {{wishList["wishlist_title"]}}
               </h4>
-              {{wishList["wishlistId"]}} {%for book in wishList["books_arr"]%}
+
+              {%for book in wishList["books_arr"]%}
               <li class="list-group-item" id="list_move" draggable="false">
                 <div class="two columns">
                   <img
@@ -511,9 +522,9 @@
 
     <!-- END VERTICAL TABS AND RESPECTIVE PANES HERE -->
 
-    <footer class="row bottom">
+    <!-- <footer class="row booksfooter">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved.</p>
-    </footer>
+    </footer> -->
 
     <!--Bootstrap Additions-->
     <script

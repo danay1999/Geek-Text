@@ -218,6 +218,7 @@ def moveToCart(list_id, book_id):
 
     return redirect('/wishlist')
 
+
 ###################################################################################################
 # Wishlist move to cart btn.
 @app.route("/createList")
@@ -235,18 +236,101 @@ def createList():
 ###################################################################################################
 
 
-
-
-
-
 @app.route("/books", methods=["GET"])
 def books():
     try:
-        books = db_b.details.find()
+        books = db_c.find().sort([("book_name", 1)]) # sort books alphabetically A to Z -Cat
+        
         return render_template("/books.html", books=books)
     except Exception as e:
         return dumps({"error": str(e)})
 
+
+@app.route("/sortBooks/<option_id>")
+def books_sorting(option_id):
+    if option_id=="0":
+        books = db_c.find({"topseller": "y"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="1":
+        books = db_c.find().sort([("book_name", -1)])
+        return render_template('books.html', books=books)
+    elif option_id=="2":
+        books = db_c.find().sort([("author_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="3":
+        books = db_c.find().sort([("publishing_info", 1)])
+        return render_template('books.html', books=books)
+    # elif option_id=="4":
+    #     books = db_c.find().sort([("genre", 1)])
+    #     return render_template('books.html', books=books)
+    # elif option_id=="5":
+    #     books = db_c.find().sort([("avg_book_rating", 1)])
+    #     return render_template('books.html', books=books)
+    # elif option_id=="6":
+    #     books = db_c.find().sort([("price", -1)])
+    #     return render_template('books.html', books=books)
+    elif option_id=="7":
+        books = db_c.find({"genre": "Historical Fiction"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="8":
+        books = db_c.find({"genre": "Fantasy"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="9":
+        books = db_c.find({"genre": "Science Fiction"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="10":
+        books = db_c.find({"genre": "Horror"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="11":
+        books = db_c.find({"genre": "Crime Fiction"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="12":
+        books = db_c.find({"genre": "Political Fiction"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="13":
+        books = db_c.find({"genre": "Comedy"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="14":
+        books = db_c.find({"genre": "High Fantasy"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="15":
+        books = db_c.find({"genre": "Mystery"}).sort([("book_name", 1)])
+        return render_template('books.html', books=books)
+    elif option_id=="16":
+        books = db_c.find().sort([("avg_book_rating", -1)])
+        return render_template('books.html', books=books)
+    elif option_id=="17":
+        books = db_c.find().sort([("avg_book_rating",1)])
+        return render_template('books.html', books=books)
+    elif option_id=="18":
+        books = db_c.find().sort([("price",1)])
+        return render_template('books.html', books=books)
+    elif option_id=="19":
+        books = db_c.find().sort([("price",-1)])
+        return render_template('books.html', books=books)
+    else:
+        books = db_c.find().sort([("book_name", 1)])
+        return render_template("/books.html", books=books)  
+
+
+@app.route("/pagitation/<option>")
+def pagination(option):
+    if option=="5":
+        books = db_c.find().limit(5)
+        return render_template('books.html', books=books)
+    if option=="10":
+        books = db_c.find().limit(10)
+        return render_template('books.html', books=books)
+    if option=="15":
+        books = db_c.find().limit(15)
+        return render_template('books.html', books=books)
+    if option=="20":
+        books = db_c.find().limit(20)
+        return render_template('books.html', books=books)
+    else:
+        return render_template('books.html', books=books)
+    
+           
 
 @app.route("/books/<link>", methods=["GET"])
 def distinctbook(link):
@@ -439,11 +523,15 @@ def account():
         email = session['email']
         print(email)        
         
-        #printaddress = address.find_one({"_id": ObjectId(addresss_id)})
-        #print(printuser)
+        printemail = users.find_one({"email": session['email']})
+        
+        
+
+
+        #print(printinfo)
         #print(printaddress)
         
-        return render_template('account.html', email=email)
+        return render_template('account.html', printemail=printemail)
     return redirect(url_for('login'))
    
 
