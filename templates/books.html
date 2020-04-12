@@ -45,14 +45,6 @@
         </div> 
         <div class="one column">
         <a class="" href="{{ url_for('books') }}">Books</a>
-          <div class="dropdownContent">
-                        <a href="{{ url_for('books', option_id=1)}}">Title Z to A</a>
-                        <a href="{{ url_for('books', option_id=2)}}">Author</a>
-                        <a href="{{ url_for('books', option_id=3)}}">Release Date</a>
-                        <a href="{{ url_for('books', option_id=4)}}">Genre</a>
-                        <a href="{{ url_for('books', option_id=5)}}">Rating</a>
-                        <a href="{{ url_for('books', option_id=6)}}">Price</a>
-       </div>
       </div>
         <div class="one column">
         <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
@@ -74,6 +66,57 @@
         </div>
   </header>
 
+<!-- Book Sorting -->
+    <div>
+        <ul id="dropdown">
+            <li class="parent"><a href="{{ url_for('books') }}">Sort By<span class="expand"> >></span></a>
+                <ul class="child">
+                    <li><a href="{{ url_for('books_sorting', option_id=0)}}">Top Sellers</a></li>
+                    <li><a href="{{ url_for('books_sorting', option_id=1)}}">Title Z to A</a></li>
+                    <li><a href="{{ url_for('books_sorting', option_id=2)}}">Author</a></li>
+                    <li><a href="{{ url_for('books_sorting', option_id=3)}}">Release Date</a></li>
+                    <li class="parent"><a href="{{ url_for('books_sorting', option_id=4)}}">Genre<span class="expand"> >></span></a>
+                        <ul class="child">
+                            <li><a href="{{ url_for('books_sorting', option_id=7)}}">Historical Fiction</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=8)}}">Fantasy</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=9)}}">Science Fiction</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=10)}}">Horror</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=11)}}">Crime Fiction</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=12)}}">Political Fiction</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=13)}}">Comedy</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=14)}}">High Fantasy</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=15)}}">Mystery</a></li>
+                        </ul>
+                    </li>
+                    <li class="parent"><a href="{{ url_for('books_sorting', option_id=5)}}">Rating<span class="expand"> >></span></a>
+                        <ul class="child">
+                            <li><a href="{{ url_for('books_sorting', option_id=16)}}">5 Stars to 1 Star</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=17)}}">1 Star to 5 Stars</a></li>
+                        </ul>
+                    </li>
+                    <li class="parent"><a href="{{ url_for('books_sorting', option_id=6)}}">Price<span class="expand"> >></span></a>
+                        <ul class="child">
+                            <li><a href="{{ url_for('books_sorting', option_id=18)}}">Low to High</a></li>
+                            <li><a href="{{ url_for('books_sorting', option_id=19)}}">High to Low</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        </div>
+
+    <!-- Pagination -->
+    <div id="paginate">
+        <li class="items"><a href="{{ url_for('books') }}">Items shown: <span class="expand"> >></span></a>
+            <ul class="numbers">
+                <li><a href="{{ url_for('pagination', items=10) }}">10</a></li>
+                <li><a href="{{ url_for('pagination', items=20) }}">20</a></li>
+            </ul>
+        </li>
+
+        
+    </div>
+  
 {% for book in books %}
 
     <div  class="row padding">
