@@ -13,6 +13,7 @@ from bson import ObjectId
 from bson.json_util import dumps
 from forms import TitleForm1, TitleForm2, TitleForm3, SignupForm, LoginForm, CreditcardForm, EditAccountForm, AddressForm
 import os
+import json
 from flask_login import login_user
 from bcrypt import hashpw
 from flask_bcrypt import Bcrypt
@@ -31,6 +32,7 @@ db_c = database["details"]
 wishlist_c = database['wish_list']  # wishlist collection.
 cart_c= database['shopping_cart']
 save_c= database['save_for_later']
+checkout_c= database['checkout']
 db_b = client.book_info
 db_u = database["users"]
 db_ch = database["cards"]
@@ -442,6 +444,8 @@ def saveLater(book_id):
     cart_c.delete_one({"_id": ObjectId(book_id)})
 
     return redirect('/shoppingcart')
+
+
     
 @app.route("/shoppingcart", methods=["GET", "POST"])
 def shoppingcart():
@@ -451,14 +455,22 @@ def shoppingcart():
         save = save_c.find()
 
         print(cart_c)
-    
+
         if request.method == 'POST' and request.get_json():
-            for test in cart: 
-                print(test)
-                quantityInput = request.get_json(force=True)
-                cart_c.update({"link": test['link']}, {'$set': {"quantity": quantityInput }})
+                
+                list = []
+                quantity = request.get_json('test')
+                link = request.get_json('test')
+                link2 = list.append(quantity)
+                
+                for something in list:
+                    print(something['link2'])
+                    print(something['quantity'])
+               
+                
+                cart_c.update({"link": something['link2']}, {'$set': {"quantity": something['quantity']}})
                 res = make_response(jsonify({"message": "OK"}), 200)
-                return res
+                
     
     else:
         flash(f'You need to sign in to view your cart!','success')
@@ -467,6 +479,16 @@ def shoppingcart():
 
     return render_template("/shoppingcart.html", cart = cart, save = save)
 
+@app.route("/checkout")
+def checkout():
+    
+    
+
+    checkout_c.insert({"$inc": {"quantity": 1}, "email": session['email']})
+    print("test")
+    
+
+    return redirect('/shoppingcart')
 
 app.config['MONGO_DBNAME'] = 'book_info'
 app.config['MONGO_URI'] = 'mongodb+srv://bdiaz071:0312651pw@bookstore-2edyi.mongodb.net/book_info'
