@@ -235,13 +235,33 @@ def createList():
     return redirect('/login')
 ###################################################################################################
 
-
 @app.route("/books", methods=["GET"])
 def books():
     try:
         books = db_c.find().sort([("book_name", 1)]) # sort books alphabetically A to Z -Cat
-        
-        return render_template("/books.html", books=books)
+        opt = True
+
+        if 'email' in session:
+            user = session['email']
+            listNum= wishlist_c.count_documents({"user_id": user})
+            if listNum == 1:
+                opt = False
+                opt1 = True
+                return render_template("/books.html", books=books,opt=opt, opt1=opt1)
+            elif listNum == 2:
+                opt = False
+                opt1 = True
+                opt2 = True
+                return render_template("/books.html", books=books,opt=opt, opt1=opt1 ,opt2=opt2)
+            elif listNum == 3:
+                opt = False
+                opt1 = True
+                opt2 = True
+                opt3 = True
+                return render_template("/books.html", books=books,opt=opt, opt1=opt1 ,opt2=opt2, opt3=opt3)
+
+
+        return render_template("/books.html",opt=opt, books=books)
     except Exception as e:
         return dumps({"error": str(e)})
 
