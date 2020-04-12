@@ -54,36 +54,47 @@ def home():
 @app.route('/wishlist', methods=['GET', 'POST'])
 def wishlist():
     print("WISHLIST")
-    form1 = TitleForm1()
-    form2 = TitleForm2()
-    form3 = TitleForm3()
-    if form1.validate_on_submit():
-        flash(f'Titles Created Successfully! : {form1.title1.data}','success')
-        wishlist_c.update_one({"wishlist_id":1},{"$set":{"wishlist_title": form1.title1.data}})
-        return redirect(url_for('wishlist'))
+    if 'email' in session:
+        print(session['email'])
+        user = session['email']
+        form1 = TitleForm1()
+        form2 = TitleForm2()
+        form3 = TitleForm3()
+        if form1.validate_on_submit():
+            flash(f'Titles Created Successfully! : {form1.title1.data}','success')
+            wishlist_c.update_one({"user_id":user,"wishlist_id":1},{"$set":{"wishlist_title": form1.title1.data}})
+            return redirect(url_for('wishlist'))
 
-    if form2.validate_on_submit():
-        flash(f'Titles Created Successfully! :  {form2.title2.data}','success')
-        wishlist_c.update_one({"wishlist_id":2},{"$set":{"wishlist_title2": form2.title2.data}})
-        return redirect(url_for('wishlist'))
+        if form2.validate_on_submit():
+            flash(f'Titles Created Successfully! :  {form2.title2.data}','success')
+            wishlist_c.update_one({"user_id":user,"wishlist_id":2},{"$set":{"wishlist_title2": form2.title2.data}})
+            return redirect(url_for('wishlist'))
 
-    if form3.validate_on_submit():
-        flash(f'Titles Created Successfully! :  {form3.title3.data}','success')
-        wishlist_c.update_one({"wishlist_id":3},{"$set":{"wishlist_title3": form3.title3.data}})
-        return redirect(url_for('wishlist'))
+        if form3.validate_on_submit():
+            flash(f'Titles Created Successfully! :  {form3.title3.data}','success')
+            wishlist_c.update_one({"user_id":user,"wishlist_id":3},{"$set":{"wishlist_title3": form3.title3.data}})
+            return redirect(url_for('wishlist'))
 
+        listNum= wishlist_c.count_documents({"user_id": user})
 
-    # This needs to pass eventually the wishlist collection and not the books db_c
-    # results = wishlist_c.find(
-    #     {}, {"_id": 1, "wishlist_title": 1, "books_arr": 1, "wishlist_id":1})
-    results = wishlist_c.find({"wishlist_id": 1})
-    results2 = wishlist_c.find(
-        {}, {"_id": 1, "wishlist_title2": 1, "books_arr2": 1,"wishlist_id":1})
+        results = wishlist_c.find({"user_id":user,"wishlist_id":1})
+        results2 = wishlist_c.find({"user_id":user,"wishlist_id":2})
+        results3 = wishlist_c.find({"user_id":user,"wishlist_id":3})
 
-    results3 = wishlist_c.find(
-        {}, {"_id": 1, "wishlist_title3": 1, "books_arr3": 1, "wishlist_id":1})
+        if listNum == 1:
+        
+            return render_template('wishlist.html', results=results, form1=form1, form2=form2,form3=form3)
+        elif listNum == 2:
+        
+            return render_template('wishlist.html', results=results, results2=results2, form1=form1, form2=form2,form3=form3)
+        elif listNum == 3:
+        
+            return render_template('wishlist.html', results=results, results2=results2, results3=results3, form1=form1, form2=form2,form3=form3)
 
-    return render_template('wishlist.html', results=results, results2=results2, results3=results3, form1=form1, form2=form2,form3=form3)
+        return render_template('wishlist.html', form1=form1, form2=form2,form3=form3)
+    else:
+        flash(f'You need to be logged in first!','error')
+        return redirect('/login')
 
 ###########################################################
 #Wish list add btn.
@@ -94,139 +105,136 @@ def add(list_id,book_id):
     print("LIST NUMBER: ",list_id )
     print("BOOK ID: ",book_id)
 
-    # key = request.values.get("_id")
-    # print(key)
-    result = db_c.find_one({"_id": ObjectId(book_id)})
-    # wishlist_c.update_one({"wishlist_id": 1}, {
-    #                       "$push": {"books_arr": ObjectId(key)}})
-    # print("PRINTING RESULT: ", result)
-    if list_id == "1":
-        wishlist_c.update_one({"wishlist_id": 1}, {
-                          "$addToSet": {"books_arr": result}})
-    elif list_id == "2":
-        wishlist_c.update_one({"wishlist_id": 2}, {
-                          "$addToSet": {"books_arr2": result}})
-    else:
-        wishlist_c.update_one({"wishlist_id": 3}, {
-                          "$addToSet": {"books_arr3": result}})
+    if 'email' in session:
+        print(session['email'])
+        user = session['email']    
 
+        result = db_c.find_one({"_id": ObjectId(book_id)})
 
-
-
-    # wishlist_c.update_one({"wishlist_id": 1}, {
-                        #   "$addToSet": {"books_arr": result}})
-    # wishlist_c.insert_one(result)
-    return redirect('/books')
+        if list_id == "1":
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$addToSet": {"books_arr": result}})
+        elif list_id == "2":
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$addToSet": {"books_arr2": result}})
+        else:
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                            "$addToSet": {"books_arr3": result}})
+        return redirect('/books')
+    return redirect('/login')
 ###########################################################
 # Wishlist remove btn.
 @app.route("/remove/<list_id>/<book_id>")
 def remove(list_id, book_id):
-    # Delete wishlist item.
-    print("REMOVED")
-    # key = request.values.get("_id")
 
-    # key = request.values.get("_id")
+    if 'email' in session:
+        user = session['email']
+        if list_id == "1":
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$pull": {"books_arr": {"_id": ObjectId(book_id)}}})
+        elif list_id == "2":
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$pull": {"books_arr2": {"_id": ObjectId(book_id)}}})
+        else:
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                            "$pull": {"books_arr3": {"_id": ObjectId(book_id)}}})
 
-    # if list_id == "1":
-
-    # wishlist_c.delete_one({"books_arr": key})
-
-    if list_id == "1":
-         wishlist_c.update_one({"wishlist_id": 1}, {
-                          "$pull": {"books_arr": {"_id": ObjectId(book_id)}}})
-    elif list_id == "2":
-         wishlist_c.update_one({"wishlist_id": 2}, {
-                          "$pull": {"books_arr2": {"_id": ObjectId(book_id)}}})
-    else:
-         wishlist_c.update_one({"wishlist_id": 3}, {
-                          "$pull": {"books_arr3": {"_id": ObjectId(book_id)}}})
-
-
-   
     return redirect('/wishlist')
 ######################################################################
 # Wishlist move btn
 @app.route("/moveBooks/<current>/<list_id>/<book_id>")
 def moveBooks(current, list_id, book_id):
-    if current == "1":
-        if list_id == "2":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            #Add to list 2->
-            wishlist_c.update_one({"wishlist_id": 2}, {
-                          "$addToSet": {"books_arr2": result}})
-            #Remove from 1st Array of Books
-            wishlist_c.update_one({"wishlist_id": 1}, {
-                            "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
-        elif list_id == "3":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 3}, {
-                          "$addToSet": {"books_arr3": result}})
-            #Remove from 1st Array of Books
-            wishlist_c.update_one({"wishlist_id": 1}, {
-                            "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
-    elif current == "2":
-        if list_id == "1":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 1}, {
-                          "$addToSet": {"books_arr": result}})
-            #Remove from 2nd Array of Books
-            wishlist_c.update_one({"wishlist_id": 2}, {
-                            "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
-        elif list_id == "3":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 3}, {
-                          "$addToSet": {"books_arr3": result}})
-            #Remove from 2nd Array of Books
-            wishlist_c.update_one({"wishlist_id": 2}, {
-                            "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
-    else:
-        if list_id == "1":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 1}, {
-                          "$addToSet": {"books_arr": result}})
-            
-            wishlist_c.update_one({"wishlist_id": 3}, {
-                            "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
-        elif list_id == "2":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 2}, {
-                          "$addToSet": {"books_arr2": result}})
-            
-            wishlist_c.update_one({"wishlist_id": 3}, {
-                            "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
-    
-    return redirect('/wishlist')
+    if 'email' in session:
+        user = session['email']
+        if current == "1":
+            if list_id == "2":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                #Add to list 2->
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$addToSet": {"books_arr2": result}})
+                #Remove from 1st Array of Books
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                                "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
+            elif list_id == "3":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                            "$addToSet": {"books_arr3": result}})
+                #Remove from 1st Array of Books
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                                "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
+        elif current == "2":
+            if list_id == "1":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$addToSet": {"books_arr": result}})
+                #Remove from 2nd Array of Books
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                                "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
+            elif list_id == "3":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                            "$addToSet": {"books_arr3": result}})
+                #Remove from 2nd Array of Books
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                                "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
+        else:
+            if list_id == "1":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$addToSet": {"books_arr": result}})
+                
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                                "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
+            elif list_id == "2":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$addToSet": {"books_arr2": result}})
+                
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                                "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
+        
+        return redirect('/wishlist')
+    return redirect('/login')
 #################################################################################################
 # Wishlist move to Cart btn.
 @app.route("/moveToCart/<list_id>/<book_id>")
 def moveToCart(list_id, book_id):
     #Find which book it is in the books collection.
-    result = db_c.find_one({"_id": ObjectId(book_id)})
+    if 'email' in session:
+        user = session['email']
+        result = db_c.find_one({"_id": ObjectId(book_id)})
 
-    #Insert into the shopping cart collection.
-    try:
-        cart_c.insert_one(result)
-        cart_c.update(result, 
-    {"$inc": {"quantity": 1}})
-    except pymongo.errors.DuplicateKeyError:
+        #Insert into the shopping cart collection.
+        try:
+            cart_c.insert_one(result)
+            cart_c.update(result, 
+        {"$inc": {"quantity": 1}})
+            cart_c.update(result,{"$set":{"user_id":user}})
+        except pymongo.errors.DuplicateKeyError:
+            return redirect('/wishlist')
+
         return redirect('/wishlist')
 
-    return redirect('/wishlist')
-
-
 ###################################################################################################
-# Wishlist move to cart btn.
+# Wishlist create btn.
 @app.route("/createList")
 def createList():
-    listNum= wishlist_c.count_documents({"user_id":"1"})
-
-    print("NUM OF LISTS: ",listNum)
-
-    if listNum < 3:
-        wishlist_c.insert_one({"wishlist":4, "wishlist_title":"Default Title 4","books_arr":[],"user_id":"4"})
+    if 'email' in session:
+        user = session['email']
+        listNum= wishlist_c.count_documents({"user_id": user})
 
 
-    return "" 
+        if listNum == 0:
+            wishlist_c.insert_one({"wishlist_id":1, "wishlist_title":"Default Title 1","books_arr":[],"user_id":user})
+        elif listNum == 1:
+            wishlist_c.insert_one({"wishlist_id":2, "wishlist_title2":"Default Title 2","books_arr2":[],"user_id":user})
+        elif listNum == 2:
+            wishlist_c.insert_one({"wishlist_id":3, "wishlist_title3":"Default Title 3","books_arr3":[],"user_id":user})
+        else:
+            flash(f'This user already reached their maximum lists!','warning')
+
+        return  redirect('/wishlist')
+    return redirect('/login')
 
 ###################################################################################################
 
