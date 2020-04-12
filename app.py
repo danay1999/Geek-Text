@@ -215,19 +215,24 @@ def moveToCart(list_id, book_id):
 
 
 ###################################################################################################
-# Wishlist move to cart btn.
 @app.route("/createList")
 def createList():
-    listNum= wishlist_c.count_documents({"user_id":"1"})
-
-    print("NUM OF LISTS: ",listNum)
-
-    if listNum < 3:
-        wishlist_c.insert_one({"wishlist":4, "wishlist_title":"Default Title 4","books_arr":[],"user_id":"4"})
+    if 'email' in session:
+        user = session['email']
+        listNum= wishlist_c.count_documents({"user_id": user})
 
 
-    return "" 
+        if listNum == 0:
+            wishlist_c.insert_one({"wishlist_id":1, "wishlist_title":"Default Title 1","books_arr":[],"user_id":user})
+        elif listNum == 1:
+            wishlist_c.insert_one({"wishlist_id":2, "wishlist_title2":"Default Title 2","books_arr2":[],"user_id":user})
+        elif listNum == 2:
+            wishlist_c.insert_one({"wishlist_id":3, "wishlist_title3":"Default Title 3","books_arr3":[],"user_id":user})
+        else:
+            flash(f'This user already reached their maximum lists!','warning')
 
+        return  redirect('/wishlist')
+    return redirect('/login')
 ###################################################################################################
 
 
