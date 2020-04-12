@@ -99,9 +99,32 @@
                Add to Wish List
              </button>
              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
-               <a class="dropdown-item" href="{{ url_for('add',list_id=1, book_id=book._id)}}">List1</a>
-               <a class="dropdown-item" href="{{ url_for('add',list_id=2, book_id=book._id)}}">List2</a>
-               <a class="dropdown-item" href="{{ url_for('add',list_id=3, book_id=book._id)}}">List3</a>
+              {% if opt %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=1, book_id=book._id)}}"
+                >Login Required</a
+              >
+              {% endif %} {% if opt1 %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=1, book_id=book._id)}}"
+                >List1</a
+              >
+              {% endif %} {% if opt2 %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=2, book_id=book._id)}}"
+                >List2</a
+              >
+              {% endif %} {% if opt3 %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=3, book_id=book._id)}}"
+                >List3</a
+              >
+              {% endif %}
+     
              </div>
             </div> 
           <div> 
