@@ -20,6 +20,14 @@ footer {
   text-align: center;
 }
 
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+
 .Parent {
   margin: auto;
   width: 50%;
