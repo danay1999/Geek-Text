@@ -235,6 +235,7 @@ def createList():
 def books():
     try:
         books = db_c.find().sort([("book_name", 1)]) # sort books alphabetically A to Z -Cat
+        
         return render_template("/books.html", books=books)
     except Exception as e:
         return dumps({"error": str(e)})
