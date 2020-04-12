@@ -26,6 +26,12 @@
     <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <link
       rel="stylesheet"
+      href="{{ url_for('static',filename='css/account.css') }}"
+    />
+
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon" />
+    <link
+      rel="stylesheet"
       href="{{ url_for('static',filename='css/normalize.css') }}"
     />
     <link
@@ -36,7 +42,10 @@
       rel="stylesheet"
       href="{{ url_for('static',filename='css/animate.css') }}"
     />
-    <link rel="stylesheet" href="static/css/wishlist.css" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='css/wishlist.css') }}"
+    />
     <style>
       a {
         text-decoration: none;
@@ -48,28 +57,39 @@
     <!--NAVIGATION BAR HERE-->
     <header class="main_nav header_color">
       <div class="container">
-        <div class="three columns">
-          <a class="" href="{{ url_for('home') }}"
+        <div class="four columns">
+          <a class="atags" href="{{ url_for('home') }}"
             ><strong>Geek</strong><em>Text</em></a
           >
         </div>
 
         <div class="one column">
-          <a class="" href="{{ url_for('home') }}">Home</a>
+          <a class="atags" href="{{ url_for('home') }}">Home</a>
         </div>
 
         <div class="one column">
-          <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+          <a class="atags" href="{{ url_for('wishlist') }}">Wish List</a>
         </div>
         <div class="one column">
-          <a class="" href="{{ url_for('books') }}">Books</a>
+          <a class="atags" href="{{ url_for('books') }}">Books</a>
         </div>
         <div class="one column">
-          <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+          <a class="atags" href="{{ url_for('shoppingcart') }}"
+            >Shopping Cart</a
+          >
+        </div>
+        <div class="one column dropdown">
+          <a class="atags" href="{{ url_for('account') }}">Account</a>
+          <div class="dropdownContent">
+            <a href="{{ url_for('cards') }}">Cards</a>
+            <a href="{{ url_for('account') }}">Profile</a>
+            <a href="{{ url_for('address') }}">Address</a>
+            <a href="{{ url_for('logout') }}">Log Out</a>
+          </div>
         </div>
 
         <div class="one column">
-          <a class="" href="{{ url_for('login') }}">Log In</a>
+          <a class="atags" href="{{ url_for('login') }}">Log In</a>
         </div>
 
         <div class="one column">
@@ -94,25 +114,33 @@
     <!--My Work CD -->
     <div class="heading">
       <h3>Wish List Management</h3>
-      <p>Keep track of all the books you wish you had!</p>
+      <center>
+        <p>
+          Welcome to your Wishlist Management! Keep track of all the books you
+          wish you had!
+        </p>
+      </center>
     </div>
 
     <!-- MODAL WITH FORM USED TO UPDATE/CHANGE THE LIST TITLES. -->
     <div>
-      <a href="{{ url_for('createList')}}">
-        <button type="button" class="btn btn-primary">
-          Create a List
-        </button></a
-      >
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-toggle="modal"
-        data-target="#exampleModal"
-        data-whatever="@getbootstrap"
-      >
-        Manage Lists
-      </button>
+      <div class="col-2"><p></p></div>
+      <div class="col-2">
+        <a href="{{ url_for('createList')}}">
+          <button type="button" class="btn btn-primary">
+            Create a List
+          </button></a
+        >
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          data-whatever="@getbootstrap"
+        >
+          Manage Lists
+        </button>
+      </div>
 
       <div
         class="modal fade"
@@ -188,7 +216,9 @@
     <!-- END MODAL WITH FORM USED TO UPDATE/CHANGE THE LIST TITLES. -->
 
     <!-- VERTICAL TABS AND RESPECTIVE PANES HERE -->
+
     <div class="row">
+      <div class="col-2"><p></p></div>
       <div class="col-2">
         <div
           class="nav flex-column nav-pills"
@@ -204,6 +234,7 @@
             role="tab"
             aria-controls="v-pills-home"
             aria-selected="true"
+            name="{{results.wishlist_title}}"
           >
             List 1
           </a>
@@ -229,7 +260,7 @@
           >
         </div>
       </div>
-      <div class="col-8">
+      <div class="col-6">
         <div class="tab-content" id="v-pills-tabContent">
           <div
             class="tab-pane fade show active"
@@ -244,7 +275,7 @@
                 {{wishList["wishlist_title"]}}
               </h4>
               {{wishList["wishlistId"]}} {%for book in wishList["books_arr"]%}
-              <li class="list-group-item " id="list_move" draggable="false">
+              <li class="list-group-item" id="list_move" draggable="false">
                 <div class="two columns">
                   <img
                     src="/img/{{book['link']}}.jpg"
@@ -252,38 +283,63 @@
                     height="150"
                   />
                 </div>
-                {{book.book_name}}<br />
-                By: {{book.author_name}}<br />
-                Price: {{book.price}}
+                <div class="six columns">
+                  {{book.book_name}}<br />
+                  By: {{book.author_name}}<br />
+                  Price:${{book.price}}
+                </div>
+                <br />
+                <div class="two columns"><p></p></div>
 
-                <a
-                  href="{{ url_for('remove',list_id=wishList.wishlist_id, book_id=book._id)}}"
-                  ><button
-                    id="tryDel "
-                    type="submit"
-                    class="del_1 btn btn-info"
-                    style="float: right;"
+                <div class="two columns">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-outline-info dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      style="float: right;"
+                    >
+                      Transfer To
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('moveBooks', current=1 ,list_id=2, book_id=book._id)}}"
+                        >List 2</a
+                      >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('moveBooks', current=1 ,list_id=3, book_id=book._id)}}"
+                        >List 3</a
+                      >
+                    </div>
+                  </div>
+
+                  <a
+                    href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
+                    ><button class="btn btn-outline-info" style="float: right;">
+                      Add To Cart
+                    </button>
+                  </a>
+                  <a
+                    href="{{ url_for('remove',list_id=wishList.wishlist_id, book_id=book._id)}}"
+                    ><button
+                      id="tryDel "
+                      type="submit"
+                      class="del_1 btn btn-outline-info"
+                      style="float: right;"
+                      width="200"
+                    >
+                      Delete Item
+                    </button></a
                   >
-                    Delete
-                  </button></a
-                >
-                <a
-                  href="{{ url_for('moveBooks',list_id=wishList.wishlist_id,book_id=book._id) }}"
-                  ><button
-                    style="float: right;"
-                    type="button"
-                    class="move_1 btn btn-primary"
-                    onclick="myFunction()"
-                  >
-                    Move
-                  </button>
-                </a>
-                <a
-                  href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
-                  ><button class="btn btn-primary" style="float: right;">
-                    Cart
-                  </button>
-                </a>
+                </div>
               </li>
               {% endfor %} {% endfor %}
             </ul>
@@ -294,14 +350,14 @@
             role="tabpanel"
             aria-labelledby="v-pills-profile-tab"
           >
-            <ul id="myUL2" class="list-group">
+            <ul class="list-group" id="myUL2">
               {%for wishList in results2 %}
               <h4>
                 {{wishList["wishlist_title2"]}}
               </h4>
 
               {%for book in wishList["books_arr2"]%}
-              <li class="list-group-item " id="list_move" draggable="false">
+              <li class="list-group-item" id="list_move" draggable="false">
                 <div class="two columns">
                   <img
                     src="/img/{{book['link']}}.jpg"
@@ -309,37 +365,62 @@
                     height="150"
                   />
                 </div>
-                {{book.book_name}}<br />
-                By: {{book.author_name}}<br />
-                Price: {{book.price}}
-                <a
-                  href="{{ url_for('remove',list_id=wishList.wishlist_id, book_id=book._id)}}"
-                  ><button
-                    style="float: right;"
-                    id="tryDel "
-                    type="submit"
-                    class="del_1 btn btn-info"
+                <div class="six columns">
+                  {{book.book_name}}<br />
+                  By: {{book.author_name}}<br />
+                  Price:${{book.price}}
+                </div>
+
+                <br />
+                <div class="two columns"><p></p></div>
+                <div class="two columns">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-outline-info dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      style="float: right;"
+                    >
+                      Transfer To
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('moveBooks', current=2 ,list_id=1, book_id=book._id)}}"
+                        >List 1</a
+                      >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('moveBooks', current=2 ,list_id=3, book_id=book._id)}}"
+                        >List 3</a
+                      >
+                    </div>
+                  </div>
+
+                  <a
+                    href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
+                    ><button style="float: right;" class="btn btn-outline-info">
+                      Add To Cart
+                    </button></a
                   >
-                    Delete
-                  </button></a
-                >
-                <a
-                  href="{{ url_for('moveBooks',list_id=wishList.wishlist_id,book_id=book._id) }}"
-                  ><button
-                    style="float: right;"
-                    type="button"
-                    class="move_1 btn btn-primary"
-                    onclick="myFunction()"
+                  <a
+                    href="{{ url_for('remove',list_id=wishList.wishlist_id, book_id=book._id)}}"
+                    ><button
+                      style="float: right;"
+                      id="tryDel "
+                      type="submit"
+                      class="del_1 btn btn-outline-info"
+                    >
+                      Delete Item
+                    </button></a
                   >
-                    Move
-                  </button></a
-                >
-                <a
-                  href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
-                  ><button style="float: right;" class="btn btn-primary">
-                    Cart
-                  </button></a
-                >
+                </div>
               </li>
               {% endfor %} {% endfor %}
             </ul>
@@ -351,13 +432,13 @@
             aria-labelledby="v-pills-messages-tab"
           >
             <ul id="myUL3" class="list-group">
-              {%for wishList in results3 %}
+              {% for wishList in results3 %}
               <h4>
                 {{wishList["wishlist_title3"]}}
               </h4>
 
               {%for book in wishList["books_arr3"]%}
-              <li class="list-group-item " id="list_move" draggable="false">
+              <li class="list-group-item" id="list_move" draggable="false">
                 <div class="two columns">
                   <img
                     src="/img/{{book['link']}}.jpg"
@@ -365,38 +446,61 @@
                     height="150"
                   />
                 </div>
-                {{book.book_name}}<br />
-                By: {{book.author_name}}<br />
-                Price: {{book.price}}
+                <div class="six columns">
+                  {{book.book_name}}<br />
+                  By: {{book.author_name}}<br />
+                  Price:${{book.price}}
+                </div>
 
-                <a
-                  href="{{ url_for('remove',list_id=wishList.wishlist_id, book_id=book._id)}}"
-                  ><button
-                    style="float: right;"
-                    id="tryDel "
-                    type="submit"
-                    class="del_1 btn btn-info"
+                <br />
+                <div class="two columns"><p></p></div>
+                <div class="two columns">
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-outline-info dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      style="float: right;"
+                    >
+                      Transfer To
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('moveBooks', current=3 ,list_id=1, book_id=book._id)}}"
+                        >List 1</a
+                      >
+                      <a
+                        class="dropdown-item"
+                        href="{{ url_for('moveBooks', current=3 ,list_id=2, book_id=book._id)}}"
+                        >List 2</a
+                      >
+                    </div>
+                  </div>
+                  <a
+                    href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
+                    ><button style="float: right;" class="btn btn-outline-info">
+                      Add To Cart
+                    </button></a
                   >
-                    Delete
-                  </button></a
-                >
-                <a
-                  href="{{ url_for('moveBooks',list_id=wishList.wishlist_id,book_id=book._id) }}"
-                  ><button
-                    style="float: right;"
-                    type="button"
-                    class="move_1 btn btn-primary"
-                    onclick="myFunction()"
+                  <a
+                    href="{{ url_for('remove',list_id=wishList.wishlist_id, book_id=book._id)}}"
+                    ><button
+                      style="float: right;"
+                      id="tryDel "
+                      type="submit"
+                      class="del_1 btn btn-outline-info"
+                    >
+                      Delete Item
+                    </button></a
                   >
-                    Move
-                  </button></a
-                >
-                <a
-                  href="{{ url_for('moveToCart',list_id=wishList.wishlist_id,book_id=book._id )}}"
-                  ><button style="float: right;" class="btn btn-primary">
-                    Cart
-                  </button></a
-                >
+                </div>
               </li>
               {% endfor %} {% endfor %}
             </ul>
@@ -404,6 +508,7 @@
         </div>
       </div>
     </div>
+
     <!-- END VERTICAL TABS AND RESPECTIVE PANES HERE -->
 
     <footer class="row bottom">

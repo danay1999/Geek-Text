@@ -40,3 +40,5 @@ def remove_data(document_id):
 
 # CLOSE DATABASE
 client.close()
+
+

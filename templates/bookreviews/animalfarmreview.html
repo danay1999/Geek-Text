@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="utf-8">
+    <title>GeekText</title>
+    <meta name="description" content="">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/commentstyle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+</head>
+<body>
+    <header class=" row main_nav header_color botpadding">
+        <div class="container">
+            <div class="six columns">
+                <a class="" href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+            </div>
+
+            <div class="one column">
+                <a class="" href="{{ url_for('home') }}">Home</a>
+            </div>
+            <div class="one column">
+                <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+            </div>
+            <div class="one column">
+                <a class="" href="{{ url_for('books') }}">Books</a>
+            </div>
+            <div class="one column">
+                <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+            </div>
+            <div class="one column">
+                <a class="" href="{{ url_for('login') }}">Log In</a>
+            </div>
+            <div class="one column">
+                <button class="button-primary" href="{{ url_for('signup') }}">Sign Up</button>
+            </div>
+    </header>
+
+    <style>
+        h1 {
+            color: dodgerblue;
+        }
+
+        .star {
+            color: goldenrod;
+            font-size: 3.0rem;
+            padding: 0 1rem;
+        }
+
+            .star::before {
+                content: '\2606';
+                cursor: pointer;
+            }
+
+            .star.rated::before {
+                content: '\2605';
+            }
+
+        .stars {
+            counter-reset: rateme 0;
+            font-size: 2.0rem;
+            font-weight: 900;
+        }
+
+        .star.rated {
+            counter-increment: rateme 1;
+        }
+
+        .stars::after {
+            content: counter(rateme) '/5';
+        }
+    </style>
+
+    <div class="row container padding">
+        <div class="container twelve columns">
+            <h1> Comment and Rate the book: Animal Farm </h1>
+
+            <div class="six columns">
+                <a>Leave a comment:</a>
+                <form action="/books/animalfarm/review" method='POST'>
+                    <textarea name='comment' id="comment" cols="30" rows="60" placeholder="Please enter your comment here."></textarea><br>
+                    <input type="radio" id="Anonymous" name="name" value="Anonymous"> Anonymous
+                    <input type="radio" id="Nickname" name="name" value="Nickname"> Nickname <br />
+                    <input type="submit" name="button" id="btnSubmit" />
+                </form>
+            </div>
+            <div class="six columns">
+                <a>Rate here:</a>
+                <div class="stars" data-rating="0">
+                    <span class="star">&nbsp;</span>
+                    <span class="star">&nbsp;</span>
+                    <span class="star">&nbsp;</span>
+                    <span class="star">&nbsp;</span>
+                    <span class="star">&nbsp;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+                window.onload = function loadFunction() {
+                    alert("Remember to rate the book! Make sure you know the rating beforehand as it can not be changed once you rate it!");
+                }
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    var stars = document.querySelectorAll('.star');
+                    stars.forEach(function (star) {
+                        star.addEventListener('click', setRating);
+                    });
+                    var rating = parseInt(document.querySelector('.stars').getAttribute('data-rating'));
+                    var target = stars[rating - 1];
+
+                });
+
+                function setRating(ev) {
+                    var span = ev.currentTarget;
+                    var stars = document.querySelectorAll('.star');
+                    var match = false;
+                    var num = 0;
+                    stars.forEach(function (star, index) {
+                        if (match) {
+                            star.classList.remove('rated');
+                        } else {
+                            star.classList.add('rated');
+                        }
+                        if (star === span) {
+                            match = true;
+                            num = index + 1;
+                        }
+                    });
+                    document.querySelector('.stars').setAttribute('data-rating', num);
+                    $.ajax({
+                        type: 'POST',
+                        contentType: 'application/json',
+                        url: '/books/animalfarm/review',
+                        dataType: 'json',
+                        data: JSON.stringify(num),
+                        success: function (result) {
+                            console.log(num);
+                            alert("Rate has been submitted! Rate Given: " + num)
+                            window.location = "/books/animalfarm"
+                        }, error: function (result) {
+                            console.log("Did not send" + num);
+                        }
+
+                    });
+                }
+
+
+
+    </script>
+
+
+    <footer class="row">
+        <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+    </footer>
+
+
+</body>
+</html>

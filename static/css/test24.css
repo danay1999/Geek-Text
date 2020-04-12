@@ -5,15 +5,16 @@ $font-default: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', 
 $font-bold: 'HelveticaNeue-Medium', 'Helvetica Neue Medium';
 
 
+
 /* Global "table" column settings */
 .product-image { float: left; width: 20%; }
-.product-details { float: left; width: 37%; }
+.product-details { float: left; width: 37%; line-height: 1;}
 .product-price { float: left; width: 12%; }
 .product-quantity { float: left; width: 10%; }
-.product-removal { float: left; width: 9%; }
-.product-line-price { float: left; width: 12%; text-align: right; }
+.product-removal { float: left; width: 10%; }
+.product-line-price { float: left; width: 12%; text-align: right;}
 .totals-value {text-align: right; }
-.totals-item { float: none; width: 80%; text-align: right; }
+.totals-item { float: none; width: 91%; text-align: right; }
 
 /* This is used as the traditional .clearfix class */
 .group:before,
@@ -77,7 +78,8 @@ label {
 .product {
   margin-bottom: 20px;
   padding-bottom: 100px;
-  border-bottom: 1px solid;
+  border-bottom: 2px solid;
+  border-color: #F8C93E;
 }
   .product-image {
     text-align: left;
@@ -94,7 +96,7 @@ label {
     }
     .product-description {
       margin: 5px 20px 5px 0;
-      line-height: 1.4em;
+      line-height: 1;
     }
   }
   
@@ -114,12 +116,82 @@ label {
     font-size: 12px;
     border-radius: 3px;
   }
+
+  .save-for-later {
+    border: 0;
+    padding: 4px 8px;
+    background-color: rgb(236, 222, 22);
+    color: #fff;
+    font-family: $font-bold;
+    font-size: 12px;
+    border-radius: 3px;
+  }
   
   .remove-product:hover {
     background-color: #a44;
   }
 
+  .product1{
+  margin-bottom: 20px;
+  padding-bottom: 100px;
+  border-bottom: 2px solid;
+  border-color: #F8C93E;
+}
+  .product-image {
+    text-align: left;
+    margin-right: 50%;
+    img {
+      width: 100px;
+    }
+  }
+  
+  .product-details {
+    .product-title {
+      margin-right: 20px;
+      font-family: $font-bold;
+    }
+    .product-description {
+      margin: 5px 20px 5px 0;
+      line-height: 1;
+    }
+  }
+  
+  .product-quantity {
+    input {
+      width: 40px;
+      
+    }
+  }
+  
+  .remove-product {
+    border: 0;
+    padding: 4px 8px;
+    background-color: #c66;
+    color: #fff;
+    font-family: $font-bold;
+    font-size: 12px;
+    border-radius: 3px;
+  }
 
+  .remove-product:hover {
+    background-color: #a44;
+
+  }
+
+  .save-for-later {
+    border: 0;
+    padding: 4px 8px;
+    background-color: rgb(14, 104, 240);
+    color: #fff;
+    font-family: $font-bold;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+  
+  .save-for-later:hover {
+    background-color: rgb(22, 83, 175);
+
+  }
 
 /* Totals section */
 .totals {
@@ -132,7 +204,7 @@ label {
     label {
       float: left;
       clear: both;
-      width: 79%;
+      width: 89%;
       text-align: right;
     }
     
@@ -152,7 +224,7 @@ label {
   float: right;
   border: 0;
   margin-top: 20px;
-  margin-right: 19%;
+  margin-right: 9%;
   background-color: #f8c93e;
   color: #fff;
   font-size: 25px;
@@ -163,3 +235,12 @@ label {
   background-color: #f8b63e;
 }
 
+a{
+  color: #F8C93E;
+  text-decoration: none;
+}
+
+a:hover{
+  color: #F8C93E;
+  text-decoration: underline;
+}

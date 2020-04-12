@@ -1,0 +1,14 @@
+.rating{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+.rating .fa{
+    font-size: 40px;
+    color: #FF9800;
+    float: left;
+    cursor: pointer;
+
+}

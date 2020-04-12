@@ -1,11 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\env\\Scripts",
     "\\static",
-    "\\static\\css",
     "\\templates",
-    "\\views"
+    "\\templates\\bookreviews",
+    "\\templates\\distinctbooks",
+    "\\views",
+    "\\__pycache__"
   ],
   "SelectedNode": "\\app.py",
   "PreviewInSolutionExplorer": false

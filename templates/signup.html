@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,24 +7,28 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>GeekText</title>
-  <meta name="description" content="A website to document natural disasters and where you can request help or offer help to people in need">
+  <meta name="description" content="">
   
   <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="../static/css/normalize.css">
-  <link rel="stylesheet" href="../static/css/skeleton.css">
-  <link rel="stylesheet" href="../static/css/animate.css">
-  <link rel="stylesheet" href="../static/css/style.css">
-
-  
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">  
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
 </head>
 <body >
-<header  class=" row main_nav header_color">
+  <header class=" row main_nav header_color botpadding" style="
+  padding-top: 13.141;
+  padding-bottom: 0px;
+">
     <div class="container">
-      <div class="six columns">
+      <div class="four columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
       </div>
      
@@ -39,6 +44,18 @@
         <div class="one column">
         <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
        </div>
+       <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+           <!-- <div class="dropdown"> -->
+                <!-- <button class="dropbtn">Books</button> -->
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+              </div>
+      <!-- </div> -->
+      </div>
         <div class="one column">
         <a class="" href="{{ url_for('login') }}">Log In</a>
         </div>
@@ -46,32 +63,47 @@
         <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
         </div>
   </header>
-  </div>
-     </div>
-  <div class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-6">
-            <form method=POST action="{{ url_for('signup') }}">
-                <div class="form-group">
-                    <label for="InputEmail1">Username</label>
-                    <input type="text" class="form-control" name="username" placeholder="Username">
-                </div>
-                <div class="form-group">
-                    <label for="InputPassword1">Password</label>
-                    <input type="password" class="form-control" name="pass" placeholder="Password">
-                </div>
-                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
-            </form>
-            <br>
-        </div>
-    </div>
-</div>
-    <!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
-  <footer class="row">
-      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+  <div class="container">
+      <div class="row">
+          <div class="col-md-6 col-md-offset-6">
+              <form method=POST action="{{ url_for('signup') }}">
+                {% block content %}
+                {% from "_formhelpers.html" import render_field %}
+                {% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	    {% for message in messages %}
+		  <div class="alert alert-warning alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+			{{message}}
+		  </div>
+		{% endfor %}
+	  {% endif %}
+	{% endwith %}
+                <form method=post>
+                  <dl>
+                    {{ render_field(form.name) }}
+                    {{ render_field(form.username) }}
+                    {{ render_field(form.email) }}
+                    {{ render_field(form.password) }}
+                    {{ render_field(form.confirm) }}
+                  </dl>
+                  <p><input type=submit value="Sign Up" class="btn btn-info"></p>
+                </form>
+                <div>
+                  Already have an account? <a href="{{ url_for('login') }}">Log In</a>.
+              </div>
+          </div>
+      </div>
+  </div>
+  {% endblock content %}
+  
+
+<footer class="row">
+    <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 
+  <!-- End Document
+–––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 </html>
