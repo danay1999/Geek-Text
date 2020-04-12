@@ -445,16 +445,12 @@ def saveLater(book_id):
 
     return redirect('/shoppingcart')
 
-
-    
 @app.route("/shoppingcart", methods=["GET", "POST"])
 def shoppingcart():
     if 'email' in session :
 
         cart = cart_c.find()
         save = save_c.find()
-
-        print(cart_c)
 
         if request.method == 'POST' and request.get_json():
                 
@@ -470,8 +466,7 @@ def shoppingcart():
                 
                 cart_c.update({"link": something['link2']}, {'$set': {"quantity": something['quantity']}})
                 res = make_response(jsonify({"message": "OK"}), 200)
-                
-    
+
     else:
         flash(f'You need to sign in to view your cart!','success')
         return redirect(url_for('login'))
