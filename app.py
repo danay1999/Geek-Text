@@ -98,7 +98,6 @@ def wishlist():
 
 
 ###########################################################
-#Wish list add btn.
 @app.route("/add/<list_id>/<book_id>")
 def add(list_id,book_id):
     # Add a wishlist item.
@@ -106,29 +105,23 @@ def add(list_id,book_id):
     print("LIST NUMBER: ",list_id )
     print("BOOK ID: ",book_id)
 
-    # key = request.values.get("_id")
-    # print(key)
-    result = db_c.find_one({"_id": ObjectId(book_id)})
-    # wishlist_c.update_one({"wishlist_id": 1}, {
-    #                       "$push": {"books_arr": ObjectId(key)}})
-    # print("PRINTING RESULT: ", result)
-    if list_id == "1":
-        wishlist_c.update_one({"wishlist_id": 1}, {
-                          "$addToSet": {"books_arr": result}})
-    elif list_id == "2":
-        wishlist_c.update_one({"wishlist_id": 2}, {
-                          "$addToSet": {"books_arr2": result}})
-    else:
-        wishlist_c.update_one({"wishlist_id": 3}, {
-                          "$addToSet": {"books_arr3": result}})
+    if 'email' in session:
+        print(session['email'])
+        user = session['email']    
 
+        result = db_c.find_one({"_id": ObjectId(book_id)})
 
-
-
-    # wishlist_c.update_one({"wishlist_id": 1}, {
-                        #   "$addToSet": {"books_arr": result}})
-    # wishlist_c.insert_one(result)
-    return redirect('/books')
+        if list_id == "1":
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$addToSet": {"books_arr": result}})
+        elif list_id == "2":
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$addToSet": {"books_arr2": result}})
+        else:
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                            "$addToSet": {"books_arr3": result}})
+        return redirect('/books')
+    return redirect('/login')
 ###########################################################
 # Wishlist remove btn.
 @app.route("/remove/<list_id>/<book_id>")
