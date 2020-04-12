@@ -61,7 +61,6 @@
 
 <div  class="main">
   <div class="row container">
-    <div class="two columns"></div>
 <div  class="row botpadding">
   <div  class="container">
 
@@ -69,60 +68,108 @@
     <a href="{{ url_for('cards')}}">
       <button class="add-product"
               type="submit">
-      Add Card
+      Add/edit Card
     </button></a>
-  </div>
+      <div class="product-add">
+        <a href="{{ url_for('cards2')}}">
+          <button class="add-product"
+                  type="submit">
+          Add/edit second Card
+        </button></a>
+</div>
   <div class="product-add">
     <a href="{{ url_for('address')}}">
       <button class="add-product"
               type="submit">
-      Add Address
+      Add/edit Address
     </button></a>
+    <div class="product-add">
+      <a href="{{ url_for('address2')}}">
+        <button class="add-product"
+                type="submit">
+        Add/edit second Address
+      </button></a>
+      <div class="product-add">
+        <a href="{{ url_for('editsignup')}}">
+          <button class="add-product"
+                  type="submit">
+          Edit credentials
+        </button></a>
+    </div>
   </div>
-        <dl>
-          <div>
-            <label for="card_type">Email</label>
-        {{printemail.email}}
-        </div>
-        <div>
-          <label for="card_type">Name and Last Name</label> 
-        {{printemail.name}}
-      </div>
-      <label for="username">Username</label>
-        {{printemail.username}}
-        <div>
-          <label for="card_number">Card Number</label> 
-                  {{printemail.card_number}}
-      </div>
-      <div>
-        <label for="address">Address</label>
-        Nickname: {{printemail.nickname}}
-      </div>
-      <div>
-        {{printemail.address_line_1}}
-      </div>
-      <div>
-        {{printemail.address_line_2}}
-      </div>
-      <div>
-        {{printemail.city}}
-      </div>
-      <div>
-       {{printemail.state}}
-      </div>
-      <div>
-      {{printemail.zip}}
-      </div>
-        </dl>
 
-
+      <dl>
+        <div>
+          <label for="card_type">Email</label>
+      {{printemail.email}}
+      </div>
+      <div>
+        <label for="card_type">Name and Last Name</label> 
+      {{printemail.name}}
+    </div>
+    <label for="username">Username</label>
+      {{printemail.username}}
+      <div>
+        <label for="card_number">Cards</label> 
+                <div>
+                {{printemail.card_nickname}}
+              </div>
+              <div>
+                {{printemail.card_number}}
+              </div>
+              <div>
+                {{printemail.card_nickname2}}
+              </div>
+              <div>
+                {{printemail.card_number2}}
+              </div>
+    </div>
+    <div>
+      <label for="address">Address</label>
+      {{printemail.nickname}}
+    </div>
+    <div>
+      {{printemail.address_line_1}}
+    </div>
+    <div>
+      {{printemail.address_line_2}}
+    </div>
+    <div>
+      {{printemail.city}}
+    </div>
+    <div>
+     {{printemail.state}}
+    </div>
+    <div>
+    {{printemail.zip}}
+    </div>
+    <div>
+      {{printemail.nickname2}}
+    </div>
+    <div>
+      {{printemail.address_line_1_2}}
+    </div>
+    <div>
+      {{printemail.address_line_2_2}}
+    </div>
+    <div>
+      {{printemail.city2}}
+    </div>
+    <div>
+     {{printemail.state2}}
+    </div>
+    <div>
+    {{printemail.zip2}}
+    </div>
+      </dl>
+  </div>
 
       </div>
     </div>
   </div>
 
    
-<footer class="row">
+<footer class="row booksfooter">
       <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
 </footer>
 
