@@ -143,54 +143,57 @@ def remove(list_id, book_id):
 # Wishlist move btn
 @app.route("/moveBooks/<current>/<list_id>/<book_id>")
 def moveBooks(current, list_id, book_id):
-    if current == "1":
-        if list_id == "2":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            #Add to list 2->
-            wishlist_c.update_one({"wishlist_id": 2}, {
-                          "$addToSet": {"books_arr2": result}})
-            #Remove from 1st Array of Books
-            wishlist_c.update_one({"wishlist_id": 1}, {
-                            "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
-        elif list_id == "3":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 3}, {
-                          "$addToSet": {"books_arr3": result}})
-            #Remove from 1st Array of Books
-            wishlist_c.update_one({"wishlist_id": 1}, {
-                            "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
-    elif current == "2":
-        if list_id == "1":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 1}, {
-                          "$addToSet": {"books_arr": result}})
-            #Remove from 2nd Array of Books
-            wishlist_c.update_one({"wishlist_id": 2}, {
-                            "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
-        elif list_id == "3":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 3}, {
-                          "$addToSet": {"books_arr3": result}})
-            #Remove from 2nd Array of Books
-            wishlist_c.update_one({"wishlist_id": 2}, {
-                            "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
-    else:
-        if list_id == "1":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 1}, {
-                          "$addToSet": {"books_arr": result}})
-            
-            wishlist_c.update_one({"wishlist_id": 3}, {
-                            "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
-        elif list_id == "2":
-            result = db_c.find_one({"_id": ObjectId(book_id)})
-            wishlist_c.update_one({"wishlist_id": 2}, {
-                          "$addToSet": {"books_arr2": result}})
-            
-            wishlist_c.update_one({"wishlist_id": 3}, {
-                            "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
-    
-    return redirect('/wishlist')
+    if 'email' in session:
+        user = session['email']
+        if current == "1":
+            if list_id == "2":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                #Add to list 2->
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$addToSet": {"books_arr2": result}})
+                #Remove from 1st Array of Books
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                                "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
+            elif list_id == "3":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                            "$addToSet": {"books_arr3": result}})
+                #Remove from 1st Array of Books
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                                "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
+        elif current == "2":
+            if list_id == "1":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$addToSet": {"books_arr": result}})
+                #Remove from 2nd Array of Books
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                                "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
+            elif list_id == "3":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                            "$addToSet": {"books_arr3": result}})
+                #Remove from 2nd Array of Books
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                                "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
+        else:
+            if list_id == "1":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$addToSet": {"books_arr": result}})
+                
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                                "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
+            elif list_id == "2":
+                result = db_c.find_one({"_id": ObjectId(book_id)})
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$addToSet": {"books_arr2": result}})
+                
+                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                                "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
+        
+        return redirect('/wishlist')
+    return redirect('/login')
 #################################################################################################
 # Wishlist move to Cart btn.
 @app.route("/moveToCart/<list_id>/<book_id>")
