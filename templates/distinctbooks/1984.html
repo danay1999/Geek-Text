@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
@@ -24,7 +25,7 @@
 <body >
 <header  class=" row main_nav header_color">
     <div class="container">
-      <div class="six columns">
+      <div class="four columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
       </div>
         <div class="one column">
@@ -39,13 +40,23 @@
         <div class="one column">
         <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
        </div>
+      <div class="one column dropdown">
+        <a class="" href="">Account</a>
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+              </div>
+      </div>
         <div class="one column">
         <a class="" href="{{ url_for('login') }}">Log In</a>
         </div>
         <div class="one column">
-        <button class="button-primary" href="{{ url_for('signup') }}">Sign Up</button>
+        <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
         </div>
   </header>
+
 
   
 
