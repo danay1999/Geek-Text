@@ -61,31 +61,32 @@
 
 <div  class="main">
   <div class="row container">
-      {% if username in session%}
-        <p 'You are logged in as ' + session['username']></p>
-  </div>
-    {% endif %}
-   </div>
-  </div>
-{% for account in account %}
 <div  class="row botpadding">
   <div  class="container">
-    
-    <div class = "four columns">    
-           <!-- <div class="dropdown"> -->
-                <!-- <button class="dropbtn">Books</button> -->
-                <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <a href="#">Cards</a>
-                  <a href="#">Shipping Addresses</a>
-                  <a href="#">Billing Addresses</a>
-                  <a href="#">User Information</a>
-              </div>
-      <!-- </div> -->
+
+  <div class="product-add">
+    <a href="{{ url_for('cards')}}">
+      <button class="add-product"
+              type="submit">
+      Add Card
+    </button></a>
+  </div>
+  <div class="product-add">
+    <a href="{{ url_for('address')}}">
+      <button class="add-product"
+              type="submit">
+      Add Address
+    </button></a>
+  </div>
+  {%for profile in account%}
+                {{profile.email}}
+                {{profile.printcard}}
+                
+{%endfor%}
+
       </div>
     </div>
   </div>
-  {% endfor %}
 
    
 <footer class="row">
