@@ -487,9 +487,9 @@ def signup():
             account.insert_one({'name': form.name.data, 'username': form.username.data, 'email': form.email.data,
                     'password': hashed_password})
             session['email'] =  request.form['email']
-            flash("Thank you for signing up")
+            flash(f"Thank you for signing up", 'success')
             return redirect(url_for('account'))
-        return 'User already exists with this email, please go back and Log In'
+        flash(f"User already exists with this email, please Log In.", 'success')
     return render_template('signup.html', form=form)
 
 
@@ -503,7 +503,8 @@ def login():
         if login_user:
             if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password']) == login_user['password']:
                 session['email'] =  request.form['email']
-                return redirect(url_for('account'))   
+                return redirect(url_for('account')) 
+        flash(f"Invalid email/password combination", 'error')  
     return render_template('login.html', form=form)
 
 
@@ -525,14 +526,27 @@ def account():
         
         printemail = users.find_one({"email": session['email']})
         
-        
-
-
-        #print(printinfo)
-        #print(printaddress)
-        
         return render_template('account.html', printemail=printemail)
     return redirect(url_for('login'))
+
+@app.route("/editsignup", methods=['POST', 'GET'])
+def editsignup():
+    form = EditAccountForm(request.form)
+    if request.method == 'POST' and form.validate():
+        users = mongo.db.users
+        account = mongo.db.account
+
+        hashed_password = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
+        user = users.insert_one({'name': form.name.data, 'username': form.username.data, 'email': form.email.data,
+                    'password': hashed_password})
+        account.update({"email": session['email']}, {'$set': {'name': form.name.data, 'username': form.username.data, 'email': form.email.data,
+                    'password': hashed_password}},upsert= True)
+        session['email'] =  request.form['email']
+        flash(f"Information has been updated", 'success')
+        return redirect(url_for('account'))
+    return render_template('editsignup.html', form=form)
+
+
    
 
 @app.route("/cards", methods=['POST', 'GET'])
@@ -540,10 +554,10 @@ def cards():
     form = CreditcardForm(request.form)
     if request.method == 'POST' and form.validate():
         cards = mongo.db.cards
-        cards_id = cards.insert_one({'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data})
+        cards_id = cards.insert_one({'card_nickname': form.card_nickname.data, 'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data})
         account = mongo.db.account
-        account.update({"email": session['email']}, {'$set': {'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data}}, upsert= True)
-        return redirect(url_for('shoppingcart')) 
+        account.update({"email": session['email']}, {'$set': {'card_nickname': form.card_nickname.data,'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data}}, upsert= True)
+        return redirect(url_for('account')) 
     return render_template('cards.html', form=form)
 
 @app.route("/address", methods=['POST', 'GET'])
@@ -553,11 +567,33 @@ def address():
         address = mongo.db.address
         address.insert({'nickname': form.nickname.data, 'name': form.name.data, 'address_line_1': form.address_line_1.data, 'address_line_2': form.address_line_2.data, 'city': form.city.data, 'state' : form.state.data, 'zip' : form.zip.data})
         account = mongo.db.account
-        if nickname:
-            account = mongo.db.account
-            account.update({"email": session['email']}, {'$set': {'nickname': form.nickname.data, 'name': form.name.data, 'address_line_1': form.address_line_1.data, 'address_line_2': form.address_line_2.data, 'city': form.city.data, 'state' : form.state.data, 'zip' : form.zip.data}}, upsert= True)
-            return redirect(url_for('account'))
+        account = mongo.db.account
+        account.update({"email": session['email']}, {'$set': {'nickname': form.nickname.data, 'name': form.name.data, 'address_line_1': form.address_line_1.data, 'address_line_2': form.address_line_2.data, 'city': form.city.data, 'state' : form.state.data, 'zip' : form.zip.data}}, upsert= True)
+        return redirect(url_for('account'))
     return render_template('address.html')
+
+@app.route("/address2", methods=['POST', 'GET'])
+def address2():
+    form = AddressForm2(request.form)
+    if request.method == 'POST':
+        address = mongo.db.address
+        address.insert({'nickname2': form.nickname2.data, 'name2': form.name2.data, 'address_line_1_2': form.address_line_1_2.data, 'address_line_2_2': form.address_line_2_2.data, 'city2': form.city2.data, 'state2' : form.state2.data, 'zip2' : form.zip2.data})
+        account = mongo.db.account
+        account = mongo.db.account
+        account.update({"email": session['email']}, {'$set': {'nickname2': form.nickname2.data, 'name2': form.name2.data, 'address_line_1_2': form.address_line_1_2.data, 'address_line_2_2': form.address_line_2_2.data, 'city2': form.city2.data, 'state2' : form.state2.data, 'zip2' : form.zip2.data}}, upsert= True)
+        return redirect(url_for('account'))
+    return render_template('address2.html')
+
+@app.route("/cards2", methods=['POST', 'GET'])
+def cards2():
+    form = CreditcardForm2(request.form)
+    if request.method == 'POST' and form.validate():
+        cards = mongo.db.cards
+        cards_id = cards.insert_one({'card_nickname2': form.card_nickname2.data, 'name_on_card2': form.name_on_card2.data, 'card_number2': form.card_number2.data, 'cvv2': form.cvv2.data,'exp_month2': form.exp_month2.data, 'exp_year2': form.exp_year2.data})
+        account = mongo.db.account
+        account.update({"email": session['email']}, {'$set': {'card_nickname2': form.card_nickname2.data, 'name_on_card2': form.name_on_card2.data, 'card_number2': form.card_number2.data, 'cvv2': form.cvv2.data,'exp_month2': form.exp_month2.data, 'exp_year2': form.exp_year2.data}}, upsert= True)
+        return redirect(url_for('account')) 
+    return render_template('cards2.html', form=form)
 
 
 
@@ -577,6 +613,7 @@ def profile():
         return redirect(url_for('login'))
     return render_template('account.html', printuser=printuser, printcard=printcard)
 #, printaddress=printaddress {{profile.printaddress}}
+
 
 
 
