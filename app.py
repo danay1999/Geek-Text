@@ -355,26 +355,35 @@ def distinctbook(link):
 
 @app.route("/books/<link>/review", methods=['POST', 'GET'])
 def message1(link):
-    if request.method == 'POST' and request.get_json():
-        rates = request.get_json(force=True)
-        db_b.details.update({"link": link}, {'$push': {"avg_book_rating": rates }})
-        res = make_response(jsonify({"message": "OK"}), 200)
-        return res
+    if 'email' in session:
+        if request.method == 'POST' and request.get_json():
+            rates = request.get_json(force=True)
+            db_b.details.update({"link": link}, {'$push': {"avg_book_rating": rates }})
+            res = make_response(jsonify({"message": "OK"}), 200)
+            return res
     
-    if request.method == 'POST' and request.form['comment']:
+        if request.method == 'POST' and request.form['comment']:
             comment = request.form['comment']
             if 'name' not in request.form:
-                comments = db_b.details.update({"link": link}, {'$push': {"comment": "FirstName" + " : " + request.form.get('comment')}})
+                email = session['email']
+                cursor = db_b.account.find_one({"email": email})
+                comments = db_b.details.update({"link": link}, {'$push': {"comment": cursor['name'] + " : " + request.form.get('comment')}})
                 return redirect("/books/"+link+"/review")
             else:
                 if "Anonymous" in request.form['name']:
+                    email = session['email']
+                    cursor = db_b.account.find_one({"email": email})
                     comments = db_b.details.update({"link": link}, {'$push': {"comment": "Anonymous" + " : " + request.form.get('comment')}})
                     return redirect("/books/"+link+"/review")
                 else:
-                    comments = db_b.details.update({"link": link}, {'$push': {"comment": "Nickname" + " : " + request.form.get('comment')}})
+                    email = session['email']
+                    cursor = db_b.account.find_one({"email": email})
+                    comments = db_b.details.update({"link": link}, {'$push': {"comment": cursor['username'] + " : " + request.form.get('comment')}})
                     return redirect("/books/"+link+"/review")
-    else:
+        else:
             return render_template('/bookreviews/' + link +'review.html')
+    flash(f'You need to Sign In to review this book!','success')
+    return redirect(url_for('login'))
 
 @app.route("/addCart/<book_id>", methods=["GET", "POST"])
 def addCart(book_id):
