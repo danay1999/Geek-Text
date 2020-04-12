@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
   <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 
@@ -24,7 +25,7 @@
 <body >
 <header  class=" row main_nav header_color">
     <div class="container">
-      <div class="six columns">
+      <div class="four columns">
         <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
       </div>
         <div class="one column">
@@ -39,49 +40,112 @@
         <div class="one column">
         <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
        </div>
+      <div class="one column dropdown">
+        <a class="" href="">Account</a>
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+              </div>
+      </div>
         <div class="one column">
         <a class="" href="{{ url_for('login') }}">Log In</a>
         </div>
         <div class="one column">
-        <button class="button-primary" href="{{ url_for('signup') }}">Sign Up</button>
+        <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
         </div>
   </header>
+
 
 {% for book in books %}
     {% if book.book_name == "To Kill a Mockingbird"%}
 
-    <div  class="row container padding">
+   <div  class="row container padding">
         <div  class="container twelve columns">
           
           <div class = "three columns"> 
           <a href="#{{book["link"]}}"><img id="cover" src = "/img/{{book["link"]}}.jpg" width="235" height="350" ></a>
           </div>
 
-          <div id="{{book["link"]}}" class="overlay">
-	        <div class="cover">
-		        <div class="contentcover">
-            	<a class="closecover" href="#">&times;</a>
-				    <img src = "/img/{{book["link"]}}.jpg" width="375px" height="600px" >	</div>
-	        </div>
+          <div id="{{book['link']}}" class="overlay">
+          <div class="cover">
+            <div class="contentcover">
+              <a class="closecover" href="#">&times;</a>
+            <img src = "/img/{{book["link"]}}.jpg" width="375px" height="600px" > </div>
+          </div>
           </div>
 
-
-          <div class = "nine columns">  
+          <div class = "six columns">  
             <a style="font-size:2em" href="{{ url_for('distinctbook',link=book.link) }}" ><b>{{book.book_name}}</b></a>
-            <br> Written by <a  href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap"  ><b>{{book.author_name}}</b></a>
+            <br> Written by <a  href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap"><b>{{book.author_name}}</b></a>
             <br> <br>
-            <p> "{{book.book_description}}"</p>
+            
             <p> <b>Genre:</b> {{book.genre}}</p>
             <p> <b>Publisher: </b>{{book.publisher}} <br>
                 <b>Release Date: </b>{{book.publishing_info}} <br>
                 <b> {{book.type}}:</b> {{book.pages}} pages <br> </p> 
             <p> <b> Rating: </b>{{avg}} </p>
-           
-          </div>  
+
+          </div> 
+          
+          <br><br>
+           <div class = "three columns">
+            <div class="dropdown">
+             <button class="btn button-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Add to Wish List
+             </button>
+             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+              {% if makelist %}
+              <a
+              class="dropdown-item"
+              href="{{ url_for('wishlist')}}"
+              >Create List</a
+              >
+              {% endif %}
+              {% if opt %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=1, book_id=book._id)}}"
+                >Login Required</a
+              >
+              {% endif %} {% if opt1 %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=1, book_id=book._id)}}"
+                >List1</a
+              >
+              {% endif %} {% if opt2 %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=2, book_id=book._id)}}"
+                >List2</a
+              >
+              {% endif %} {% if opt3 %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=3, book_id=book._id)}}"
+                >List3</a
+              >
+              {% endif %}
+     
+             </div>
+            </div> 
+          <div> 
+            <a href="{{ url_for('addCart', book_id=book._id)}}"> 
+            <button type ="button" class="del_1 button-primary btn btn-info">Add to Cart</button>
+            </a>
+          </div>
+              
+          </div>
+   
+          <div class="nine columns">
+          "{{book.book_description}}"</p>
+          </div>
           <div class="twelve columns">
           
-          <br><a  href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap"  ><b>{{book.author_name}} </b></a>  <br> 
-          {{book.short_bio}}<br><br>
+            <br><a href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap" data-toggle="modal" data-target="#bannerformmodal"><b>{{book.author_name}} </b></a>  <br> 
+            {{book.short_bio}}<br><br>
             <a style="font-size:1.2em" href="{{ url_for('message1',link=book.link) }}">Review Book</a><br><br>
 
           <p><b> Customer Comments: </b> <br> </p>
@@ -99,7 +163,6 @@
     {%endfor%}
         
         </div>
-
 
    
         {% for author in authors %}

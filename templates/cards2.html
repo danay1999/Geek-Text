@@ -64,24 +64,24 @@
     <div class="row container">
   <div  class="row botpadding">
     <div  class="container">
-              <form method=POST action="{{ url_for('cards') }}"></form>
+              <form method=POST action="{{ url_for('cards2') }}"></form>
               {% from "_formhelpers.html" import render_field %}           
               {% block content%}            
               <form method="post">
                 <dl>  
-            <label for="card_type">Card Type</label>
-                  <select type="card_type" id="card_type" name="card_type">
+            <label for="card_type2">Card Type</label>
+                  <select type="card_type2" id="card_type2" name="card_type2">
                       <option value="Visa">Visa</option>
                       <option value="MasterCard">MasterCard</option>
                       <option value="Discover">Discover</option>
                       <option value="American Express">American Express</option>
                     </select> 
-                    {{ render_field(form.card_nickname) }}
-                    {{ render_field(form.name_on_card) }}
-                    {{ render_field(form.card_number) }}
-                    {{ render_field(form.cvv) }} 
-                    <label for="exp_month">Expiration Month</label>
-                    <select type="select" name="exp_month" id="exp_month" >
+                    {{ render_field(form.card_nickname2) }}
+                    {{ render_field(form.name_on_card2) }}
+                    {{ render_field(form.card_number2) }}
+                    {{ render_field(form.cvv2) }} 
+                    <label for="exp_month2">Expiration Month</label>
+                    <select type="select" name="exp_month2" id="exp_month2" >
                         <option value="January">January</option>      
                         <option value="February">February</option>                 
                         <option value="March">March</option>                       
@@ -95,8 +95,8 @@
                         <option value="November">November</option>
                         <option value="December">December</option>
                       </select>
-                      <label for="exp_year">Expiration Year</label>
-                    <select type="select" name="exp_year" id="exp_year" >
+                      <label for="exp_year2">Expiration Year</label>
+                    <select type="select" name="exp_year2" id="exp_year2" >
                         <option value="2020">2020</option>      
                         <option value="2021">2021</option>                 
                         <option value="2022">2022</option>                       

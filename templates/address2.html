@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>GeekText</title>
+  <meta name="description" content="">
+  
+  <!-- Mobile Specific Metas–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/account.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">  
+  <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+
+</head>
+<body >
+<header  class=" row main_nav header_color botpadding">
+    <div class="container">
+      <div class="four columns">
+        <a class=""  href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+      </div>
+     
+        <div class="one column">
+        <a class=""  href="{{ url_for('home') }}">Home</a>
+        </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+        </div> 
+        <div class="one column">
+        <a class="" href="{{ url_for('books') }}">Books</a>
+       </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+       </div>
+       <div class="one column dropdown">
+        <a class="" href="{{ url_for('account') }}">Account</a>
+                <div class="dropdownContent">
+                  <a href="{{ url_for('cards') }}">Cards</a>
+                  <a href="{{ url_for('account') }}">Profile</a>
+                  <a href="{{ url_for('address') }}">Address</a>
+                  <a href="{{ url_for('logout') }}">Log Out</a>
+              </div>
+      </div>
+        <div class="one column">
+        <a class="" href="{{ url_for('login') }}">Log In</a>
+        </div>
+        <div class="one column">
+        <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
+        </div>
+  </header>
+  <div class="container">
+      <div class="row">
+          <div class="col-md-4"></div>
+              <div class="col-md-6">
+                  <form method=POST action="{{ url_for('address2') }}"></form>
+
+{% block content %}
+  <form method="post">
+    <dl>
+    <label for="nicname2">Nickname</label>
+    <input type="nickname" name="nickname2" id="nickname2" required>
+    <label for="name2">Name and Last Name</label>
+    <input type="name2" name="name2" id="name2" required> 
+    <label for="address_line_1_2">Address Line</label>
+    <input type="address_line_1_2" name="address_line_1_2" id="address_line_1_2" required>
+    <label for="address_line_2_2">Address Line 2</label>
+    <input type="address_line_2_2" name="address_line_2_2" id="address_line_2_2">
+    <label for="city2">City</label>
+    <input type="city2" name="city2" id="city2" required>
+    <label for="state2">State</label>
+        <select id="state2" name="state2">
+            <option value="Alabama">Alabama</option>
+            <option value="Alaska">Alaska</option>
+            <option value="Arizona">Arizona</option>
+            <option value="Arkansas">Arkansas</option>
+            <option value="California">California</option>
+            <option value="Colorado">Colorado</option>
+            <option value="Conneticut">Conneticut</option>
+            <option value="Delaware">Delaware</option>
+            <option value="Florida">Florida</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Hawaii">Hawaii</option>
+            <option value="Idaho">Idaho</option>
+            <option value="Illinois">Illinois</option>
+            <option value="Indiana">Indiana</option>
+            <option value="Iowa">Iowa</option>
+            <option value="Kansas">Kansas</option>
+            <option value="Kentucky">Kentucky</option>
+            <option value="Louisiana">Louisiana</option>
+            <option value="Maine">Maine</option>
+            <option value="Maryland">Maryland</option>
+            <option value="Massachusetts">Massachusetts</option>
+            <option value="Michigan">Michigan</option>
+            <option value="Minnesota">Minnesota</option>
+            <option value="Mississippi">Mississippi</option>
+            <option value="Missouri">Missouri</option>
+            <option value="Montana">Montana</option>
+            <option value="Nebraska">Nebraska</option>
+            <option value="Nevada">Nevada</option>
+            <option value="New Hampshire">New Hampshire</option>
+            <option value="New Jersey">New Jeresey</option>
+            <option value="New Mexico">New Mexico</option>
+            <option value="New York">New York</option>
+            <option value="North Carolina">North Carolina</option>
+            <option value="North Dakota">North Dakota</option>
+            <option value="Ohio">Ohio</option>
+            <option value="Oklahoma">Oklahoma</option>
+            <option value="Oregon">Oregon</option>
+            <option value="Pennsylvania">Pennsylvania</option>
+            <option value="Rhode Island">Rhode Island</option>
+            <option value="South Carolina">South Carolina</option>
+            <option value="South Dakota">South Dakota</option>
+            <option value="Tennessee">Tennessee</option>
+            <option value="Texas">Texas</option>
+            <option value="Utah">Utah</option>
+            <option value="Vermont">Vermont</option>
+            <option value="Virginia">Virginia</option>
+            <option value="Washington">Washington</option>
+            <option value="West Virgnia">West Virginia</option>
+            <option value="Wisconsin">Wisconsin</option>
+            <option value="Wyoming">Wyoming</option>
+          </select>
+          <label for="zip2">Zip Code</label>
+    <input type="zip2" name="zip2" id="zip2" required>
+    </dl>
+    
+    <input type="submit" value="Save Address">
+  </form>
+{% endblock %}
+
+ <footer class="row booksfooter">
+      <p class="copyright">&copy; 2020 GeekText. All Rights Reserved. </p>
+</footer>
+
+</body>
+</html>
+
