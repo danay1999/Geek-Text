@@ -99,6 +99,13 @@
                Add to Wish List
              </button>
              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+              {% if makelist %}
+              <a
+              class="dropdown-item"
+              href="{{ url_for('wishlist')}}"
+              >Create List</a
+              >
+              {% endif %}
               {% if opt %}
               <a
                 class="dropdown-item"
