@@ -372,6 +372,28 @@ def distinctbook(link):
                sum+=number
         avg=round(sum/count)
         db_b.details.update({"link": link}, {'$set' : {"avg" : avg}})
+        if 'email' in session:
+            user = session['email']
+            listNum= wishlist_c.count_documents({"user_id": user})
+            if listNum == 0:
+                opt = False
+                makelist = True
+                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, makelist=makelist, comments = comments, authors=authors, avg = avg)
+            elif listNum == 1:
+                opt = False
+                opt1 = True
+                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1,comments = comments, authors=authors, avg = avg)
+            elif listNum == 2:
+                opt = False
+                opt1 = True
+                opt2 = True
+                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1 ,opt2=opt2,comments = comments, authors=authors, avg = avg)
+            elif listNum == 3:
+                opt = False
+                opt1 = True
+                opt2 = True
+                opt3 = True
+                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1 ,opt2=opt2, opt3=opt3, comments = comments, authors=authors, avg = avg)
         return render_template("/distinctbooks/" + link + ".html", books=books, comments = comments, authors=authors, avg = avg)
     except Exception as e:
         return dumps({"error": str(e)})  
