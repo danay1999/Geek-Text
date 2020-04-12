@@ -390,6 +390,7 @@ def distinctbook(link):
 @app.route("/books/<link>/review", methods=['POST', 'GET'])
 def message1(link):
     if 'email' in session:
+        print(info)
         if request.method == 'POST' and request.get_json():
             rates = request.get_json(force=True)
             db_b.details.update({"link": link}, {'$push': {"avg_book_rating": rates }})
@@ -520,10 +521,13 @@ def checkout():
     
     
 
-    checkout_c.insert({"$inc": {"quantity": 1}, "email": session['email']})
-    print("test")
+    checkout_c.insert({"email": session['email']})
+    data = list(cart_c.find({},{"link" : ""}))
+    print(data)
+    checkout_c.update({"email": session['email']}, {'$push': {"books": data}}, upsert=True)
     
-
+    
+    flash(f'You have purchased the books!','success')
     return redirect('/shoppingcart')
 
 app.config['MONGO_DBNAME'] = 'book_info'

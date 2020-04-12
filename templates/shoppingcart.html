@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -28,193 +28,208 @@
 </head>
 
 <body>
-  
- <header  class=" row main_nav header_color" >
-    <div class="container">
 
-      <div class="four columns">
-        <a class=""  href="{{ url_for('home') }}" ><strong>Geek</strong><em>Text</em></a>
-      </div>
-        <div class="one column">
-        <a class=""  href="{{ url_for('home') }}" >Home</a>
-        </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('wishlist') }}" >Wish List</a>
-        </div> 
-        <div class="one column">
-        <a class="" href="{{ url_for('books') }}" >Books</a>
-       </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('shoppingcart') }}" >Shopping Cart</a>
-       </div>
-       <div class="one column dropdown">
-        <a class="" href="{{ url_for('account') }}">Account</a>
+    <header class=" row main_nav header_color">
+        <div class="container">
+
+            <div class="four columns">
+                <a class="" href="{{ url_for('home') }}"><strong>Geek</strong><em>Text</em></a>
+            </div>
+            <div class="one column">
+                <a class="" href="{{ url_for('home') }}">Home</a>
+            </div>
+            <div class="one column">
+                <a class="" href="{{ url_for('wishlist') }}">Wish List</a>
+            </div>
+            <div class="one column">
+                <a class="" href="{{ url_for('books') }}">Books</a>
+            </div>
+            <div class="one column">
+                <a class="" href="{{ url_for('shoppingcart') }}">Shopping Cart</a>
+            </div>
+            <div class="one column dropdown">
+                <a class="" href="{{ url_for('account') }}">Account</a>
                 <div class="dropdownContent">
-                  <a href="{{ url_for('cards') }}">Cards</a>
-                  <a href="{{ url_for('account') }}">Profile</a>
-                  <a href="{{ url_for('address') }}">Address</a>
-                  <a href="{{ url_for('logout') }}">Log Out</a>
-              </div>
-      </div>
-        <div class="one column">
-        <a class="" href="{{ url_for('login') }}" >Log In</a>
-        </div>
-        <div class="one column">
-        <button class="button-primary"><a href="{{ url_for('signup') }}" >Sign Up</a></button>
-        </div>
-  </header>
+                    <a href="{{ url_for('cards') }}">Cards</a>
+                    <a href="{{ url_for('account') }}">Profile</a>
+                    <a href="{{ url_for('address') }}">Address</a>
+                    <a href="{{ url_for('logout') }}">Log Out</a>
+                </div>
+            </div>
+            <div class="one column">
+                <a class="" href="{{ url_for('login') }}">Log In</a>
+            </div>
+            <div class="one column">
+                <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
+            </div>
+    </header>
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        <strong style="
+        padding-left: 500px;
+    ">{{ message }}</strong>
+    </div>
+    {% endfor%} {% endif %} {% endwith %}
 
-<div  class="main topdiv">
-  <div class="row container">
-    
-  </div></div>
+    <div class="main topdiv">
+        <div class="row container">
 
-  <div class="heading" style="
+        </div>
+    </div>
+
+    <div class="heading" style="
   margin-left: 15px;">
-    <h3>Shopping Cart</h3>
-    <p style="
+        <h3>Shopping Cart</h3>
+        <p style="
     padding-bottom: 30px;
 ">Books in your shopping cart.</p>
-  </div>
+    </div>
 
-  <div class="shopping-cart" style="
+    <div class="shopping-cart" style="
   margin-left: 15px; margin-right: 15px;">
 
-    <div class="column-labels">
-      
-      <label class="product-details">Product</label>
-      <label class="product-price">Price</label>
-      <label class="product-quantity">Quantity</label>
-      <label class="product-removal">Remove</label>
-      <label class="product-removal">Save For Later</label>
-      <label class="product-line-price">Total</label>
-    </div>
-    
-    {% for cart in cart %}
-   
+        <div class="column-labels">
 
-    
-      
+            <label class="product-details">Product</label>
+            <label class="product-price">Price</label>
+            <label class="product-quantity">Quantity</label>
+            <label class="product-removal">Remove</label>
+            <label class="product-removal">Save For Later</label>
+            <label class="product-line-price">Total</label>
+        </div>
+
+        {% for cart in cart %}
 
 
-    <div class="product" style=" padding-bottom: 110px;">
-      <div class="product-image">
-        <img src="/img/{{cart['link']}}.jpg" width="200" height="250">
-      </div>
-      <div class="product-details">
-        <div class="product-title"><a href="{{ url_for('distinctbook',link=cart.link) }}" ><strong>{{cart.book_name}}</strong></a></div>
-        <p class="product-description"><i>{{cart.book_description}}</i></p>
-      </div>
-      <div class="product-price">{{cart.price}}</div>      
-      <div class="product-quantity">
-        <input name= "quantity" id="quantity" type="number" value="{{cart.quantity}}" min="1" style="
+
+
+
+
+        <div class="product" style=" padding-bottom: 110px;">
+            <div class="product-image">
+                <img src="/img/{{cart['link']}}.jpg" width="200" height="250">
+            </div>
+            <div class="product-details">
+                <div class="product-title"><a href="{{ url_for('distinctbook',link=cart.link) }}"><strong>{{cart.book_name}}</strong></a></div>
+                <p class="product-description"><i>{{cart.book_description}}</i></p>
+            </div>
+            <div class="product-price">{{cart.price}}</div>
+            <div class="product-quantity">
+                <input name="quantity" id="quantity" type="number" value="{{cart.quantity}}" min="1" style="
         width: 102px; margin-bottom: 0px;">
-     </div>
-      <div class="product-removal">
-        <a href="{{ url_for('removeCart', book_id=cart._id)}}">
-          <button class="remove-product"
-                  id="tryDel "
-                  type="submit">
-          Remove
-        </button></a>
-      </div>
-      <div class="product-removal">
-        <a href="{{ url_for('saveLater', book_id=cart._id)}}">
-          <button class="save-for-later"
-                  >
-          Save For Later
-        </button></a>
-      </div>
-      
-      <div class="product-line-price">{{cart.price}}</div>
-      <div class="product-link"><p hidden>{{cart.link}}</p></div>
-    </div>
+            </div>
+            <div class="product-removal">
+                <a href="{{ url_for('removeCart', book_id=cart._id)}}">
+                    <button class="remove-product"
+                            id="tryDel "
+                            type="submit">
+                        Remove
+                    </button>
+                </a>
+            </div>
+            <div class="product-removal">
+                <a href="{{ url_for('saveLater', book_id=cart._id)}}">
+                    <button class="save-for-later">
+                        Save For Later
+                    </button>
+                </a>
+            </div>
 
-    {% endfor %}
-  
-    <div class="totals">
-      <div class="totals-item">
-        <label>Subtotal</label>
-        <div class="totals-value" id="cart-subtotal">0.00</div>
-      </div>
-      <div class="totals-item">
-        <label>Tax (7%)</label>
-        <div class="totals-value" id="cart-tax">0.00</div>
-      </div>
-      <div class="totals-item">
-        <label>Shipping</label>
-        <div class="totals-value" id="cart-shipping">10.00</div>
-      </div>
-      <div class="totals-item totals-item-total">
-        <label>Grand Total</label>
-        <div class="totals-value" id="cart-total">0.00</div>
-      </div>
-    </div>
-    
-<div>
-        <button class="checkout" href="{{ url_for('checkout')}}">
-          Checkout</button>
-</div>
+            <div class="product-line-price">{{cart.price}}</div>
+            <div class="product-link"><p hidden>{{cart.link}}</p></div>
+        </div>
+
+        {% endfor %}
+
+        <div class="totals">
+            <div class="totals-item">
+                <label>Subtotal</label>
+                <div class="totals-value" id="cart-subtotal">0.00</div>
+            </div>
+            <div class="totals-item">
+                <label>Tax (7%)</label>
+                <div class="totals-value" id="cart-tax">0.00</div>
+            </div>
+            <div class="totals-item">
+                <label>Shipping</label>
+                <div class="totals-value" id="cart-shipping">10.00</div>
+            </div>
+            <div class="totals-item totals-item-total">
+                <label>Grand Total</label>
+                <div class="totals-value" id="cart-total">0.00</div>
+            </div>
+        </div>
+
+        <div>
+
+            <a href="{{ url_for('checkout')}}">
+                <button class="checkout">
+                    Checkout
+                </button>
+            </a>
+        </div>
 
         <div class="heading" style="
         padding-top: 60px;">
-          <h3>Save For Later</h3>
-          <p style="
+            <h3>Save For Later</h3>
+            <p style="
           padding-bottom: 30px;
       ">Books in your save for later.</p>
         </div>
 
         <div class="column-labels">
-      
-          <label class="product-details">Product</label>
-          <label class="product-price">Price</label>
-          <label class="product-quantity">Remove</label>
-          <label class="product-removal">Add To Cart</label>
-          
+
+            <label class="product-details">Product</label>
+            <label class="product-price">Price</label>
+            <label class="product-quantity">Remove</label>
+            <label class="product-removal">Add To Cart</label>
+
         </div>
 
         {% for cart in save %}
 
         <div class="product1" style=" padding-bottom: 110px;">
-          <div class="product-image">
-            <img src="/img/{{cart["link"]}}.jpg" width="200" height="250">
-          </div>
-          <div class="product-details">
-            <div class="product-title"><a href="{{ url_for('distinctbook',link=cart.link) }}" ><strong>{{cart.book_name}}</strong></a></div>
-            <p class="product-description"><i>{{cart.book_description}}</i></p>
-          </div>
-          <div class="product-price">${{cart.price}}</div>
-          
-          <div class="product-removal">
-            <a href="{{ url_for('removeSave', book_id=cart._id)}}">
-              <button class="remove-product"
-                      id="tryDel "
-                      type="submit">
-              Remove
-            </button></a>
-          </div>
-          <div class="product-removal">
-            <a href="{{ url_for('addCartSave', book_id=cart._id)}}">
-              <button class="save-for-later"
-                      >
-              Add To Cart
-            </button></a>
-          </div>
-          
-         
+            <div class="product-image">
+                <img src="/img/{{cart["link"]}}.jpg" width="200" height="250">
+            </div>
+            <div class="product-details">
+                <div class="product-title"><a href="{{ url_for('distinctbook',link=cart.link) }}"><strong>{{cart.book_name}}</strong></a></div>
+                <p class="product-description"><i>{{cart.book_description}}</i></p>
+            </div>
+            <div class="product-price">${{cart.price}}</div>
+
+            <div class="product-removal">
+                <a href="{{ url_for('removeSave', book_id=cart._id)}}">
+                    <button class="remove-product"
+                            id="tryDel "
+                            type="submit">
+                        Remove
+                    </button>
+                </a>
+            </div>
+            <div class="product-removal">
+                <a href="{{ url_for('addCartSave', book_id=cart._id)}}">
+                    <button class="save-for-later">
+                        Add To Cart
+                    </button>
+                </a>
+            </div>
+
+
         </div>
-    
+
         {% endfor %}
 
-  </div>
+    </div>
 
-<footer class="row booksfooter" style="
+    <footer class="row booksfooter" style="
 margin-top: 60px;
 ">
-  <p class="copyright">© 2020 GeekText. All Rights Reserved. </p>
-</footer>
+        <p class="copyright">© 2020 GeekText. All Rights Reserved. </p>
+    </footer>
 
 
-<script src="..\js\test124.js"></script>
+    <script src="..\js\test124.js"></script>
 
 </body></html>
