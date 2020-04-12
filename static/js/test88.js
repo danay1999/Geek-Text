@@ -98,7 +98,24 @@ function updateQuantity(quantityInput)
       recalculateCart();
       $(this).fadeIn(fadeTime);
     });
-  });  
+  });
+  
+  $.ajax({
+    type: 'POST',
+    contentType: 'application/json',
+    url: '/shoppingcart',
+    dataType: 'json',
+    data: JSON.stringify(quantity),
+    success: function (result) {
+        console.log(quantity);
+        
+      
+    }, error: function (result) {
+        console.log("Did not send: " + quantity);
+    }
+    
+});
+  
 }
 
 /* Remove item from cart */
