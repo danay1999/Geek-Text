@@ -123,31 +123,21 @@ def add(list_id,book_id):
         return redirect('/books')
     return redirect('/login')
 ###########################################################
-# Wishlist remove btn.
 @app.route("/remove/<list_id>/<book_id>")
 def remove(list_id, book_id):
-    # Delete wishlist item.
-    print("REMOVED")
-    # key = request.values.get("_id")
 
-    # key = request.values.get("_id")
+    if 'email' in session:
+        user = session['email']
+        if list_id == "1":
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$pull": {"books_arr": {"_id": ObjectId(book_id)}}})
+        elif list_id == "2":
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$pull": {"books_arr2": {"_id": ObjectId(book_id)}}})
+        else:
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                            "$pull": {"books_arr3": {"_id": ObjectId(book_id)}}})
 
-    # if list_id == "1":
-
-    # wishlist_c.delete_one({"books_arr": key})
-
-    if list_id == "1":
-         wishlist_c.update_one({"wishlist_id": 1}, {
-                          "$pull": {"books_arr": {"_id": ObjectId(book_id)}}})
-    elif list_id == "2":
-         wishlist_c.update_one({"wishlist_id": 2}, {
-                          "$pull": {"books_arr2": {"_id": ObjectId(book_id)}}})
-    else:
-         wishlist_c.update_one({"wishlist_id": 3}, {
-                          "$pull": {"books_arr3": {"_id": ObjectId(book_id)}}})
-
-
-   
     return redirect('/wishlist')
 ######################################################################
 # Wishlist move btn
