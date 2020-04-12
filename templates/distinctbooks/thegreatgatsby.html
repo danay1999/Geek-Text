@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- CSS–––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="{{ url_for('static',filename='css/animate.css') }}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/skeleton.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/books.css') }}">
   <link rel="stylesheet" href="{{ url_for('static',filename='css/headerandfooter.css') }}">
@@ -68,7 +68,7 @@
 
           <div class = "nine columns">  
             <a style="font-size:2em" href="{{ url_for('distinctbook',link=book.link) }}" ><b>{{book.book_name}}</b></a>
-            <br> Written by <a  href="#otherbooks"><b>{{book.author_name}}</b></a>
+            <br> Written by <a  href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap"  ><b>{{book.author_name}}</b></a>
             <br> <br>
             <p> "{{book.book_description}}"</p>
             <p> <b>Genre:</b> {{book.genre}}</p>
@@ -81,19 +81,20 @@
           </div>  
           <div class="twelve columns">
           
-          <br><a href="#otherbooks"><b>{{book.author_name}} </b></a>  <br> 
+          <br><a href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap"  ><b>{{book.author_name}} </b></a>  <br> 
           {{book.short_bio}}<br> <br> 
 
 
           <div>
-            <a style="font-size:1.8em" href="{{ url_for('message1',link=book.link) }}">Review Book</a> 
-            <p style="font-size: 25px;"> Comments: <br> </p>
-              {% for comment in comments %}
+            <a style="font-size:1.2em" href="{{ url_for('message1',link=book.link) }}">Review Book</a> <br><br>
+            <p><b> Customer Comments: </b> <br> </p>
+            {% for comment in comments %}
               {% for individual in comment.comment %}
                 {{ individual }} <br><br>
               {% endfor %}
-              {% endfor %}
-          </div> 
+            {% endfor %}
+          </div>
+
           </div>
           
         </div>    
@@ -108,18 +109,29 @@
         {% for author in authors %}
         {% if author.author_name == "Francis Scott Fitzgerald"%}
   
-            <div id="otherbooks" class="overlay">
-              <div class="author">
-                <h5>{{author.author_name}}</h5>
-                <a class="closemodal" href="">&times;</a>
-                 <div class="content">
+            <div class="modal fade" id="otherBooks" tabindex="-1" role="dialog" aria-labelledby="otherBooksLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title" id="otherBooksLabel">{{author.author_name}}</h6>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+            Other book(s) by this author are: <br><br>
+
                     {% for title in author.books %}
                        {% if title == "The Beautiful and Damned" %}
                          <a href="{{ url_for('distinctbook',link=author.link2) }}">{{ title }}</a><br> 
                        {%endif%}   
                     {%endfor%}
-              </div>
-         </div>  
+                         </div>
+            <div class="modal-footer">
+              <button type="button" class="btn button-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
          {%endif%}     
         {%endfor%}  
