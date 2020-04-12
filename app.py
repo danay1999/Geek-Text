@@ -205,10 +205,15 @@ def moveToCart(list_id, book_id):
 
     #Insert into the shopping cart collection.
     try:
-        cart_c.insert_one(result)
-        cart_c.update(result, 
+        if 'email' in session:
+            cart_c.insert_one(result)
+            cart_c.update(result, 
     {"$inc": {"quantity": 1}})
+        else:
+            flash(f'You need to sign in to add a book to your cart!','success')
+            return redirect(url_for('login'))
     except pymongo.errors.DuplicateKeyError:
+        pass
         return redirect('/wishlist')
 
     return redirect('/wishlist')
@@ -296,10 +301,13 @@ def addCart(book_id):
     )
     
     try:
-        
-        cart_c.insert_one(result)
-        cart_c.update(result, 
+        if 'email' in session:
+            cart_c.insert_one(result)
+            cart_c.update(result, 
     {"$inc": {"quantity": 1}})
+        else:
+            flash(f'You need to sign in to add a book to your cart!','success')
+            return redirect(url_for('login'))
     except pymongo.errors.DuplicateKeyError:
         pass
 
@@ -350,12 +358,28 @@ def saveLater(book_id):
     cart_c.delete_one({"_id": ObjectId(book_id)})
 
     return redirect('/shoppingcart')
-
     
-@app.route("/shoppingcart")
+@app.route("/shoppingcart", methods=["GET", "POST"])
 def shoppingcart():
-    cart = cart_c.find()
-    save = save_c.find()
+    if 'email' in session :
+
+        cart = cart_c.find()
+        save = save_c.find()
+
+        print(cart_c)
+    
+        if request.method == 'POST' and request.get_json():
+            for test in cart: 
+                print(test)
+                quantityInput = request.get_json(force=True)
+                cart_c.update({"link": test['link']}, {'$set': {"quantity": quantityInput }})
+                res = make_response(jsonify({"message": "OK"}), 200)
+                return res
+    
+    else:
+        flash(f'You need to sign in to view your cart!','success')
+        return redirect(url_for('login'))
+
 
     return render_template("/shoppingcart.html", cart = cart, save = save)
 
