@@ -247,6 +247,7 @@ def books():
 def distinctbook(link):
     try:
         books = db_b.details.find()
+        authors = db_b.author.find()
         comments = db_b.details.find({"link" : link}, {"comment" : ""})
         rating = db_b.details.find({"link": link})
         count = 0
@@ -258,7 +259,7 @@ def distinctbook(link):
                sum+=number
         avg=round(sum/count)
         db_b.details.update({"link": link}, {'$set' : {"avg" : avg}})
-        return render_template("/distinctbooks/" + link + ".html", books=books, comments = comments, avg = avg)
+        return render_template("/distinctbooks/" + link + ".html", books=books, comments = comments, authors=authors, avg = avg)
     except Exception as e:
         return dumps({"error": str(e)})  
 
