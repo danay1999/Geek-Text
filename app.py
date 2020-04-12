@@ -563,9 +563,9 @@ def cards():
     form = CreditcardForm(request.form)
     if request.method == 'POST' and form.validate():
         cards = mongo.db.cards
-        cards_id = cards.insert_one({'card_nickname': form.card_nickname.data, 'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data})
+        cards_id = cards.insert_one({'card_nickname': form.card_nickname.data,'card_type': form.card_type.data, 'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data})
         account = mongo.db.account
-        account.update({"email": session['email']}, {'$set': {'card_nickname': form.card_nickname.data,'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data}}, upsert= True)
+        account.update({"email": session['email']}, {'$set': {'card_nickname': form.card_nickname.data,'card_type': form.card_type.data,'name_on_card': form.name_on_card.data, 'card_number': form.card_number.data, 'cvv': form.cvv.data,'exp_month': form.exp_month.data, 'exp_year': form.exp_year.data}}, upsert= True)
         return redirect(url_for('account')) 
     return render_template('cards.html', form=form)
 
@@ -598,9 +598,9 @@ def cards2():
     form = CreditcardForm2(request.form)
     if request.method == 'POST' and form.validate():
         cards = mongo.db.cards
-        cards_id = cards.insert_one({'card_nickname2': form.card_nickname2.data, 'name_on_card2': form.name_on_card2.data, 'card_number2': form.card_number2.data, 'cvv2': form.cvv2.data,'exp_month2': form.exp_month2.data, 'exp_year2': form.exp_year2.data})
+        cards_id = cards.insert_one({'card_nickname2': form.card_nickname2.data, 'card_type2': form.card_type2.data,'name_on_card2': form.name_on_card2.data, 'card_number2': form.card_number2.data, 'cvv2': form.cvv2.data,'exp_month2': form.exp_month2.data, 'exp_year2': form.exp_year2.data})
         account = mongo.db.account
-        account.update({"email": session['email']}, {'$set': {'card_nickname2': form.card_nickname2.data, 'name_on_card2': form.name_on_card2.data, 'card_number2': form.card_number2.data, 'cvv2': form.cvv2.data,'exp_month2': form.exp_month2.data, 'exp_year2': form.exp_year2.data}}, upsert= True)
+        account.update({"email": session['email']}, {'$set': {'card_nickname2': form.card_nickname2.data,'card_type2': form.card_type2.data, 'name_on_card2': form.name_on_card2.data, 'card_number2': form.card_number2.data, 'cvv2': form.cvv2.data,'exp_month2': form.exp_month2.data, 'exp_year2': form.exp_year2.data}}, upsert= True)
         return redirect(url_for('account')) 
     return render_template('cards2.html', form=form)
 
