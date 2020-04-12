@@ -69,7 +69,7 @@
           <a href="#{{book["link"]}}"><img id="cover" src = "/img/{{book["link"]}}.jpg" width="235" height="350" ></a>
           </div>
 
-          <div id="{{book["link"]}}" class="overlay">
+          <div id="{{book['link']}}" class="overlay">
           <div class="cover">
             <div class="contentcover">
               <a class="closecover" href="#">&times;</a>
@@ -90,25 +90,56 @@
 
           </div> 
           
-           <div class="three columns">
-           <br><br>
-                <div class="dropdown">
-                    <button class="btn button-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Add to Wish List
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="{{ url_for('add',list_id=1, book_id=book._id)}}">List1</a>
-                        <a class="dropdown-item" href="{{ url_for('add',list_id=2, book_id=book._id)}}">List2</a>
-                        <a class="dropdown-item" href="{{ url_for('add',list_id=3, book_id=book._id)}}">List3</a>
-                    </div>
-                </div>
-                <div>
-                    <a href="{{ url_for('addCart', book_id=book._id)}}">
-                        <button type="button" class=" button-primary del_1 btn btn-info">Add to Cart</button>
-                    </a>
-                </div></div>
-          
+          <br><br>
+           <div class = "three columns">
+            <div class="dropdown">
+             <button class="btn button-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Add to Wish List
+             </button>
+             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+              {% if makelist %}
+              <a
+              class="dropdown-item"
+              href="{{ url_for('wishlist')}}"
+              >Create List</a
+              >
+              {% endif %}
+              {% if opt %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=1, book_id=book._id)}}"
+                >Login Required</a
+              >
+              {% endif %} {% if opt1 %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=1, book_id=book._id)}}"
+                >List1</a
+              >
+              {% endif %} {% if opt2 %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=2, book_id=book._id)}}"
+                >List2</a
+              >
+              {% endif %} {% if opt3 %}
+              <a
+                class="dropdown-item"
+                href="{{ url_for('add',list_id=3, book_id=book._id)}}"
+                >List3</a
+              >
+              {% endif %}
+     
+             </div>
+            </div> 
+          <div> 
+            <a href="{{ url_for('addCart', book_id=book._id)}}"> 
+            <button type ="button" class="del_1 button-primary btn btn-info">Add to Cart</button>
+            </a>
+          </div>
+              
+          </div>
+   
           <div class="nine columns">
           "{{book.book_description}}"</p>
           </div>
@@ -133,6 +164,7 @@
     {%endfor%}
         
         </div>
+
 
    
         {% for author in authors %}
