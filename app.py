@@ -523,7 +523,7 @@ def signup():
 def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate(): 
-        users = mongo.db.users
+        users = mongo.db.account
         login_user = users.find_one({'email' : request.form['email']})
 
         if login_user:
