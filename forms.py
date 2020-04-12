@@ -99,3 +99,4 @@ class AddressForm2(Form):
     zip2 = StringField('Zip Code')
     submit2 = SubmitField('Submit')
 
+

@@ -449,16 +449,13 @@ def shoppingcart():
 
         cart = cart_c.find()
         save = save_c.find()
-
         
-    
         if request.method == 'POST' and request.get_json():
-            for test in cart: 
-             print(test)
-             quantityInput = request.get_json(force=True)
-             cart_c.update({"link": test['link']}, {'$set': {"quantity": quantityInput }})
-             res = make_response(jsonify({"message": "OK"}), 200)
-             return res
+            
+            quantityInput = request.get_json(force=True)
+            cart_c.update({"link": link }, {'$set': {"quantity": quantityInput }})
+            res = make_response(jsonify({"message": "OK"}), 200)
+            return res
     
     else:
         flash(f'You need to sign in to view your cart!','success')
