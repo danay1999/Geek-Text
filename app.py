@@ -244,7 +244,11 @@ def books():
         if 'email' in session:
             user = session['email']
             listNum= wishlist_c.count_documents({"user_id": user})
-            if listNum == 1:
+            if listNum == 0:
+                opt = False
+                makelist = True
+                return render_template("/books.html", books=books,opt=opt, makelist=makelist)
+            elif listNum == 1:
                 opt = False
                 opt1 = True
                 return render_template("/books.html", books=books,opt=opt, opt1=opt1)
