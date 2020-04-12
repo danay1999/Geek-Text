@@ -284,15 +284,6 @@ def books_sorting(option_id):
     elif option_id=="3":
         books = db_c.find().sort([("publishing_info", 1)])
         return render_template('books.html', books=books)
-    # elif option_id=="4":
-    #     books = db_c.find().sort([("genre", 1)])
-    #     return render_template('books.html', books=books)
-    # elif option_id=="5":
-    #     books = db_c.find().sort([("avg_book_rating", 1)])
-    #     return render_template('books.html', books=books)
-    # elif option_id=="6":
-    #     books = db_c.find().sort([("price", -1)])
-    #     return render_template('books.html', books=books)
     elif option_id=="7":
         books = db_c.find({"genre": "Historical Fiction"}).sort([("book_name", 1)])
         return render_template('books.html', books=books)
@@ -337,19 +328,13 @@ def books_sorting(option_id):
         return render_template("/books.html", books=books)  
 
 
-@app.route("/pagitation/<option>")
-def pagination(option):
-    if option=="5":
-        books = db_c.find().limit(5)
+@app.route("/pagination/<items>")
+def pagination(items):
+    if items=="10":
+        books = db_c.find().sort([("book_name", 1)]).limit(10)
         return render_template('books.html', books=books)
-    if option=="10":
-        books = db_c.find().limit(10)
-        return render_template('books.html', books=books)
-    if option=="15":
-        books = db_c.find().limit(15)
-        return render_template('books.html', books=books)
-    if option=="20":
-        books = db_c.find().limit(20)
+    if items=="20":
+        books = db_c.find().sort([("book_name", 1)]).limit(20)
         return render_template('books.html', books=books)
     else:
         return render_template('books.html', books=books)
