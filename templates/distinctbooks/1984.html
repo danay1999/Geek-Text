@@ -67,19 +67,41 @@
           </div>
           </div>
 
-          <div class = "nine columns">  
+          <div class = "six columns">  
             <a style="font-size:2em" href="{{ url_for('distinctbook',link=book.link) }}" ><b>{{book.book_name}}</b></a>
             <br> Written by <a  href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap"><b>{{book.author_name}}</b></a>
             <br> <br>
-            <p> "{{book.book_description}}"</p>
+            
             <p> <b>Genre:</b> {{book.genre}}</p>
             <p> <b>Publisher: </b>{{book.publisher}} <br>
                 <b>Release Date: </b>{{book.publishing_info}} <br>
                 <b> {{book.type}}:</b> {{book.pages}} pages <br> </p> 
             <p> <b> Rating: </b>{{avg}} </p>
 
-          </div>  
+          </div> 
           
+           <div class="three columns">
+           <br><br>
+                <div class="dropdown">
+                    <button class="btn button-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Add to Wish List
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="{{ url_for('add',list_id=1, book_id=book._id)}}">List1</a>
+                        <a class="dropdown-item" href="{{ url_for('add',list_id=2, book_id=book._id)}}">List2</a>
+                        <a class="dropdown-item" href="{{ url_for('add',list_id=3, book_id=book._id)}}">List3</a>
+                    </div>
+                </div>
+                <div>
+                    <a href="{{ url_for('addCart', book_id=book._id)}}">
+                        <button type="button" class=" button-primary del_1 btn btn-info">Add to Cart</button>
+                    </a>
+                </div></div>
+          
+          <div class="nine columns">
+          "{{book.book_description}}"</p>
+          </div>
           <div class="twelve columns">
           
             <br><a href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap" data-toggle="modal" data-target="#bannerformmodal"><b>{{book.author_name}} </b></a>  <br> 

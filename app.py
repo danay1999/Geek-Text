@@ -499,11 +499,15 @@ def account():
         email = session['email']
         print(email)        
         
-        #printaddress = address.find_one({"_id": ObjectId(addresss_id)})
-        #print(printuser)
+        printemail = users.find_one({"email": session['email']})
+        
+        
+
+
+        #print(printinfo)
         #print(printaddress)
         
-        return render_template('account.html', email=email)
+        return render_template('account.html', printemail=printemail)
     return redirect(url_for('login'))
    
 
