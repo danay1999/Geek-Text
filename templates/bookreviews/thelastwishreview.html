@@ -95,13 +95,16 @@
             </div>
             <div class="six columns">
                 <a>Rate here:</a>
-                <div class="stars" data-rating="0">
-                    <span class="star">&nbsp;</span>
-                    <span class="star">&nbsp;</span>
-                    <span class="star">&nbsp;</span>
-                    <span class="star">&nbsp;</span>
-                    <span class="star">&nbsp;</span>
-                </div>
+                <form action="/books/thelastwish/review" method='POST'>
+                    <div class="stars" data-rating="0">
+                        <span class="star">&nbsp;</span>
+                        <span class="star">&nbsp;</span>
+                        <span class="star">&nbsp;</span>
+                        <span class="star">&nbsp;</span>
+                        <span class="star">&nbsp;</span>
+                    </div>
+                    <input type="checkbox" id="anonymous" name="name" value="anonymous"> Anonymous
+                </form>
             </div>
         </div>
     </div>

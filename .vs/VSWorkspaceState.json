@@ -2,6 +2,7 @@
   "ExpandedNodes": [
     "",
     "\\static",
+    "\\static\\css",
     "\\templates",
     "\\templates\\bookreviews",
     "\\templates\\distinctbooks",
