@@ -334,12 +334,42 @@ def books_sorting(option_id):
 def pagination(items):
     if items=="10":
         books = db_c.find().sort([("book_name", 1)]).limit(10)
-        return render_template('books.html', books=books)
+        return render_template('books1.html', books=books)
     if items=="20":
         books = db_c.find().sort([("book_name", 1)]).limit(20)
-        return render_template('books.html', books=books)
+        return render_template('books2.html', books=books)
     else:
         return render_template('books.html', books=books)
+
+
+@app.route("/pagination/20/1")
+def page1_20():
+    books = db_c.find().sort([("book_name",1)]).limit(20)
+    return render_template('books2.html', books=books)
+
+
+@app.route("/pagination/20/2")
+def page2_20():
+    books = db_c.find().sort([("book_name",1)]).skip(20).limit(20)
+    return render_template('books2.html', books=books)
+
+
+@app.route("/pagination/10/1")
+def page1_10():
+    books = db_c.find().sort([("book_name",1)]).limit(10)
+    return render_template('books1.html', books=books)
+
+
+@app.route("/pagination/10/2")
+def page2_10():
+    books = db_c.find().sort([("book_name",1)]).skip(10).limit(10)
+    return render_template('books1.html', books=books)
+
+
+@app.route("/pagination/10/3")
+def page3_10():
+    books = db_c.find().sort([("book_name",1)]).skip(20).limit(10)
+    return render_template('books1.html', books=books)
     
            
 
