@@ -64,10 +64,10 @@
         </div>
   </header>
 
-  <div  class="main">
-    <div class="row container">
-  <div  class="row botpadding">
-    <div  class="container">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-6 col-md-offset-6">
+              <form method=POST action="{{ url_for('editusername') }}">
                 {% block content %}
                 {% from "_formhelpers.html" import render_field %}
                 {% with messages = get_flashed_messages() %}
@@ -80,43 +80,11 @@
 		{% endfor %}
 	  {% endif %}
 	{% endwith %}
-                <form method=GET action="{{ url_for('editsignup') }}"></form>
+                <form method=post>
                   <dl>
-                    <label for="name">Name</label>
-                    {{printemail.name}}
-                    <div class="product-add">
-                      <a href="{{ url_for('editname')}}">
-                        <button class="add-product"
-                                type="submit">
-                        Change Name
-                      </button></a>
-                  </div>
-                  <label for="card_type">Username</label>
-                  {{printemail.username}}
-                    <div class="product-add">
-                      <a href="{{ url_for('editusername')}}">
-                        <button class="add-product"
-                                type="submit">
-                        Change username
-                      </button></a>
-                  </div>
-                  <label for="card_type">Email</label>
-                  {{printemail.email}}
-                    <div class="product-add">
-                      <a href="{{ url_for('editemail')}}">
-                        <button class="add-product"
-                                type="submit">
-                        Change Email address
-                      </button></a>
-                  </div>
-                  <div class="product-add">
-                    <a href="{{ url_for('editpassword')}}">
-                      <button class="add-product"
-                              type="submit">
-                      Change Password
-                    </button></a>
-                </div>
+                    {{ render_field(form.username) }}
                   </dl>
+                  <p><input type=submit value="Change username" class="btn btn-info"></p>
                 </form>
           </div>
       </div>

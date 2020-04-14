@@ -11,7 +11,7 @@ from flask_pymongo import PyMongo
 import bcrypt
 from bson import ObjectId
 from bson.json_util import dumps
-from forms import TitleForm1, TitleForm2, TitleForm3, SignupForm, LoginForm, CreditcardForm, AddressForm, CreditcardForm2, AddressForm2, EditAccountForm
+from forms import TitleForm1, TitleForm2, TitleForm3, SignupForm, LoginForm, CreditcardForm, AddressForm, CreditcardForm2, AddressForm2, EditNameForm, EditPasswordForm, EditEmailForm, EditUsernameForm
 import os
 import json
 from flask_login import login_user
@@ -655,23 +655,73 @@ def account():
         return render_template('account.html', printemail=printemail)
     return redirect(url_for('login'))
 
-@app.route("/editsignup", methods=['POST', 'GET'])
-def editsignup():
-    form = EditAccountForm(request.form)
+
+@app.route("/editname", methods=['POST', 'GET'])
+def editname():
+    form = EditNameForm(request.form)
+    if request.method == 'POST' and form.validate():
+        users = mongo.db.users
+        account = mongo.db.account
+
+        user = users.insert_one({'name': form.name.data})
+        account.update({"email": session['email']}, {'$set': {'name': form.name.data}},upsert= True)
+        flash(f"Information has been updated", 'success')
+        return redirect(url_for('account'))
+    return render_template('editname.html', form=form)
+
+
+@app.route("/editusername", methods=['POST', 'GET'])
+def editusername():
+    form = EditUsernameForm(request.form)
+    if request.method == 'POST' and form.validate():
+        users = mongo.db.users
+        account = mongo.db.account
+
+        user = users.find_one({'username': form.username.data})
+        account.update({"email": session['email']}, {'$set': {'username': form.username.data}},upsert= True)
+        flash(f"Information has been updated", 'success')
+        return redirect(url_for('account'))
+    return render_template('editusername.html', form=form)
+   
+@app.route("/editpassword", methods=['POST', 'GET'])
+def editpassword():
+    form = EditPasswordForm(request.form)
     if request.method == 'POST' and form.validate():
         users = mongo.db.users
         account = mongo.db.account
 
         hashed_password = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
-        user = users.insert_one({'name': form.name.data, 'username': form.username.data, 'email': form.email.data,
-                    'password': hashed_password})
-        account.update({"email": session['email']}, {'$set': {'name': form.name.data, 'username': form.username.data, 'email': form.email.data,
-                    'password': hashed_password}},upsert= True)
+        user = users.insert_one({'password': hashed_password})
+        account.update({"email": session['email']}, {'$set': {'password': hashed_password}},upsert= True)
+        flash(f"Information has been updated", 'success')
+        return redirect(url_for('account'))
+    return render_template('editpassword.html', form=form)
+
+@app.route("/editemail", methods=['POST', 'GET'])
+def editemail():
+    form = EditEmailForm(request.form)
+    if request.method == 'POST' and form.validate():
+        users = mongo.db.users
+        account = mongo.db.account
+
+
+        user = users.insert_one({'email': form.email.data})
+        account.update({"email": session['email']}, {'$set': {'email': form.email.data}},upsert= True)
         session['email'] =  request.form['email']
         flash(f"Information has been updated", 'success')
         return redirect(url_for('account'))
-    return render_template('editsignup.html', form=form)
+    return render_template('editemail.html', form=form)
 
+@app.route("/editsignup", methods=['POST', 'GET'])
+def editsignup():
+    users = mongo.db.users
+    account = mongo.db.account
+    email = session['email']
+    print(email)        
+        
+    printemail = account.find_one({"email": session['email']})
+
+    return render_template('editsignup.html', printemail=printemail)
 
    
 
