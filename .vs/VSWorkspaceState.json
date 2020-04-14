@@ -3,6 +3,8 @@
     "",
     "\\static",
     "\\static\\css",
+    "\\static\\img",
+    "\\static\\js",
     "\\templates",
     "\\templates\\bookreviews",
     "\\templates\\distinctbooks",

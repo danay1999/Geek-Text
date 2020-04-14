@@ -430,7 +430,8 @@ def distinctbook(link):
 @app.route("/books/<link>/review", methods=['POST', 'GET'])
 def message1(link):
     if 'email' in session:
-        data = checkout_c.find().distinct('books')
+        data = checkout_c.find({"email" : session['email']}).distinct('books')
+        print(data)
         
 
         if link in data:
