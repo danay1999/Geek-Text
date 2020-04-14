@@ -56,6 +56,14 @@
         <button class="button-primary"><a href="{{ url_for('signup') }}">Sign Up</a></button>
         </div>
   </header>
+{% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %}
+    <div class="alert alert-{{ category }}">
+        <strong style="
+        padding-left: 500px;
+    ">{{ message }}</strong>
+    </div>
+    {% endfor%} {% endif %} {% endwith %}
 
 {% for book in books %}
     {% if book.book_name == "The Great Gatsby"%}
@@ -80,6 +88,7 @@
             <br> Written by <a  href="" data-toggle="modal" data-target="#otherBooks" data-whatever="@getbootstrap"><b>{{book.author_name}}</b></a>
             <br> <br>
             
+            <p> <b>Price:</b> ${{book.price}}</p>
             <p> <b>Genre:</b> {{book.genre}}</p>
             <p> <b>Publisher: </b>{{book.publisher}} <br>
                 <b>Release Date: </b>{{book.publishing_info}} <br>
@@ -147,13 +156,24 @@
             {{book.short_bio}}<br><br>
             <a style="font-size:1.2em" href="{{ url_for('message1',link=book.link) }}">Review Book</a><br><br>
 
-          <p><b> Customer Comments: </b> <br> </p>
-            {% for comment in comments %}
-              {% for individual in comment.comment %}
-                {{ individual }} <br><br>
-              {% endfor %}
-            {% endfor %}
-          </div>
+          <div class="four columns">
+                 <p><b> Customer Comments: </b> <br> </p>
+                 {% for comment in comments %}
+                 {% for individual in comment.comment %}
+                 {{ individual }} <br><br>
+                 {% endfor %}
+                 {% endfor %}
+                 </div>
+                 <div class="four columns">
+                 <p><b> Customer Reviews: </b><br></p>
+                 {% for review in reviews %}
+                 {% for individual in review.review %}
+                 {{ individual }} <br><br>
+                 {% endfor %}
+                 {% endfor %}
+                 </div>
+             </div>
+
           
         </div>    
         

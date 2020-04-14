@@ -379,6 +379,7 @@ def distinctbook(link):
         books = db_b.details.find()
         authors = db_b.author.find()
         comments = db_b.details.find({"link" : link}, {"comment" : ""})
+        reviews = db_b.details.find({"link" : link}, {"review" : ""})
         rating = db_b.details.find({"link": link})
         count = 0
         sum = 0
@@ -396,23 +397,23 @@ def distinctbook(link):
             if listNum == 0:
                 opt = False
                 makelist = True
-                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, makelist=makelist, comments = comments, authors=authors, avg = avg)
+                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, makelist=makelist, comments = comments, authors=authors, avg = avg, reviews=reviews)
             elif listNum == 1:
                 opt = False
                 opt1 = True
-                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1,comments = comments, authors=authors, avg = avg)
+                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1,comments = comments, authors=authors, avg = avg, reviews=reviews)
             elif listNum == 2:
                 opt = False
                 opt1 = True
                 opt2 = True
-                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1 ,opt2=opt2,comments = comments, authors=authors, avg = avg)
+                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1 ,opt2=opt2,comments = comments, authors=authors, avg = avg, reviews=reviews)
             elif listNum == 3:
                 opt = False
                 opt1 = True
                 opt2 = True
                 opt3 = True
-                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1 ,opt2=opt2, opt3=opt3, comments = comments, authors=authors, avg = avg)
-        return render_template("/distinctbooks/" + link + ".html", books=books, comments = comments, authors=authors, avg=avg, opt=opt)
+                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1 ,opt2=opt2, opt3=opt3, comments = comments, authors=authors, avg = avg, reviews=reviews)
+        return render_template("/distinctbooks/" + link + ".html", books=books, comments = comments, authors=authors, avg=avg, opt=opt, reviews=reviews)
     except Exception as e:
         return dumps({"error": str(e)})  
 
