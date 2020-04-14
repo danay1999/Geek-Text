@@ -48,6 +48,25 @@ class EditAccountForm(Form):
     confirm = PasswordField('Confirm Password')
     submit = SubmitField('Sign up')
 
+class EditNameForm(Form):
+    name = StringField('Name and Last Name', [DataRequired(), validators.Length(min=6, max=30)])
+    submit = SubmitField('Change Name and Last Name')
+
+class EditPasswordForm(Form):
+    password = PasswordField('Password', [validators.Length(min=8),
+        validators.DataRequired(),
+        validators.EqualTo('confirm', message='Passwords must match')
+    ])
+    confirm = PasswordField('Confirm Password')
+    submit = SubmitField('Sign up')
+
+class EditUsernameForm(Form):
+    username = StringField('Username', [DataRequired(), validators.Length(min=6, max=25)])
+    submit = SubmitField('Change username')    
+
+class EditEmailForm(Form):
+    email = StringField('Email', [DataRequired(), validators.Length(min=6, max=35), validators.Email(message='Enter a valid email.')])
+    submit = SubmitField('Change Email')
 
 class CreditcardForm(Form):
     card_nickname= StringField('Nickname')
