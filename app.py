@@ -11,7 +11,7 @@ from flask_pymongo import PyMongo
 import bcrypt
 from bson import ObjectId
 from bson.json_util import dumps
-from forms import TitleForm1, TitleForm2, TitleForm3, SignupForm, LoginForm, CreditcardForm, AddressForm, CreditcardForm2, AddressForm2, EditAccountForm
+from forms import TitleForm1, TitleForm2, TitleForm3, SignupForm, LoginForm, CreditcardForm, AddressForm, CreditcardForm2, AddressForm2, EditNameForm, EditPasswordForm, EditEmailForm, EditUsernameForm
 import os
 import json
 from flask_login import login_user
