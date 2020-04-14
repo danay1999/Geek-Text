@@ -314,20 +314,29 @@ def books_sorting(option_id):
         books = db_c.find({"genre": "Mystery"}).sort([("book_name", 1)])
         return render_template('books.html', books=books)
     elif option_id=="16":
-        books = db_c.find().sort([("avg_book_rating", -1)])
+        books = db_c.find({"avg":"5"}).sort([("book_name", 1)])
         return render_template('books.html', books=books)
     elif option_id=="17":
-        books = db_c.find().sort([("avg_book_rating",1)])
+        books = db_c.find({"avg":{'$gte':4}}).sort([("avg",1)])
         return render_template('books.html', books=books)
     elif option_id=="18":
-        books = db_c.find().sort([("price",1)])
+        books = db_c.find({"avg":{'$gte':3}}).sort([("avg",1)])
         return render_template('books.html', books=books)
     elif option_id=="19":
+        books = db_c.find({"avg":{'$gte':2}}).sort([("avg",1)])
+        return render_template('books.html', books=books)
+    elif option_id=="20":
+        books = db_c.find({"avg":{'$gte':1}}).sort([("avg",1)])
+        return render_template('books.html', books=books)
+    elif option_id=="21":
+        books = db_c.find().sort([("price",1)])
+        return render_template('books.html', books=books)
+    elif option_id=="22":
         books = db_c.find().sort([("price",-1)])
         return render_template('books.html', books=books)
     else:
         books = db_c.find().sort([("book_name", 1)])
-        return render_template("/books.html", books=books)  
+        return render_template("/books.html", books=books)    
 
 
 @app.route("/pagination/<items>")
