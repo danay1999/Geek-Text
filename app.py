@@ -84,18 +84,18 @@ def wishlist():
         results3 = wishlist_c.find({"user_id":user,"wishlist_id":3})
 
         if listNum == 1:
-        
+
             return render_template('wishlist.html', results=results, form1=form1, form2=form2,form3=form3)
         elif listNum == 2:
-        
+
             return render_template('wishlist.html', results=results, results2=results2, form1=form1, form2=form2,form3=form3)
         elif listNum == 3:
-        
+
             return render_template('wishlist.html', results=results, results2=results2, results3=results3, form1=form1, form2=form2,form3=form3)
 
         return render_template('wishlist.html', form1=form1, form2=form2,form3=form3)
     else:
-        flash(f'You need to be logged in first!','error')
+        flash('You need to be logged in first!', 'error')
         return redirect('/login')
 
 
@@ -145,57 +145,56 @@ def remove(list_id, book_id):
 # Wishlist move btn
 @app.route("/moveBooks/<current>/<list_id>/<book_id>")
 def moveBooks(current, list_id, book_id):
-    if 'email' in session:
-        user = session['email']
-        if current == "1":
-            if list_id == "2":
-                result = db_c.find_one({"_id": ObjectId(book_id)})
-                #Add to list 2->
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
-                            "$addToSet": {"books_arr2": result}})
-                #Remove from 1st Array of Books
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
-                                "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
-            elif list_id == "3":
-                result = db_c.find_one({"_id": ObjectId(book_id)})
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
-                            "$addToSet": {"books_arr3": result}})
-                #Remove from 1st Array of Books
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
-                                "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
-        elif current == "2":
-            if list_id == "1":
-                result = db_c.find_one({"_id": ObjectId(book_id)})
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
-                            "$addToSet": {"books_arr": result}})
-                #Remove from 2nd Array of Books
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
-                                "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
-            elif list_id == "3":
-                result = db_c.find_one({"_id": ObjectId(book_id)})
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
-                            "$addToSet": {"books_arr3": result}})
-                #Remove from 2nd Array of Books
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
-                                "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
-        else:
-            if list_id == "1":
-                result = db_c.find_one({"_id": ObjectId(book_id)})
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
-                            "$addToSet": {"books_arr": result}})
-                
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
-                                "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
-            elif list_id == "2":
-                result = db_c.find_one({"_id": ObjectId(book_id)})
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
-                            "$addToSet": {"books_arr2": result}})
-                
-                wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
-                                "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
-        
-        return redirect('/wishlist')
-    return redirect('/login')
+    if 'email' not in session:
+        return redirect('/login')
+    user = session['email']
+    if current == "1":
+        if list_id == "2":
+            result = db_c.find_one({"_id": ObjectId(book_id)})
+            #Add to list 2->
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                        "$addToSet": {"books_arr2": result}})
+            #Remove from 1st Array of Books
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
+        elif list_id == "3":
+            result = db_c.find_one({"_id": ObjectId(book_id)})
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                        "$addToSet": {"books_arr3": result}})
+            #Remove from 1st Array of Books
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                            "$pull": {"books_arr": {"_id":ObjectId(book_id)}}})
+    elif current == "2":
+        if list_id == "1":
+            result = db_c.find_one({"_id": ObjectId(book_id)})
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                        "$addToSet": {"books_arr": result}})
+            #Remove from 2nd Array of Books
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
+        elif list_id == "3":
+            result = db_c.find_one({"_id": ObjectId(book_id)})
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                        "$addToSet": {"books_arr3": result}})
+            #Remove from 2nd Array of Books
+            wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                            "$pull": {"books_arr2": {"_id":ObjectId(book_id)}}})
+    elif list_id == "1":
+        result = db_c.find_one({"_id": ObjectId(book_id)})
+        wishlist_c.update_one({"user_id":user,"wishlist_id": 1}, {
+                    "$addToSet": {"books_arr": result}})
+
+        wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                        "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
+    elif list_id == "2":
+        result = db_c.find_one({"_id": ObjectId(book_id)})
+        wishlist_c.update_one({"user_id":user,"wishlist_id": 2}, {
+                    "$addToSet": {"books_arr2": result}})
+
+        wishlist_c.update_one({"user_id":user,"wishlist_id": 3}, {
+                        "$pull": {"books_arr3": {"_id":ObjectId(book_id)}}})
+
+    return redirect('/wishlist')
 #################################################################################################
 @app.route("/moveToCart/<list_id>/<book_id>")
 def moveToCart(list_id, book_id):
@@ -219,22 +218,22 @@ def moveToCart(list_id, book_id):
 ###################################################################################################
 @app.route("/createList")
 def createList():
-    if 'email' in session:
-        user = session['email']
-        listNum= wishlist_c.count_documents({"user_id": user})
+    if 'email' not in session:
+        return redirect('/login')
+    user = session['email']
+    listNum= wishlist_c.count_documents({"user_id": user})
 
 
-        if listNum == 0:
-            wishlist_c.insert_one({"wishlist_id":1, "wishlist_title":"Default Title 1","books_arr":[],"user_id":user})
-        elif listNum == 1:
-            wishlist_c.insert_one({"wishlist_id":2, "wishlist_title2":"Default Title 2","books_arr2":[],"user_id":user})
-        elif listNum == 2:
-            wishlist_c.insert_one({"wishlist_id":3, "wishlist_title3":"Default Title 3","books_arr3":[],"user_id":user})
-        else:
-            flash(f'This user already reached their maximum lists!','warning')
+    if listNum == 0:
+        wishlist_c.insert_one({"wishlist_id":1, "wishlist_title":"Default Title 1","books_arr":[],"user_id":user})
+    elif listNum == 1:
+        wishlist_c.insert_one({"wishlist_id":2, "wishlist_title2":"Default Title 2","books_arr2":[],"user_id":user})
+    elif listNum == 2:
+        wishlist_c.insert_one({"wishlist_id":3, "wishlist_title3":"Default Title 3","books_arr3":[],"user_id":user})
+    else:
+        flash('This user already reached their maximum lists!', 'warning')
 
-        return  redirect('/wishlist')
-    return redirect('/login')
+    return  redirect('/wishlist')
 ###################################################################################################
 
 @app.route("/books", methods=["GET"])
@@ -344,11 +343,10 @@ def pagination(items):
     if items=="10":
         books = db_c.find().sort([("book_name", 1)]).limit(10)
         return render_template('books1.html', books=books)
-    if items=="20":
-        books = db_c.find().sort([("book_name", 1)]).limit(20)
-        return render_template('books2.html', books=books)
-    else:
+    if items != "20":
         return render_template('books.html', books=books)
+    books = db_c.find().sort([("book_name", 1)]).limit(20)
+    return render_template('books2.html', books=books)
 
 
 @app.route("/pagination/20/1")
@@ -406,23 +404,70 @@ def distinctbook(link):
             if listNum == 0:
                 opt = False
                 makelist = True
-                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, makelist=makelist, comments = comments, authors=authors, avg = avg, reviews=reviews)
+                return render_template(
+                    f"/distinctbooks/{link}.html",
+                    books=books,
+                    opt=opt,
+                    makelist=makelist,
+                    comments=comments,
+                    authors=authors,
+                    avg=avg,
+                    reviews=reviews,
+                )
             elif listNum == 1:
                 opt = False
                 opt1 = True
-                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1,comments = comments, authors=authors, avg = avg, reviews=reviews)
+                return render_template(
+                    f"/distinctbooks/{link}.html",
+                    books=books,
+                    opt=opt,
+                    opt1=opt1,
+                    comments=comments,
+                    authors=authors,
+                    avg=avg,
+                    reviews=reviews,
+                )
             elif listNum == 2:
                 opt = False
                 opt1 = True
                 opt2 = True
-                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1 ,opt2=opt2,comments = comments, authors=authors, avg = avg, reviews=reviews)
+                return render_template(
+                    f"/distinctbooks/{link}.html",
+                    books=books,
+                    opt=opt,
+                    opt1=opt1,
+                    opt2=opt2,
+                    comments=comments,
+                    authors=authors,
+                    avg=avg,
+                    reviews=reviews,
+                )
             elif listNum == 3:
                 opt = False
                 opt1 = True
                 opt2 = True
                 opt3 = True
-                return render_template("/distinctbooks/" + link + ".html", books=books,opt=opt, opt1=opt1 ,opt2=opt2, opt3=opt3, comments = comments, authors=authors, avg = avg, reviews=reviews)
-        return render_template("/distinctbooks/" + link + ".html", books=books, comments = comments, authors=authors, avg=avg, opt=opt, reviews=reviews)
+                return render_template(
+                    f"/distinctbooks/{link}.html",
+                    books=books,
+                    opt=opt,
+                    opt1=opt1,
+                    opt2=opt2,
+                    opt3=opt3,
+                    comments=comments,
+                    authors=authors,
+                    avg=avg,
+                    reviews=reviews,
+                )
+        return render_template(
+            f"/distinctbooks/{link}.html",
+            books=books,
+            comments=comments,
+            authors=authors,
+            avg=avg,
+            opt=opt,
+            reviews=reviews,
+        )
     except Exception as e:
         return dumps({"error": str(e)})  
 
@@ -432,57 +477,55 @@ def message1(link):
     if 'email' in session:
         data = checkout_c.find({"email" : session['email']}).distinct('books')
         print(data)
-        
+
 
         if link in data:
 
-                if request.method == 'POST' and request.get_json():
-                    anonymous = request.form.get('name')
-                    print(anonymous)
-                    if request.form.get('name'):
-                        rates = request.get_json(force=True)
-                        email = session['email']
-                        cursor = db_b.account.find_one({"email": email})
-                        rate = json.dumps(rates)
-                        db_b.details.update({"link": link}, {'$push': {"avg_book_rating": rates }})
-                        db_b.details.update({"link": link}, {'$push': {"review": "Anonymous : Rate Given :" + rate }})
-                        res = make_response(jsonify({"message": "OK"}), 200)
-                        return res
-                    else:
-                        rates = request.get_json(force=True)
-                        email = session['email']
-                        cursor = db_b.account.find_one({"email": email})
-                        rate = json.dumps(rates)
-                        db_b.details.update({"link": link}, {'$push': {"avg_book_rating": rates }})
-                        db_b.details.update({"link": link}, {'$push': {"review": cursor['name'] + " : Rate Given :" + rate }})
-                        res = make_response(jsonify({"message": "OK"}), 200)
-                        return res
-
-    
-                if request.method == 'POST' and request.form['comment']:
-                    comment = request.form['comment']
-                    if 'name' not in request.form:
-                        email = session['email']
-                        cursor = db_b.account.find_one({"email": email})
-                        comments = db_b.details.update({"link": link}, {'$push': {"comment": cursor['name'] + " : " + request.form.get('comment')}})
-                        return redirect("/books/"+link+"/review")
-                    else:
-                        if "Anonymous" in request.form['name']:
-                            email = session['email']
-                            cursor = db_b.account.find_one({"email": email})
-                            comments = db_b.details.update({"link": link}, {'$push': {"comment": "Anonymous" + " : " + request.form.get('comment')}})
-                            return redirect("/books/"+link+"/review")
-                        else:
-                            email = session['email']
-                            cursor = db_b.account.find_one({"email": email})
-                            comments = db_b.details.update({"link": link}, {'$push': {"comment": cursor['username'] + " : " + request.form.get('comment')}})
-                            return redirect("/books/"+link+"/review")
+            if request.method == 'POST' and request.get_json():
+                anonymous = request.form.get('name')
+                print(anonymous)
+                if request.form.get('name'):
+                    rates = request.get_json(force=True)
+                    email = session['email']
+                    cursor = db_b.account.find_one({"email": email})
+                    rate = json.dumps(rates)
+                    db_b.details.update({"link": link}, {'$push': {"avg_book_rating": rates }})
+                    db_b.details.update(
+                        {"link": link},
+                        {
+                            '$push': {
+                                "review": f"Anonymous : Rate Given :{rate}"
+                            }
+                        },
+                    )
                 else:
-                    return render_template('/bookreviews/' + link +'review.html')
+                    rates = request.get_json(force=True)
+                    email = session['email']
+                    cursor = db_b.account.find_one({"email": email})
+                    rate = json.dumps(rates)
+                    db_b.details.update({"link": link}, {'$push': {"avg_book_rating": rates }})
+                    db_b.details.update({"link": link}, {'$push': {"review": cursor['name'] + " : Rate Given :" + rate }})
+                return make_response(jsonify({"message": "OK"}), 200)
+            if request.method != 'POST' or not request.form['comment']:
+                return render_template(f'/bookreviews/{link}review.html')
+            comment = request.form['comment']
+            if 'name' not in request.form:
+                email = session['email']
+                cursor = db_b.account.find_one({"email": email})
+                comments = db_b.details.update({"link": link}, {'$push': {"comment": cursor['name'] + " : " + request.form.get('comment')}})
+            elif "Anonymous" in request.form['name']:
+                email = session['email']
+                cursor = db_b.account.find_one({"email": email})
+                comments = db_b.details.update({"link": link}, {'$push': {"comment": "Anonymous" + " : " + request.form.get('comment')}})
+            else:
+                email = session['email']
+                cursor = db_b.account.find_one({"email": email})
+                comments = db_b.details.update({"link": link}, {'$push': {"comment": cursor['username'] + " : " + request.form.get('comment')}})
+            return redirect(f"/books/{link}/review")
         else:
-                flash(f'You need to buy this book in order to review it!','success')
-                return redirect(url_for('distinctbook', link = link))
-    flash(f'You need to Sign In to review this book!','success')
+            flash('You need to buy this book in order to review it!', 'success')
+            return redirect(url_for('distinctbook', link = link))
+    flash('You need to Sign In to review this book!', 'success')
     return redirect(url_for('login'))
 
 @app.route("/addCart/<book_id>", methods=["GET", "POST"])
@@ -490,16 +533,16 @@ def addCart(book_id):
     #result = db.details.find({"book_name": "book_name"})
     result = db_c.find_one(
         {"_id": ObjectId(book_id)}
-        
+
     )
-    
+
     try:
         if 'email' in session:
-            cart_c.insert_one(result)
-            cart_c.update(result, 
-    {"$inc": {"quantity": 1}})
+                    cart_c.insert_one(result)
+                    cart_c.update(result, 
+            {"$inc": {"quantity": 1}})
         else:
-            flash(f'You need to sign in to add a book to your cart!','success')
+            flash('You need to sign in to add a book to your cart!', 'success')
             return redirect(url_for('login'))
     except pymongo.errors.DuplicateKeyError:
         pass
@@ -554,28 +597,28 @@ def saveLater(book_id):
 
 @app.route("/shoppingcart", methods=["GET", "POST"])
 def shoppingcart():
-    if 'email' in session :
+    if 'email' in session:
 
         cart = cart_c.find()
         save = save_c.find()
 
         if request.method == 'POST' and request.get_json():
-                
+
                 list = []
                 quantity = request.get_json('test')
                 link = request.get_json('test')
                 link2 = list.append(quantity)
-                
+
                 for something in list:
                     print(something['link2'])
                     print(something['quantity'])
-               
-                
+
+
                 cart_c.update({"link": something['link2']}, {'$set': {"quantity": something['quantity']}})
                 res = make_response(jsonify({"message": "OK"}), 200)
 
     else:
-        flash(f'You need to sign in to view your cart!','success')
+        flash('You need to sign in to view your cart!', 'success')
         return redirect(url_for('login'))
 
 
@@ -589,9 +632,9 @@ def checkout():
         for data in data:
             print(data)
             checkout_c.update({"email": session['email']}, {'$addToSet': {"books": data}}, upsert=True)
-    
-    
-    flash(f'You have purchased the books!','success')
+
+
+    flash('You have purchased the books!', 'success')
     return redirect('/shoppingcart')
 
 app.config['MONGO_DBNAME'] = 'book_info'
@@ -613,9 +656,9 @@ def signup():
             account.insert_one({'name': form.name.data, 'username': form.username.data, 'email': form.email.data,
                     'password': hashed_password})
             session['email'] =  request.form['email']
-            flash(f"Thank you for signing up", 'success')
+            flash("Thank you for signing up", 'success')
             return redirect(url_for('account'))
-        flash(f"User already exists with this email, please Log In.", 'success')
+        flash("User already exists with this email, please Log In.", 'success')
     return render_template('signup.html', form=form)
 
 
@@ -624,13 +667,11 @@ def login():
     form = LoginForm(request.form)
     if request.method == 'POST' and form.validate(): 
         users = mongo.db.account
-        login_user = users.find_one({'email' : request.form['email']})
-
-        if login_user:
+        if login_user := users.find_one({'email': request.form['email']}):
             if bcrypt.hashpw(request.form['password'].encode('utf-8'), login_user['password']) == login_user['password']:
                 session['email'] =  request.form['email']
-                return redirect(url_for('account')) 
-        flash(f"Invalid email/password combination", 'error')  
+                return redirect(url_for('account'))
+        flash("Invalid email/password combination", 'error')
     return render_template('login.html', form=form)
 
 
@@ -665,7 +706,7 @@ def editname():
 
         user = users.insert_one({'name': form.name.data})
         account.update({"email": session['email']}, {'$set': {'name': form.name.data}},upsert= True)
-        flash(f"Information has been updated", 'success')
+        flash("Information has been updated", 'success')
         return redirect(url_for('account'))
     return render_template('editname.html', form=form)
 
@@ -679,7 +720,7 @@ def editusername():
 
         user = users.find_one({'username': form.username.data})
         account.update({"email": session['email']}, {'$set': {'username': form.username.data}},upsert= True)
-        flash(f"Information has been updated", 'success')
+        flash("Information has been updated", 'success')
         return redirect(url_for('account'))
     return render_template('editusername.html', form=form)
    
@@ -693,7 +734,7 @@ def editpassword():
         hashed_password = bcrypt.hashpw(request.form['password'].encode('utf-8'), bcrypt.gensalt())
         user = users.insert_one({'password': hashed_password})
         account.update({"email": session['email']}, {'$set': {'password': hashed_password}},upsert= True)
-        flash(f"Information has been updated", 'success')
+        flash("Information has been updated", 'success')
         return redirect(url_for('account'))
     return render_template('editpassword.html', form=form)
 
@@ -708,7 +749,7 @@ def editemail():
         user = users.insert_one({'email': form.email.data})
         account.update({"email": session['email']}, {'$set': {'email': form.email.data}},upsert= True)
         session['email'] =  request.form['email']
-        flash(f"Information has been updated", 'success')
+        flash("Information has been updated", 'success')
         return redirect(url_for('account'))
     return render_template('editemail.html', form=form)
 
@@ -775,19 +816,19 @@ def cards2():
 
 @app.route("/profile", methods=['GET'])
 def profile():
-    if 'email' in session:
-        users = mongo.db.users
-        cards = mongo.db.cards
-        address = mongo.db.address
+    if 'email' not in session:
+        return render_template('account.html', printuser=printuser, printcard=printcard)
+    users = mongo.db.users
+    cards = mongo.db.cards
+    address = mongo.db.address
 
-        printuser = users.find_one({"email": "osito@gmail.com"}, {"email": ""})
-        printcard = cards.find_one({"name_on_card" : "Patricia Toledo"}, {"card_number": ""})
-        #printaddress = address.find_one({"_id": ObjectId(addresss_id)})
-        print(printuser)
-        #print(printaddress)
-        print(printcards)
-        return redirect(url_for('login'))
-    return render_template('account.html', printuser=printuser, printcard=printcard)
+    printuser = users.find_one({"email": "osito@gmail.com"}, {"email": ""})
+    printcard = cards.find_one({"name_on_card" : "Patricia Toledo"}, {"card_number": ""})
+    #printaddress = address.find_one({"_id": ObjectId(addresss_id)})
+    print(printuser)
+    #print(printaddress)
+    print(printcards)
+    return redirect(url_for('login'))
 #, printaddress=printaddress {{profile.printaddress}}
 
 
@@ -814,8 +855,7 @@ def update_or_create(document_id, data):
 
 # Gets all the data of a single ID
 def get_single_data(document_id):
-    data = db_c.find_one({"_id": ObjectId(document_id)})
-    return data
+    return db_c.find_one({"_id": ObjectId(document_id)})
 
 
 # Gets all the data inside the collection
