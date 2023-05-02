@@ -19,8 +19,7 @@ def update_or_create(document_id, data):
 
 # Gets all the data of a single ID
 def get_single_data(document_id):
-    data = db_c.find_one({'_id': ObjectId(document_id)})
-    return data
+    return db_c.find_one({'_id': ObjectId(document_id)})
 
 # Gets all the data inside the collection
 def get_multiple_data():
